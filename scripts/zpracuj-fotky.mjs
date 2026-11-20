@@ -42,8 +42,16 @@ const maxStrana = values.hero ? 2400 : 2000;
 const cil = join('src/assets/fotky', values.rok);
 await mkdir(cil, { recursive: true });
 
-const soubory = (await readdir(vstup))
-  .filter((f) => ['.jpg', '.jpeg', '.png', '.webp', '.heic', '.tif', '.tiff'].includes(extname(f).toLowerCase()))
+const vse = await readdir(vstup);
+const heic = vse.filter((f) => ['.heic', '.heif'].includes(extname(f).toLowerCase()));
+if (heic.length) {
+  // sharp neumí HEIC z iPhonů. Stáhněte je z Disku jako JPEG:
+  // https://lh3.googleusercontent.com/d/<ID souboru>=w2000
+  console.error(`Formát HEIC není podporovaný (${heic.join(', ')}). Převeďte na JPEG, viz komentář ve skriptu.`);
+  process.exit(1);
+}
+const soubory = vse
+  .filter((f) => ['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff'].includes(extname(f).toLowerCase()))
   .sort();
 
 let poradi = Number(values.od);
