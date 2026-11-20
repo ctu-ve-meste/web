@@ -1,5 +1,6 @@
 ---
-import { getEntry, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import EventCard from '../components/EventCard.astro';
@@ -7,8 +8,9 @@ import BookSpines from '../components/BookSpines.astro';
 import Logo from '../components/Logo.astro';
 import BigNumber from '../components/BigNumber.astro';
 import RocnikList from '../components/RocnikList.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 import { vsechnyAkce, nadchazejici } from '../lib/akce';
-import { aktualniRocnik } from '../lib/rocniky';
+import { aktualniRocnik, vsechnyRocniky } from '../lib/rocniky';
 import { rozsah } from '../lib/datum';
 import { url } from '../lib/url';
 
@@ -18,7 +20,11 @@ const rocnik = await aktualniRocnik();
 const r = rocnik.data;
 const vse = await vsechnyAkce();
 const budouci = nadchazejici(vse).slice(0, 3);
-const karty = budouci.length ? budouci : vse.slice(0, 3);
+const karty = budouci.length ? budouci : vse.filter((a) => a.data.cover).slice(0, 3);
+// Velká fotka: první výběrová fotka nejnovějšího ročníku, který nějakou má.
+const sFotkou = (await vsechnyRocniky()).find((x) => x.data.fotky.length > 0);
+const velkaFotka = sFotkou?.data.fotky[0];
+const partneri = (await getCollection('partneri')).sort((a, b) => a.data.poradi - b.data.poradi);
 ---
 <BaseLayout title={stranka.data.title} description={stranka.data.description}>
   <section class="hero">
@@ -39,6 +45,13 @@ const karty = budouci.length ? budouci : vse.slice(0, 3);
     </div>
   </section>
 
+  {velkaFotka && sFotkou && (
+    <figure class="velka-fotka">
+      <Image src={velkaFotka.src} alt={velkaFotka.alt} widths={[800, 1400, 2000, 2400]} sizes="100vw" loading="eager" fetchpriority="high" />
+      <figcaption class="container small muted">{sFotkou.data.cislo}. ročník {sFotkou.data.rok}</figcaption>
+    </figure>
+  )}
+
   <section class="container section reveal co-to-je">
     <div>
       <SectionHeading label="CO TO JE" spines>Hvězdy jsou čtenáři</SectionHeading>
@@ -52,10 +65,10 @@ const karty = budouci.length ? budouci : vse.slice(0, 3);
     <SectionHeading label={budouci.length ? 'NEJBLIŽŠÍ AKCE' : 'NAPOSLEDY JSME ČETLI'}>
       {budouci.length ? 'Přijďte si číst' : 'Takhle to vypadalo'}
     </SectionHeading>
-    <ul class="grid" role="list">
+    <ul class="grid-cards" role="list">
       {karty.map((a) => <li><EventCard akce={a} /></li>)}
     </ul>
-    <p><a href={url('/akce/')}>Všechny akce →</a></p>
+    <p class="vice"><a href={url('/akce/')}>Všechny akce →</a></p>
   </section>
 
   {stranka.data.cisla.length > 0 && (
@@ -72,21 +85,42 @@ const karty = budouci.length ? budouci : vse.slice(0, 3);
     <p class="prose lead">Chcete, aby se četlo i u vás? Stačí místo k sezení a někdo, kdo si sedne první.</p>
     <p><a class="btn" href={url('/pridejte-se/')}>Jak se přidat</a></p>
   </section>
+
+  <section class="container section reveal" id="newsletter">
+    <SectionHeading label="NEWSLETTER">Brzy načtenou</SectionHeading>
+    <p class="prose">Program, nové akce a pozvánky pošleme e-mailem. Jen čas od času.</p>
+    <NewsletterForm id="uvod-newsletter" />
+  </section>
+
+  <section class="container section partneri" aria-labelledby="partneri-nadpis">
+    <p class="label muted" id="partneri-nadpis">Děkujeme partnerům</p>
+    <ul role="list">
+      {partneri.map((p) => <li>{p.data.url ? <a href={p.data.url} rel="noopener">{p.data.nazev}</a> : p.data.nazev}</li>)}
+    </ul>
+    <p><a href={url('/partneri/')}>Partneři festivalu →</a></p>
+  </section>
 </BaseLayout>
 
 <style>
-  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--gray-2); }
-  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
-  .hero__inner { position: relative; padding-block: var(--space-6) var(--space-7); }
+  .hero { position: relative; overflow: hidden; }
+  .hero :global(.hero__bg) { position: absolute; inset: 0; pointer-events: none; }
+  .hero__inner { position: relative; padding-block: var(--space-6); }
   .hero__logo { width: min(16rem, 60vw); margin-bottom: var(--space-5); }
   .hero__status { display: flex; align-items: center; gap: var(--space-2); }
-  .hero__dot { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--accent); }
+  .hero__dot { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--accent); flex: none; }
   .hero__title { max-width: 14ch; }
   .hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
-  .lead { font-size: var(--fs-lead); }
+  .velka-fotka { margin: 0; }
+  .velka-fotka :global(img) { width: 100%; height: min(80vh, 56rem); object-fit: cover; }
+  .velka-fotka figcaption { padding-top: var(--space-2); }
+  .small { font-size: var(--fs-small); }
   .motto { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: 1.1; margin-top: var(--space-5); }
-  .grid { list-style: none; padding: 0; margin: 0 0 var(--space-4); display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+  .vice { margin-top: var(--space-4); }
   .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
   .co-to-je { display: grid; gap: var(--space-6); }
+  .partneri { border-top: var(--border); }
+  .partneri ul { list-style: none; padding: 0; margin: var(--space-3) 0; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); font-family: var(--font-head); font-weight: 700; font-size: var(--fs-lead); }
+  .partneri ul a { text-decoration: none; }
+  .partneri ul a:hover { color: var(--accent); }
   @media (min-width: 64rem) { .co-to-je { grid-template-columns: 3fr 2fr; align-items: end; } }
 </style>

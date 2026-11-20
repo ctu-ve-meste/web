@@ -1,0 +1,15 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+const s = (await getEntry('stranky', 'newsletter'))!;
+const { Content } = await render(s);
+---
+<BaseLayout title={s.data.title} description={s.data.description}>
+  <section class="container section">
+    <SectionHeading as="h1" label="NEWSLETTER" spines>Brzy načtenou</SectionHeading>
+    <div class="prose lead"><Content /></div>
+    <NewsletterForm />
+  </section>
+</BaseLayout>

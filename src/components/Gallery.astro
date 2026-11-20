@@ -1,0 +1,89 @@
+---
+/**
+ * Galerie fotek s náhledy a zvětšením v <dialog> (šipky, Esc, swipe).
+ * Bez JS fungují náhledy jako odkazy na velkou fotku.
+ */
+import type { ImageMetadata } from 'astro';
+import { Image, getImage } from 'astro:assets';
+interface Foto { src: ImageMetadata; alt: string }
+interface Props { fotky: Foto[]; nazev?: string }
+const { fotky, nazev = 'Fotky' } = Astro.props;
+const velke = await Promise.all(fotky.map((f) => getImage({ src: f.src, width: 2000, format: 'webp' })));
+---
+<div class="gallery" data-gallery>
+  <ul class="gallery__grid" role="list">
+    {fotky.map((f, i) => (
+      <li>
+        <a href={velke[i].src} data-index={i} data-alt={f.alt} class="gallery__thumb">
+          <Image src={f.src} alt={f.alt} widths={[400, 800]} sizes="(min-width: 64rem) 25vw, 50vw" />
+        </a>
+      </li>
+    ))}
+  </ul>
+  <dialog class="gallery__dialog" aria-label={nazev}>
+    <figure>
+      <img alt="" />
+      <figcaption></figcaption>
+    </figure>
+    <button type="button" class="gallery__btn gallery__close" aria-label="Zavřít">×</button>
+    <button type="button" class="gallery__btn gallery__prev" aria-label="Předchozí fotka">‹</button>
+    <button type="button" class="gallery__btn gallery__next" aria-label="Další fotka">›</button>
+  </dialog>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((root) => {
+    const links = [...root.querySelectorAll<HTMLAnchorElement>('.gallery__thumb')];
+    const dlg = root.querySelector<HTMLDialogElement>('dialog')!;
+    const img = dlg.querySelector('img')!;
+    const cap = dlg.querySelector('figcaption')!;
+    let i = 0;
+    const show = (n: number) => {
+      i = (n + links.length) % links.length;
+      img.src = links[i].href;
+      img.alt = links[i].dataset.alt ?? '';
+      cap.textContent = `${links[i].dataset.alt ?? ''} (${i + 1}/${links.length})`;
+    };
+    links.forEach((a, n) =>
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        show(n);
+        dlg.showModal();
+      }),
+    );
+    dlg.querySelector('.gallery__close')!.addEventListener('click', () => dlg.close());
+    dlg.querySelector('.gallery__prev')!.addEventListener('click', () => show(i - 1));
+    dlg.querySelector('.gallery__next')!.addEventListener('click', () => show(i + 1));
+    dlg.addEventListener('click', (e) => e.target === dlg && dlg.close());
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(i - 1);
+      if (e.key === 'ArrowRight') show(i + 1);
+    });
+    let x0: number | null = null;
+    dlg.addEventListener('touchstart', (e) => (x0 = e.touches[0].clientX), { passive: true });
+    dlg.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
+      x0 = null;
+    });
+    dlg.addEventListener('close', () => links[i]?.focus());
+  });
+</script>
+
+<style>
+  .gallery__grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+  .gallery__thumb { display: block; overflow: hidden; border-radius: var(--radius); }
+  .gallery__thumb :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform 0.3s var(--ease); }
+  .gallery__thumb:hover :global(img) { transform: scale(1.03); }
+  .gallery__dialog { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; color: var(--fg); }
+  .gallery__dialog::backdrop { background: rgba(0, 0, 0, 0.94); }
+  .gallery__dialog figure { margin: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--space-6) var(--space-3) var(--space-3); }
+  .gallery__dialog img { max-width: 100%; max-height: calc(100vh - 8rem); object-fit: contain; }
+  .gallery__dialog figcaption { margin-top: var(--space-2); font-size: var(--fs-small); text-align: center; }
+  .gallery__btn { position: fixed; background: var(--black); color: var(--fg); border: 2px solid var(--fg); border-radius: 999px; width: 3rem; height: 3rem; font-size: 1.75rem; line-height: 1; cursor: pointer; font-family: var(--font-head); }
+  .gallery__btn:hover { border-color: var(--accent); color: var(--accent); }
+  .gallery__close { top: var(--space-3); right: var(--space-3); }
+  .gallery__prev { left: var(--space-3); top: 50%; transform: translateY(-50%); }
+  .gallery__next { right: var(--space-3); top: 50%; transform: translateY(-50%); }
+</style>

@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Gallery from '../../components/Gallery.astro';
 import { casAkce, type Akce } from '../../lib/akce';
 import { datumDlouze, rozsah, isoDatum, isoPraha } from '../../lib/datum';
 import { absUrl, url } from '../../lib/url';
@@ -102,11 +103,7 @@ const event = {
     {d.galerie.length > 0 && (
       <section class="container section" aria-labelledby="galerie">
         <h2 id="galerie">Fotky<span class="dot">.</span></h2>
-        <ul class="galerie" role="list">
-          {d.galerie.map((g) => (
-            <li><Image src={g.src} alt={g.alt} widths={[400, 800, 1600]} sizes="(min-width: 64rem) 33vw, 50vw" /></li>
-          ))}
-        </ul>
+        <Gallery fotky={d.galerie} nazev={`Fotky: ${d.title}`} />
       </section>
     )}
   </article>
@@ -124,8 +121,6 @@ const event = {
   .akce__flag { display: inline-block; background: var(--fg); color: var(--black); padding: 0.2em 0.6em; border-radius: var(--radius); }
   .akce__prokoho-nadpis { font-size: var(--fs-h3); margin-top: var(--space-5); }
   .akce__poznamka { border-left: 3px solid var(--accent); padding-left: var(--space-3); }
-  .galerie { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
-  .galerie :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; }
   @media (min-width: 64rem) {
     .akce__layout { grid-template-columns: 18rem 1fr; }
     .akce__info { position: sticky; top: calc(var(--header-h) + var(--space-4)); align-self: start; }

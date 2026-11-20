@@ -39,7 +39,7 @@ export default defineConfig({
   ),
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/styleguide/'),
+      filter: (page) => !/\/(styleguide|newsletter\/odhlaseni|newsletter\/potvrzeni)\//.test(page),
     }),
   ],
   build: {

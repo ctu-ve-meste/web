@@ -1,0 +1,77 @@
+---
+/**
+ * Formulář pro nápady a vzkazy. Posílá na Google Apps Script (zápis do tabulky
+ * + upozornění e-mailem). Bez nastavené URL zůstane jen odkaz na e-mail.
+ */
+import { config } from '../config';
+import { url } from '../lib/url';
+---
+{config.appsScriptUrl ? (
+  <form class="kf" data-kontakt data-url={config.appsScriptUrl} novalidate>
+    <div class="field">
+      <label for="kf-jmeno">Jméno <span class="muted">(nepovinné)</span></label>
+      <input class="input" id="kf-jmeno" name="jmeno" type="text" autocomplete="name" />
+    </div>
+    <div class="field">
+      <label for="kf-email">E-mail, ať vám můžeme odpovědět</label>
+      <input class="input" id="kf-email" name="email" type="email" autocomplete="email" required />
+    </div>
+    <div class="field">
+      <label for="kf-zprava">Váš nápad nebo vzkaz</label>
+      <textarea class="input kf__text" id="kf-zprava" name="zprava" rows="6" required></textarea>
+    </div>
+    <div class="kf__hp" aria-hidden="true">
+      <label for="kf-web">Nevyplňujte</label>
+      <input id="kf-web" name="web" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <label class="check">
+      <input type="checkbox" name="souhlas" required value="Souhlasím se zpracováním údajů pro odpověď na zprávu." />
+      <span>Souhlasím se zpracováním údajů pro odpověď na zprávu (<a href={url('/ochrana-osobnich-udaju/')}>zásady</a>).</span>
+    </label>
+    <p><button class="btn" type="submit">Odeslat</button></p>
+    <p class="kf__stav" role="status" aria-live="polite"></p>
+  </form>
+) : (
+  <p><a class="btn" href={`mailto:${config.email}?subject=Nápad pro Čtu ve městě`}>Napsat nápad e-mailem</a></p>
+)}
+
+<script>
+  import { odeslat } from '../lib/apps-script';
+  const form = document.querySelector<HTMLFormElement>('[data-kontakt]');
+  if (form) {
+    const start = Date.now();
+    const stav = form.querySelector<HTMLElement>('.kf__stav')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const email = String(fd.get('email') ?? '').trim();
+      const zprava = String(fd.get('zprava') ?? '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { stav.textContent = 'Zkontrolujte prosím e-mail.'; return; }
+      if (zprava.length < 3) { stav.textContent = 'Napište nám prosím pár slov.'; return; }
+      if (!fd.get('souhlas')) { stav.textContent = 'Potřebujeme váš souhlas, abychom mohli odpovědět.'; return; }
+      if (fd.get('web')) return;
+      btn.disabled = true;
+      stav.textContent = 'Odesíláme…';
+      try {
+        const r = await odeslat(form.dataset.url!, {
+          akce: 'kontakt', jmeno: fd.get('jmeno') ?? '', email, zprava,
+          souhlas: fd.get('souhlas'), web: fd.get('web') ?? '', cas: Date.now() - start,
+        });
+        stav.textContent = r.ok ? 'Děkujeme, zprávu máme. Ozveme se.' : r.zprava ?? 'Něco se nepovedlo, napište nám prosím e-mailem.';
+        if (r.ok) form.reset();
+      } catch {
+        stav.textContent = 'Něco se nepovedlo, napište nám prosím e-mailem.';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .kf { max-width: var(--max-w-text); }
+  .kf__text { border-radius: var(--radius-card); resize: vertical; }
+  .kf__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .kf__stav { min-height: 1.5em; font-family: var(--font-head); font-weight: 700; }
+</style>
