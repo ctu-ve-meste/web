@@ -11,6 +11,27 @@ misto:
   nazev: "Smetanovy sady"
   adresa: "Místek"
 # proKoho: na starém webu u této akce nebylo
+cover: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-01.webp
+coverAlt: "Čtenáři na dekách v parku za tmy, svítí lampa"
+galerie:
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-02.webp
+    alt: "Dívka čte se svíčkami pod dekou"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-03.webp
+    alt: "Křídou napsaná pozvánka na Čtení pod dekou na chodníku"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-04.webp
+    alt: "Čtenáři s baterkami na dece"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-05.webp
+    alt: "Dívka čte pod dekou s baterkou"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-06.webp
+    alt: "Dvě čtenářky si svítí čelovkami"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-07.webp
+    alt: "Kniha osvětlená svíčkami"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-08.webp
+    alt: "Čtenář s čelovkou a knihou"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-09.webp
+    alt: "Postava schovaná pod svítící dekou"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-10.webp
+    alt: "Čtenářka se svíčkami nad knihou"
 ---
 
 Zavzpomínali jsme si na dětství a četli si s baterkou pod dekou.
