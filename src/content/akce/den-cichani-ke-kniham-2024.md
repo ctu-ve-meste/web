@@ -7,6 +7,11 @@ mesto: frydek-mistek
 misto:
   nazev: "nezávislá knihkupectví ve Frýdku-Místku"
 # proKoho: na starém webu u této akce nebylo
+cover: ../../assets/fotky/2024/2024-frydek-mistek-den-cichani-ke-kniham-01.webp
+coverAlt: "Žena čichá ke knize v knihkupectví"
+galerie:
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-cichani-ke-kniham-02.webp
+    alt: "Pozvánka na Den čichání ke knihám"
 ---
 
 Čichali jsme ke stránkám starých románů, novinek nebo třeba vzácných svazků.
