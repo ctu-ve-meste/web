@@ -8,6 +8,11 @@ misto:
   nazev: "Modrá lávka přes Ostravici"
   adresa: "Frýdek-Místek"
 # proKoho: na starém webu u této akce nebylo
+cover: ../../assets/fotky/2025/2025-frydek-mistek-cteni-lyse-hore-01.webp
+coverAlt: "Recitace na Modré lávce s transparentem „I ❤ Lysá hora“"
+galerie:
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-lyse-hore-02.webp
+    alt: "Čtení na lávce přes Ostravici"
 ---
 
 Četli a recitovali jsme Lysé hoře.
