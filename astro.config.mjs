@@ -9,7 +9,26 @@ import { redirects } from './src/redirects.ts';
 const site = process.env.SITE ?? 'https://ctu-ve-meste.github.io';
 const base = process.env.BASE ?? '/web';
 
+/** Doplní base k interním odkazům v Markdownu ([text](/formaty/) → /web/formaty/). */
+function rehypeBase() {
+  const prefix = base.replace(/\/$/, '');
+  /** @param {any} node */
+  const walk = (node) => {
+    if (node.type === 'element' && node.tagName === 'a') {
+      const href = node.properties?.href;
+      if (typeof href === 'string' && href.startsWith('/') && !href.startsWith('//') && prefix && !href.startsWith(`${prefix}/`)) {
+        node.properties.href = `${prefix}${href}`;
+      }
+    }
+    node.children?.forEach(walk);
+  };
+  return (/** @type {any} */ tree) => walk(tree);
+}
+
 export default defineConfig({
+  markdown: {
+    rehypePlugins: [rehypeBase],
+  },
   site,
   base,
   trailingSlash: 'always',

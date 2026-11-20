@@ -168,6 +168,8 @@ const stranky = defineCollection({
     cisla: z
       .array(z.object({ hodnota: z.string(), popis: z.string() }))
       .default([]),
+    /** Bloky argumentů (Přidejte se: Pro město / Pro podniky / Pro partnery). */
+    bloky: z.array(z.object({ nadpis: z.string(), text: z.string() })).default([]),
     /** Čtupomínkové předměty a podobné seznamy. */
     polozky: z
       .array(
