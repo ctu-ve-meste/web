@@ -6,3 +6,20 @@ barva: "#7FEAFF"   # modrá 1. ročníku, podle manuálu se už znovu nepoužív
 nazevBarvy: modrá
 mesta: [frydek-mistek]
 perex: "Jedno město, jeden nápad. Sedm akcí, většina volně přístupná."
+fotky:
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteme-ve-meste-01.webp
+    alt: "Čtenáři na dekách a v křeslech v Parku pod zámkem u nápisu „čtu“"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-01.webp
+    alt: "Večerní posezení čtenářů před Antikvariátem Pod Svícnem"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-ctu-si-v-autobusi-01.webp
+    alt: "Čtenáři s knihami v autobusu linky 301"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-01.webp
+    alt: "Čtenáři na dekách v parku za tmy, svítí lampa"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-kafe-a-kniha-01.webp
+    alt: "Čtenáři u stolků na zahrádce Nebeské kavárny"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-knihobudka-01.webp
+    alt: "Knihobudka na zádech procházejícího muže"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-vyvenci-svoji-knihu-01.webp
+    alt: "Žena se psy a knihou u řeky"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-01.webp
+    alt: "Žena s kloboukem čte na lavičce"

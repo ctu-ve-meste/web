@@ -7,3 +7,34 @@ nazevBarvy: zelená
 mesta: [frydek-mistek, tisnov]
 dalsiMesta: [Göteborg (Švédsko), Ostravice, Těrlicko]
 perex: "Pět měst, až po Göteborg. Poprvé se přidala další města."
+fotky:
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-na-svobode-01.webp
+    alt: "Obývák na náměstí Svobody za soumraku"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctenarsky-privoz-01.webp
+    alt: "Muž vesluje a dívka v lodičce čte"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-01.webp
+    alt: "Čtenáři pod dekami s baterkami"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-hvezdami-01.webp
+    alt: "Čtenářky v Muzeu meteoritů"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctiout-zona-01.webp
+    alt: "Lehátka před Antikvariátem Pod Svícnem"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-01.webp
+    alt: "Čtenářka na louce s výhledem (Těrlicko)"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-02.webp
+    alt: "Čtení s hudbou v kavárně (Göteborg)"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-03.webp
+    alt: "Interiér kostela (Ostravice)"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-04.webp
+    alt: "Čtenář na kamenech u jezera (Göteborg)"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-05.webp
+    alt: "Čtenářka s knihou se záložkou „čtu“ (Tišnov)"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-06.webp
+    alt: "Kniha na molu u lodi v přístavu (Göteborg)"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-07.webp
+    alt: "Muž čte na kamenech u vody (Göteborg)"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-08.webp
+    alt: "Dívka čte u okna kavárny (Ostravice)"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-09.webp
+    alt: "Kniha na břehu pod slunečníkem (Göteborg)"
+  - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-10.webp
+    alt: "Čtení v kavárně s kytarou (Göteborg)"
