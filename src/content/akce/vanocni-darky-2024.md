@@ -8,6 +8,13 @@ misto:
   nazev: "celé město"
   adresa: "Frýdek-Místek"
 # proKoho: na starém webu u této akce nebylo
+cover: ../../assets/fotky/2024/2024-frydek-mistek-vanocni-darky-01.webp
+coverAlt: "Zabalená kniha zavěšená ve světelné vánoční ozdobě"
+galerie:
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-vanocni-darky-02.webp
+    alt: "Zabalené knihy ve velké světelné kouli"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-vanocni-darky-03.webp
+    alt: "Světelná vánoční koule s knihami"
 ---
 
 V adventním čase jsme po městě rozvěsili zabalené knihy.
