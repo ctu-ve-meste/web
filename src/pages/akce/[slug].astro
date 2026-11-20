@@ -20,7 +20,7 @@ const format = d.format ? await getEntry(d.format) : undefined;
 const kdy = d.dateEnd ? rozsah(d.date, d.dateEnd) : datumDlouze(d.date);
 const cas = casAkce(akce);
 const ogImage = d.cover ? (await getImage({ src: d.cover, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src : undefined;
-const popis = `${d.title} – ${kdy}${cas ? `, ${cas}` : ''}, ${d.misto.nazev}. ${d.proKoho}`.slice(0, 160);
+const popis = `${d.title} – ${kdy}${cas ? `, ${cas}` : ''}, ${d.misto.nazev}.${d.proKoho ? ` ${d.proKoho}` : ''}`.slice(0, 160);
 const minula = (d.dateEnd ?? d.date).getTime() < Date.now() - 86400000;
 
 const startIso = d.timeStart ? isoPraha(d.date, d.timeStart) : isoDatum(d.date);
@@ -34,7 +34,7 @@ const event = {
   eventStatus: d.zruseno ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   isAccessibleForFree: true,
-  description: d.proKoho,
+  description: d.proKoho ?? `${d.title}, ${d.misto.nazev}`,
   url: absUrl(`/akce/${akce.id}/`, Astro.site),
   location: {
     '@type': 'Place',
@@ -86,8 +86,12 @@ const event = {
 
       <div class="akce__text prose">
         <Content />
-        <h2 class="akce__prokoho-nadpis">Pro koho<span class="dot">.</span></h2>
-        <p>{d.proKoho}</p>
+        {d.proKoho && (
+          <>
+            <h2 class="akce__prokoho-nadpis">Pro koho<span class="dot">.</span></h2>
+            <p>{d.proKoho}</p>
+          </>
+        )}
         {d.poznamka && <p class="akce__poznamka"><strong>Poznámka:</strong> {d.poznamka}</p>}
         {format && (
           <p class="muted">Formát: <a href={url(`/formaty/#${format.id}`)}>{format.data.nazev}</a></p>

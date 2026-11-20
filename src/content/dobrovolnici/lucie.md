@@ -1,6 +1,5 @@
 ---
 jmeno: Lucie
-popis: "Věnuje se rámování obrazů v Brušperku."
-citat: "Čtu ve městě i doma."
+popis: "Čtu ve městě i doma a kromě toho rámuji obrazy v Brušperku :)"
 poradi: 3
 ---

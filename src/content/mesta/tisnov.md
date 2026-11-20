@@ -5,5 +5,9 @@ aktivni: true
 perex: "Tišnov se přidal ve 2. ročníku. Ve 3. ročníku už běžel samostatně, ve spolupráci s Městskou knihovnou Tišnov."
 partner:
   nazev: Městská knihovna Tišnov
-# TODO: odkaz na web a sociální sítě knihovny (@knihovnatisnov)
+# site: TODO: odkaz na web a Instagram knihovny (@knihovnatisnov)
 ---
+
+## Odznáček už máte?
+
+Zastavte se v Městské knihovně Tišnov pro festivalový odznáček a záložku. Odznáček si připněte, záložku vložte do knihy a vyrazte číst kamkoli do města. Začíst se můžete kdykoli během celého dne. Nezapomeňte se s knihou vyfotit a sdílet fotku na sítích s označením @ctuvemeste_cz a @knihovnatisnov.

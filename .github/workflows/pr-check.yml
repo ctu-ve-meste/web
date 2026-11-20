@@ -22,3 +22,5 @@ jobs:
         run: npm run build
       - name: Kontrola interních odkazů
         run: npm run kontrola-odkazu
+      - name: Kontrola přesměrování ze starého webu
+        run: npm run kontrola-presmerovani

@@ -14,6 +14,32 @@ const stare: Record<string, string> = {
   '/tisnov': '/mesta/tisnov/',
   '/app': '/aplikace/',
   // /manifest, /kdo-jsme, /partneri a /program mají stejnou adresu jako dřív.
+  // proběhlé akce
+  '/uplynulé-akce/den-nošení-knih-ve-fm': '/akce/den-noseni-knih-2024/',
+  '/uplynulé-akce/čtu-si-v-autobusi': '/akce/ctu-si-v-autobusi-2024/',
+  '/uplynulé-akce/vyvenči-svoji-knihu': '/akce/vyvenci-svoji-knihu-2024/',
+  '/uplynulé-akce/noční-čtení-pod-svícnem': '/akce/nocni-cteni-pod-svicnem-2024/',
+  '/uplynulé-akce/čteme-ve-městě': '/akce/cteme-ve-meste-2024/',
+  '/uplynulé-akce/čtení-pod-dekou': '/akce/cteni-pod-dekou-2024/',
+  '/uplynulé-akce/kafekniha': '/akce/kafe-a-kniha-2024/',
+  '/uplynulé-akce/knihobudka': '/akce/knihobudka-2024/',
+  '/uplynulé-akce/kavárna-paris': '/akce/kavarna-paris-2024/',
+  '/uplynulé-akce/nedělní-chvilka-poezie': '/akce/nedelni-chvilka-poezie-2024/',
+  '/uplynulé-akce/dopisy-z-války': '/akce/dopisy-z-valky-2024/',
+  '/uplynulé-akce/den-čichání-ke-knihám': '/akce/den-cichani-ke-kniham-2024/',
+  '/uplynulé-akce/vánoční-dárky': '/akce/vanocni-darky-2024/',
+  '/uplynulé-akce/knihkupectví-snů': '/akce/knihkupectvi-snu-2025/',
+  '/uplynulé-akce/den-darování-knih': '/akce/den-darovani-knih-2025/',
+  '/uplynulé-akce/čtení-lysé-hoře': '/akce/cteni-lyse-hore-2025/',
+  '/uplynulé-akce/šalom-šabat': '/akce/salom-sabat-2025/',
+  '/uplynulé-akce/den-nošení-knih-ve-f-m': '/akce/den-noseni-knih-2025/',
+  '/uplynulé-akce/čtení-pod-hvězdami': '/akce/cteni-pod-hvezdami-2025/',
+  '/uplynulé-akce/vyvenčete-svoji-knihu': '/akce/vyvencete-svoji-knihu-2025/',
+  '/uplynulé-akce/čtení-na-svobodě': '/akce/cteni-na-svobode-2025/',
+  '/uplynulé-akce/čtenářský-přívoz': '/akce/ctenarsky-privoz-2025/',
+  '/uplynulé-akce/čtení-pod-dekou_1': '/akce/cteni-pod-dekou-2025/',
+  '/uplynulé-akce/kafekniha_1': '/akce/kafe-a-kniha-2025/',
+  '/uplynulé-akce/čtiout-zóna': '/akce/ctiout-zona-2025/',
 };
 
 export const redirects: Record<string, string> = {};

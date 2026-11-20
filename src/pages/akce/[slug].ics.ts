@@ -48,7 +48,7 @@ export const GET: APIRoute = async ({ props, site }) => {
   lines.push(
     `SUMMARY:${esc(`${d.title} · Čtu ve městě`)}`,
     `LOCATION:${esc([d.misto.nazev, d.misto.adresa, mesto?.data.nazev].filter(Boolean).join(', '))}`,
-    `DESCRIPTION:${esc(`Pro koho: ${d.proKoho}\n${absUrl(`/akce/${a.id}/`, site)}`)}`,
+    `DESCRIPTION:${esc(`${d.proKoho ? `Pro koho: ${d.proKoho}\n` : ''}${absUrl(`/akce/${a.id}/`, site)}`)}`,
     `URL:${absUrl(`/akce/${a.id}/`, site)}`,
     'END:VEVENT',
     'END:VCALENDAR',

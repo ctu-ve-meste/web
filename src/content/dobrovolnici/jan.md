@@ -1,6 +1,5 @@
 ---
 jmeno: Jan
-popis: "snílek, knihkupec, otec dvou dcer. Za nejúžasnější lidské vynálezy považuje knihu a maják."
-citat: "Knihy jsou můj život."
+popis: "Jsem snílek, knihkupec, otec dvou dcer. Knihy jsou můj život. Cítím se mezi nimi dobře. Kniha a maják jsou nejúžasnější lidské vynálezy."
 poradi: 1
 ---

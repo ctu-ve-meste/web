@@ -13,7 +13,8 @@
     "check": "astro check",
     "astro": "astro",
     "kontrola-odkazu": "node scripts/kontrola-odkazu.mjs",
-    "fotky": "node scripts/zpracuj-fotky.mjs"
+    "fotky": "node scripts/zpracuj-fotky.mjs",
+    "kontrola-presmerovani": "node --experimental-strip-types scripts/kontrola-presmerovani.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.6",

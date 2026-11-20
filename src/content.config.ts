@@ -40,7 +40,8 @@ const akce = defineCollection({
           adresa: z.string().optional(),
           mapa: odkaz.optional(),
         }),
-        proKoho: z.string().min(3),
+        /** Rubrika „Pro koho“. Povinná u nadcházejících akcí (hlídá src/lib/kontrola.ts). */
+        proKoho: z.string().min(3).optional(),
         registrace: z
           .object({
             url: odkaz.optional(),
@@ -166,6 +167,18 @@ const stranky = defineCollection({
     /** Velká čísla (úvod, Přidejte se, Pro média). */
     cisla: z
       .array(z.object({ hodnota: z.string(), popis: z.string() }))
+      .default([]),
+    /** Čtupomínkové předměty a podobné seznamy. */
+    polozky: z
+      .array(
+        z.object({
+          nazev: z.string(),
+          text: z.string(),
+          cena: z.string().optional(),
+          kde: z.string().optional(),
+          stav: z.enum(['v-prodeji', 'pripravujeme', 'na-akcich']),
+        }),
+      )
       .default([]),
   }),
 });

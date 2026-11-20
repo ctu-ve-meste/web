@@ -1,5 +1,5 @@
 ---
 jmeno: Věra
-popis: "nejraději tráví volný čas s knihou a s knihomoly."
+popis: "Pro mě je to osobní top trávení volného času s knihou a knihomoly."
 poradi: 6
 ---

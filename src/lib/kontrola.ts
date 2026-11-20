@@ -20,6 +20,10 @@ export function zkontrolujObsah(): Promise<void> {
       await over(`akce/${a.id} (mesto)`, a.data.mesto);
       await over(`akce/${a.id} (rocnik)`, a.data.rocnik);
       await over(`akce/${a.id} (format)`, a.data.format);
+      const dnes = new Date();
+      if (!a.data.proKoho && (a.data.dateEnd ?? a.data.date) >= new Date(Date.UTC(dnes.getFullYear(), dnes.getMonth(), dnes.getDate()))) {
+        chyby.push(`akce/${a.id}: nadcházející akce musí mít vyplněné proKoho (rubrika „Pro koho“)`);
+      }
       if (a.data.rocnik && a.data.date.getUTCFullYear() !== Number(a.data.rocnik.id)) {
         chyby.push(`akce/${a.id}: datum ${a.data.date.toISOString().slice(0, 10)} nesedí s ročníkem ${a.data.rocnik.id}`);
       }

@@ -257,3 +257,34 @@ svg {
     scroll-behavior: auto !important;
   }
 }
+
+/* text z Markdownu */
+.prose h2 {
+  font-size: var(--fs-h3);
+  margin-top: var(--space-5);
+}
+.prose h2::after {
+  content: '.';
+  color: var(--accent);
+}
+.prose ul {
+  padding-left: 1.2em;
+  margin: 0 0 var(--space-3);
+}
+.prose li {
+  margin-bottom: var(--space-1);
+}
+.prose li::marker {
+  color: var(--accent);
+}
+.prose blockquote {
+  margin: var(--space-4) 0;
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--accent);
+  font-size: var(--fs-lead);
+}
+.prose blockquote p:last-child {
+  font-size: var(--fs-small);
+  font-style: normal;
+  color: var(--text-muted);
+}
