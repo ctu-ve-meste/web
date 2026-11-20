@@ -15,6 +15,13 @@ export const config = {
    */
   aktualniRocnik: 2027,
 
+  /**
+   * Logo v záhlaví na desktopu: 'rozsirene' (čtu + opravdu čtenářský festival,
+   * po scrollu se zmenší na „čtu“) nebo 'zakladni' (jen „čtu“). Na mobilu vždy „čtu“.
+   * Obě varianty jsou k porovnání na /styleguide/.
+   */
+  logoZahlavi: 'rozsirene' as 'rozsirene' | 'zakladni',
+
   email: 'ctuvemeste.cz@gmail.com',
   spolek: {
     nazev: 'Čtu ve městě, z.s.',

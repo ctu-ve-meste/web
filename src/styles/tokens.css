@@ -9,11 +9,12 @@
   --white: #ffffff;
   --gray-1: #111111;
   --gray-2: #1c1c1c;
+  --bubble: #2b2b2b; /* šedá bublina chatu (pitch) */
   --gray-3: #6b6b6b; /* jen na dekor, ne na text */
   --text-muted: #c4c4c4; /* sekundární text na černé, kontrast > 7:1 */
 
   /* ročníkové barvy (2024 z manuálu, 2025 z manuálu, 2026 a 2027 z pitche) */
-  --rocnik-2024: #7fEAFF;
+  --rocnik-2024: #7feaff;
   --rocnik-2025: #abff93;
   --rocnik-2026: #dac1ff;
   --rocnik-2027: #ffe95a;
@@ -35,7 +36,7 @@
   --fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
   --fs-h2: clamp(1.875rem, 1.4rem + 2vw, 3rem);
   --fs-h1: clamp(2.5rem, 1.6rem + 4.5vw, 5.5rem);
-  --fs-number: clamp(3.5rem, 2rem + 7vw, 8rem);
+  --fs-number: clamp(3rem, 2rem + 3.5vw, 5.5rem);
   --lh-body: 1.7;
   --lh-head: 1.05;
   --tracking-label: 0.18em;
@@ -52,6 +53,8 @@
   --max-w: 75rem;
   --max-w-text: 42rem;
   --radius: 0.25rem;
+  --radius-card: 0.75rem;
+  --border: 1px solid #2e2e2e;
   --header-h: 4rem;
 
   --focus: 3px solid var(--accent);

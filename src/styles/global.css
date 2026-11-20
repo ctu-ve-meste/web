@@ -101,6 +101,78 @@ svg {
   letter-spacing: var(--tracking-label);
 }
 
+/* štítek nad nadpisem sekce v barvě akcentu (jako v pitchi) */
+.label--accent {
+  color: var(--accent);
+}
+
+.card {
+  background: var(--gray-1);
+  border: var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+}
+
+.grid-cards {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+}
+
+.lead {
+  font-size: var(--fs-lead);
+}
+
+/* jemné objevení sekcí (jen když je zapnutý JS a uživatel nechce omezit pohyb) */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+.field label {
+  font-family: var(--font-head);
+  font-weight: 700;
+}
+.input {
+  font: inherit;
+  color: var(--fg);
+  background: var(--black);
+  border: 2px solid var(--fg);
+  border-radius: 999px;
+  padding: 0.75em 1.2em;
+  min-height: 48px;
+}
+.input::placeholder {
+  color: #9a9a9a;
+}
+.check {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  font-size: var(--fs-small);
+}
+.check input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.2em;
+  accent-color: var(--accent);
+  flex: none;
+}
+
 .dot {
   color: var(--accent);
 }

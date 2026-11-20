@@ -1,15 +1,23 @@
 ---
 import Logo from './Logo.astro';
-import { navigace, navigaceTlacitko } from '../config';
+import { config, navigace, navigaceTlacitko } from '../config';
 import { url } from '../lib/url';
 
+interface Props {
+  /** Přepíše config.logoZahlavi (používá /styleguide/). */
+  logo?: 'rozsirene' | 'zakladni';
+  /** Ukázka na styleguide: nelepí se nahoru, bez mobilního menu. */
+  demo?: boolean;
+}
+const { logo = config.logoZahlavi, demo = false } = Astro.props;
 const current = Astro.url.pathname;
-const isActive = (href: string) => current.startsWith(url(href));
+const isActive = (href: string) => !demo && current.startsWith(url(href));
 ---
-<header class="site-header">
+<header class:list={['site-header', `site-header--${logo}`, { 'site-header--demo': demo }]} data-header={demo ? undefined : ''}>
   <div class="container site-header__inner">
     <a href={url('/')} class="site-header__logo" aria-label="Čtu ve městě – úvod">
-      <Logo varianta="zakladni" />
+      <Logo varianta="zakladni" class="site-header__logo-zakladni" />
+      {logo === 'rozsirene' && <Logo varianta="rozsirene" class="site-header__logo-rozsirene" />}
     </a>
 
     <nav class="site-nav" aria-label="Hlavní navigace">
@@ -21,26 +29,36 @@ const isActive = (href: string) => current.startsWith(url(href));
     </nav>
     <a href={url(navigaceTlacitko.href)} class="btn site-header__cta">{navigaceTlacitko.text}</a>
 
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
-      <span class="menu-toggle__text">Menu</span>
-    </button>
+    {!demo && (
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="menu-toggle__text">Menu</span>
+      </button>
+    )}
   </div>
 
-  <div id="mobile-menu" class="mobile-menu" hidden>
-    <nav aria-label="Hlavní navigace (mobil)" class="container">
-      <ul>
-        {navigace.map((n) => (
-          <li><a href={url(n.href)} aria-current={isActive(n.href) ? 'page' : undefined}>{n.text}<span class="dot">.</span></a></li>
-        ))}
-      </ul>
-      <a href={url(navigaceTlacitko.href)} class="btn">{navigaceTlacitko.text}</a>
-    </nav>
-  </div>
+  {!demo && (
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <nav aria-label="Hlavní navigace (mobil)" class="container">
+        <ul>
+          {navigace.map((n) => (
+            <li><a href={url(n.href)} aria-current={isActive(n.href) ? 'page' : undefined}>{n.text}<span class="dot">.</span></a></li>
+          ))}
+        </ul>
+        <a href={url(navigaceTlacitko.href)} class="btn">{navigaceTlacitko.text}</a>
+      </nav>
+    </div>
+  )}
 </header>
 
 <script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
   const btn = document.querySelector<HTMLButtonElement>('.menu-toggle');
   const menu = document.getElementById('mobile-menu');
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
   if (btn && menu) {
     const setOpen = (open: boolean) => {
       btn.setAttribute('aria-expanded', String(open));
@@ -67,21 +85,18 @@ const isActive = (href: string) => current.startsWith(url(href));
     background: var(--bg);
     border-bottom: 1px solid var(--gray-2);
   }
+  .site-header--demo { position: relative; z-index: auto; border: var(--border); }
   .site-header__inner {
     height: var(--header-h);
     display: flex;
     align-items: center;
     gap: var(--space-4);
+    transition: height 0.25s var(--ease);
   }
-  .site-header__logo { width: 4.5rem; flex: none; }
+  .site-header__logo { width: 4.5rem; flex: none; display: block; }
+  .site-header__logo :global(.site-header__logo-rozsirene) { display: none; }
   .site-nav { display: none; margin-left: auto; }
-  .site-nav__list {
-    display: flex;
-    gap: var(--space-4);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+  .site-nav__list { display: flex; gap: var(--space-4); list-style: none; margin: 0; padding: 0; }
   .site-nav a {
     font-family: var(--font-head);
     font-weight: 700;
@@ -127,5 +142,15 @@ const isActive = (href: string) => current.startsWith(url(href));
     .site-header__logo { width: 5.5rem; }
     .site-nav, .site-header__cta { display: flex; }
     .menu-toggle, .mobile-menu { display: none; }
+
+    /* rozšířené logo: vyšší záhlaví nahoře stránky, po scrollu jen „čtu“ */
+    .site-header--rozsirene .site-header__inner { height: 8.5rem; }
+    .site-header--rozsirene .site-header__logo { width: 8.5rem; }
+    .site-header--rozsirene .site-header__logo :global(.site-header__logo-zakladni) { display: none; }
+    .site-header--rozsirene .site-header__logo :global(.site-header__logo-rozsirene) { display: block; }
+    .site-header--rozsirene.is-scrolled .site-header__inner { height: var(--header-h); }
+    .site-header--rozsirene.is-scrolled .site-header__logo { width: 5.5rem; }
+    .site-header--rozsirene.is-scrolled .site-header__logo :global(.site-header__logo-zakladni) { display: block; }
+    .site-header--rozsirene.is-scrolled .site-header__logo :global(.site-header__logo-rozsirene) { display: none; }
   }
 </style>

@@ -5,6 +5,8 @@ import SectionHeading from '../components/SectionHeading.astro';
 import EventCard from '../components/EventCard.astro';
 import BookSpines from '../components/BookSpines.astro';
 import Logo from '../components/Logo.astro';
+import BigNumber from '../components/BigNumber.astro';
+import RocnikList from '../components/RocnikList.astro';
 import { vsechnyAkce, nadchazejici } from '../lib/akce';
 import { aktualniRocnik } from '../lib/rocniky';
 import { rozsah } from '../lib/datum';
@@ -37,13 +39,16 @@ const karty = budouci.length ? budouci : vse.slice(0, 3);
     </div>
   </section>
 
-  <section class="container section">
-    <SectionHeading label="CO TO JE" spines>Hvězdy jsou čtenáři</SectionHeading>
-    <div class="prose lead"><Content /></div>
-    <p class="motto">sedni si, čti, buď vidět<span class="dot">.</span></p>
+  <section class="container section reveal co-to-je">
+    <div>
+      <SectionHeading label="CO TO JE" spines>Hvězdy jsou čtenáři</SectionHeading>
+      <div class="prose lead"><Content /></div>
+      <p class="motto">sedni si, čti,<br />buď vidět<span class="dot">.</span></p>
+    </div>
+    <RocnikList />
   </section>
 
-  <section class="container section">
+  <section class="container section reveal">
     <SectionHeading label={budouci.length ? 'NEJBLIŽŠÍ AKCE' : 'NAPOSLEDY JSME ČETLI'}>
       {budouci.length ? 'Přijďte si číst' : 'Takhle to vypadalo'}
     </SectionHeading>
@@ -54,17 +59,15 @@ const karty = budouci.length ? budouci : vse.slice(0, 3);
   </section>
 
   {stranka.data.cisla.length > 0 && (
-    <section class="container section">
+    <section class="container section reveal">
       <SectionHeading label="V ČÍSLECH">Nápad porazil rozpočet</SectionHeading>
-      <dl class="cisla">
-        {stranka.data.cisla.map((c) => (
-          <div><dt class="cisla__hodnota">{c.hodnota}</dt><dd>{c.popis}</dd></div>
-        ))}
-      </dl>
+      <div class="cisla">
+        {stranka.data.cisla.map((c) => <BigNumber hodnota={c.hodnota} popis={c.popis} />)}
+      </div>
     </section>
   )}
 
-  <section class="container section">
+  <section class="container section reveal">
     <SectionHeading label="PŘIDEJTE SE">A příští rok můžou číst i u vás</SectionHeading>
     <p class="prose lead">Chcete, aby se četlo i u vás? Stačí místo k sezení a někdo, kdo si sedne první.</p>
     <p><a class="btn" href={url('/pridejte-se/')}>Jak se přidat</a></p>
@@ -83,7 +86,7 @@ const karty = budouci.length ? budouci : vse.slice(0, 3);
   .lead { font-size: var(--fs-lead); }
   .motto { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: 1.1; margin-top: var(--space-5); }
   .grid { list-style: none; padding: 0; margin: 0 0 var(--space-4); display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
-  .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); margin: 0; }
-  .cisla__hodnota { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-number); line-height: 1; color: var(--accent); }
-  .cisla dd { margin: var(--space-2) 0 0; }
+  .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .co-to-je { display: grid; gap: var(--space-6); }
+  @media (min-width: 64rem) { .co-to-je { grid-template-columns: 3fr 2fr; align-items: end; } }
 </style>

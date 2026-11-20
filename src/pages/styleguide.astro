@@ -1,0 +1,229 @@
+---
+/**
+ * Styleguide – přehled design systému ke schválení (tým, Marek Vlček).
+ * Není v sitemap a má noindex.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import BookSpines from '../components/BookSpines.astro';
+import Logo from '../components/Logo.astro';
+import Header from '../components/Header.astro';
+import EventCard from '../components/EventCard.astro';
+import BigNumber from '../components/BigNumber.astro';
+import RocnikList from '../components/RocnikList.astro';
+import Chat from '../components/Chat.astro';
+import { vsechnyRocniky, aktualniRocnik } from '../lib/rocniky';
+import { vsechnyAkce } from '../lib/akce';
+import { kontrast } from '../lib/kontrast';
+import { config } from '../config';
+
+const rocniky = (await vsechnyRocniky()).reverse();
+const aktualni = await aktualniRocnik();
+const akce = (await vsechnyAkce()).slice(0, 3);
+const ok = (k: number) => (k >= 7 ? 'AAA' : k >= 4.5 ? 'AA' : k >= 3 ? 'AA velký text' : 'nevyhovuje');
+const logotypy = [
+  { v: 'zakladni', nazev: 'základní varianta', kde: 'záhlaví na mobilu a po scrollu, favicon' },
+  { v: 'rozsirene', nazev: 'rozšířená varianta', kde: 'záhlaví na desktopu (varianta A), hero na úvodu' },
+  { v: 'web', nazev: 'rozšířená s webovkou', kde: 'sdílené obrázky, materiály ke stažení' },
+  { v: 'rocnik', nazev: 'rozšířená s webovkou a ročníkem', kde: 'patička, výchozí obrázek pro sdílení' },
+] as const;
+---
+<BaseLayout title="Styleguide" description="Design systém webu Čtu ve městě." noindex>
+  <section class="container section">
+    <SectionHeading as="h1" label="STYLEGUIDE · KE SCHVÁLENÍ" spines>Stavebnice LEGO, ne návod IKEA</SectionHeading>
+    <p class="prose lead">
+      Přehled barev, písem a komponent webu podle brandmanuálu a pitche 2027. Prosíme o kontrolu hlavně
+      u <a href="#logo">loga v záhlaví</a> a <a href="#barvy">barev ročníků 2026 a 2027</a>.
+    </p>
+    <nav aria-label="Obsah styleguide" class="toc">
+      <a href="#logo">Logo</a><a href="#barvy">Barvy</a><a href="#typografie">Typografie</a><a href="#nadpisy">Nadpisy sekcí</a>
+      <a href="#lomitka">Lomítka</a><a href="#tlacitka">Tlačítka a odkazy</a><a href="#karty">Karty akcí</a>
+      <a href="#cisla">Čísla</a><a href="#rocniky">Ročníky</a><a href="#chat">Chat</a><a href="#formular">Formulář</a>
+    </nav>
+  </section>
+
+  <section class="container section" id="logo">
+    <SectionHeading label="LOGOTYPY" spines>Logo</SectionHeading>
+    <p class="prose">Dodané soubory od Marka (<code>docs/brand/logo/</code>), vložené beze změny.</p>
+    <ul class="logos" role="list">
+      {logotypy.map((l) => (
+        <li class="card">
+          <div class="logos__img"><Logo varianta={l.v} /></div>
+          <p class="label">{l.nazev}</p>
+          <p class="muted small">{l.kde}</p>
+        </li>
+      ))}
+    </ul>
+
+    <h3 class="sg-h3">Záhlaví na desktopu<span class="dot">.</span></h3>
+    <p class="prose">
+      <strong>Varianta A – rozšířené logo</strong> (podle zadání). Záhlaví je nahoře stránky vyšší, po odscrollování
+      se zmenší a zůstane jen „čtu“. Podtitul „opravdu čtenářský festival“ je v záhlaví malý (asi 11 px).
+    </p>
+    <div class="demo"><Header demo logo="rozsirene" /></div>
+    <p class="prose">
+      <strong>Varianta B – základní „čtu“.</strong> Nižší záhlaví, víc místa pro fotky. Rozšířené logo pak
+      zůstává v hero úvodní stránky a v patičce.
+    </p>
+    <div class="demo"><Header demo logo="zakladni" /></div>
+    <p class="prose muted">Teď je nastavená varianta <strong>{config.logoZahlavi === 'rozsirene' ? 'A' : 'B'}</strong>
+      (<code>logoZahlavi</code> v <code>src/config.ts</code>). Na mobilu je vždy základní „čtu“.</p>
+  </section>
+
+  <section class="container section" id="barvy">
+    <SectionHeading label="BARVY" spines>Každý rok svou barvu</SectionHeading>
+    <p class="prose">
+      Web je černý s bílým textem. Akcent = barva aktuálního ročníku ({aktualni.data.rok}, {aktualni.data.nazevBarvy})
+      a používá se jen na zvýraznění: tečka za nadpisem, štítky, tlačítka, podtržení odkazů, focus.
+      Text na barevném pozadí je vždy černý.
+    </p>
+    <ul class="swatches" role="list">
+      <li><span class="swatch" style="background:#fff"></span><strong>bílá</strong><code>#FFFFFF</code><span class="small muted">základní · manuál</span></li>
+      <li><span class="swatch" style="background:#000;border:1px solid #444"></span><strong>černá</strong><code>#000000</code><span class="small muted">základní · manuál</span></li>
+      {rocniky.map((r) => (
+        <li>
+          <span class="swatch" style={`background:${r.data.barva}`}></span>
+          <strong>{r.data.rok} · {r.data.nazevBarvy}</strong>
+          <code>{r.data.barva.toUpperCase()}</code>
+          <span class="small muted">
+            {r.data.rok <= 2025 ? 'manuál' : 'vzorkováno z pitche – ke schválení'}<br />
+            na černé {kontrast(r.data.barva, '#000000')}:1 ({ok(kontrast(r.data.barva, '#000000'))})
+          </span>
+          {r.data.rok === 2024 && <span class="small muted">podle manuálu už ne pro nový ročník</span>}
+        </li>
+      ))}
+    </ul>
+    <div class="accent-demo">
+      {rocniky.map((r) => (
+        <span class="accent-demo__chip" style={`background:${r.data.barva}`}>{r.data.rok} · černý text</span>
+      ))}
+    </div>
+  </section>
+
+  <section class="container section" id="typografie">
+    <SectionHeading label="PÍSMA" spines>Typografie</SectionHeading>
+    <div class="type-grid">
+      <div>
+        <p class="label muted">Bricolage Grotesque Bold – nadpisy, navigace, tlačítka</p>
+        <p class="sg-h1">Nadpis 1<span class="dot">.</span></p>
+        <p class="sg-h2">Nadpis 2<span class="dot">.</span></p>
+        <p class="sg-h3x">Nadpis 3<span class="dot">.</span></p>
+        <p class="label">ŠTÍTEK VERZÁLKAMI</p>
+      </div>
+      <div class="prose">
+        <p class="label muted">Merriweather Light – text</p>
+        <p class="lead">Perex: Přijďte si potichu číst vlastní knihu na neobvyklá místa ve městě.</p>
+        <p>Běžný text: Pro obsahový text jsme zvolili tohle písmo. Snadno se čte, připomíná knižní písmo a je optimalizované i pro dyslektiky. <strong>Zvýraznění tučnou Merriweather.</strong></p>
+        <blockquote>„Nechte značku dýchat, tvořte svobodně, ovšem s respektem.“</blockquote>
+        <p class="small muted">Malý text: popisky, data, poznámky.</p>
+        <p class="small muted">Velikosti: H1 až {'88 px'}, H2 až 48 px, H3 až 24 px, text 17 px, řádkování 1,7. Méně je více.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section" id="nadpisy">
+    <SectionHeading label="NADPISY SEKCÍ" spines>Nadpisy sekcí</SectionHeading>
+    <p class="prose">Krátká úderná věta s tečkou v barvě akcentu, nad ní štítek, případně s lomítkovým doplňkem.</p>
+    <div class="card sg-stack">
+      <SectionHeading label="CO TO JE">Hvězdy jsou čtenáři</SectionHeading>
+      <SectionHeading label="KDE SE TO DĚJE" spines>Podniky nejsou sponzoři. Jsou scény</SectionHeading>
+    </div>
+  </section>
+
+  <section class="container section" id="lomitka">
+    <SectionHeading label="GRAFICKÉ PRVKY" spines>Hřbety knih</SectionHeading>
+    <p class="prose">Sazba písmem Bricolage, ne obrázek. Pro čtečky obrazovky je skrytý.</p>
+    <p class="label muted">pás přes celou šířku</p>
+    <BookSpines varianta="pas" />
+    <p class="label muted">doplněk k nadpisu</p>
+    <p class="sg-h3x">barvy<BookSpines varianta="doplnek" /></p>
+    <p class="label muted">výplň hero</p>
+    <div class="spines-demo"><BookSpines varianta="vypln" radku={4} /></div>
+  </section>
+
+  <section class="container section" id="tlacitka">
+    <SectionHeading label="TLAČÍTKA A ODKAZY" spines>Tlačítka</SectionHeading>
+    <p class="buttons">
+      <a class="btn" href="#tlacitka">Hlavní tlačítko</a>
+      <a class="btn btn--ghost" href="#tlacitka">Vedlejší tlačítko</a>
+      <a class="btn sg-focus" href="#tlacitka">Focus (klávesnice)</a>
+    </p>
+    <p class="prose">Odkaz v textu je <a href="#tlacitka">podtržený barvou akcentu</a>. Při ovládání klávesnicí má každý prvek výrazný rámeček v barvě akcentu.</p>
+  </section>
+
+  <section class="container section" id="karty">
+    <SectionHeading label="KARTY AKCÍ" spines>Karty akcí</SectionHeading>
+    <p class="prose">Tečka a barva při najetí odpovídají ročníku akce. Fotky doplníme ve fázi migrace.</p>
+    <ul class="grid-cards" role="list">{akce.map((a) => <li><EventCard akce={a} /></li>)}</ul>
+  </section>
+
+  <section class="container section" id="cisla">
+    <SectionHeading label="3. ROČNÍK V ČÍSLECH" spines>Velká čísla</SectionHeading>
+    <div class="cisla">
+      <BigNumber hodnota="~1000" popis="návštěv za rok 2026" />
+      <BigNumber hodnota="84 %" popis="dosahu u lidí, kteří nás nesledují" />
+      <BigNumber hodnota="11×" popis="nad průměrem profilu: reel „Obývák přes celé náměstí?“" />
+      <BigNumber hodnota="+3" popis="města se sama hlásí do 4. ročníku" />
+    </div>
+  </section>
+
+  <section class="container section" id="rocniky">
+    <SectionHeading label="ROČNÍKY" spines>Barevné tečky ročníků</SectionHeading>
+    <div class="prose"><RocnikList /></div>
+  </section>
+
+  <section class="container section" id="chat">
+    <SectionHeading label="JAK TO VZNIKLO" spines>Jednou zprávou</SectionHeading>
+    <Chat
+      popis="Konverzace Jana Bechera a Marka Vlčka, kterou festival vznikl"
+      zpravy={[
+        { od: 'levy', jmeno: 'Jan Becher · knihkupectví Kapitola', text: 'Ahoj Máro,' },
+        { od: 'levy', text: 'Mám pro tebe báječnou nabídku! Chtěl bys dělat vizuál pro čtenářský festival ve F‑M?' },
+        { od: 'pravy', jmeno: 'Marek Vlček · branding designer', text: 'Tyyjoo jsem poctěn' },
+        { od: 'levy', text: 'Komplet — logo, plakáty, socky, merch…' },
+        { od: 'levy', text: 'A to nejlepší na konec: bylo by to zadarmo! 😀' },
+        { od: 'pravy', text: 'To je skvělá výzva' },
+        { od: 'levy', text: 'Ok, zavolám ti' },
+      ]}
+    />
+  </section>
+
+  <section class="container section" id="formular">
+    <SectionHeading label="FORMULÁŘE" spines>Newsletter</SectionHeading>
+    <form class="prose sg-form" onsubmit="return false" aria-label="Ukázka formuláře (neodesílá se)">
+      <div class="field">
+        <label for="sg-email">Váš e-mail</label>
+        <input class="input" id="sg-email" type="email" placeholder="jmeno@example.cz" autocomplete="email" />
+      </div>
+      <label class="check"><input type="checkbox" /> <span>Souhlasím se zpracováním e-mailu pro zasílání newsletteru (<a href="#formular">zásady ochrany osobních údajů</a>).</span></label>
+      <p><button class="btn" type="submit">Přihlásit se</button></p>
+    </form>
+  </section>
+</BaseLayout>
+
+<style>
+  .small { font-size: var(--fs-small); }
+  .toc { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); font-family: var(--font-head); font-weight: 700; margin-top: var(--space-4); }
+  .logos { list-style: none; padding: 0; margin: 0 0 var(--space-5); display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .logos__img { width: 9rem; height: 10rem; display: flex; align-items: flex-end; margin-bottom: var(--space-3); }
+  .logos li p { margin: 0 0 var(--space-1); }
+  .sg-h3 { font-size: var(--fs-h3); margin-top: var(--space-5); }
+  .demo { margin: var(--space-3) 0 var(--space-5); overflow-x: auto; }
+  .swatches { list-style: none; padding: 0; margin: 0 0 var(--space-4); display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr)); }
+  .swatches li { display: flex; flex-direction: column; gap: var(--space-1); }
+  .swatch { width: 5rem; height: 5rem; border-radius: 50%; margin-bottom: var(--space-2); }
+  .accent-demo { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .accent-demo__chip { color: #000; font-family: var(--font-head); font-weight: 700; padding: 0.4em 0.9em; border-radius: 999px; }
+  .type-grid { display: grid; gap: var(--space-5); }
+  .sg-h1 { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h1); line-height: var(--lh-head); letter-spacing: -0.02em; margin: 0 0 var(--space-3); }
+  .sg-h2 { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: var(--lh-head); letter-spacing: -0.02em; margin: 0 0 var(--space-3); }
+  .sg-h3x { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h3); line-height: var(--lh-head); margin: 0 0 var(--space-3); }
+  blockquote { margin: 0 0 var(--space-3); padding-left: var(--space-3); border-left: 3px solid var(--accent); }
+  .sg-stack > :global(* + *) { margin-top: var(--space-5); }
+  .spines-demo { position: relative; overflow: hidden; height: 12rem; border: var(--border); border-radius: var(--radius-card); }
+  .buttons { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .sg-focus { outline: var(--focus); outline-offset: 3px; }
+  .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  code { font-size: 0.9em; }
+  @media (min-width: 64rem) { .type-grid { grid-template-columns: 1fr 1fr; } }
+</style>
