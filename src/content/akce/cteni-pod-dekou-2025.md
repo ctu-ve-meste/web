@@ -10,6 +10,21 @@ misto:
   nazev: "sady B. Smetany"
   adresa: "Místek"
 # proKoho: na starém webu u této akce nebylo
+cover: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-01.webp
+coverAlt: "Čtenáři pod dekami s baterkami"
+galerie:
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-02.webp
+    alt: "Děti čtou s baterkou pod stromem"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-03.webp
+    alt: "Chlapec nese svíčky"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-04.webp
+    alt: "Čtenáři na dekách za tmy"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-05.webp
+    alt: "Čtenáři svítí do knih baterkami"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-06.webp
+    alt: "Deky rozprostřené v sadech za soumraku"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-07.webp
+    alt: "Čtenář s čelovkou u nápisu „čtu“"
 ---
 
 Podruhé jsme si zavzpomínali na dětství a četli si s baterkou pod dekou.
