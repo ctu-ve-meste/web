@@ -6,3 +6,28 @@ barva: "#DAC1FF"   # vzorkováno z pitche 2027, ověřit na /styleguide/
 nazevBarvy: fialová
 mesta: [frydek-mistek, tisnov]
 perex: "Nejnavštěvovanější ročník. Tišnov běžel sám."
+fotky:
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-01.webp
+    alt: "Večerní náměstí Svobody proměněné v obývák plný čtenářů"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-02.webp
+    alt: "Čtenáři večer na náměstí Svobody"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-03.webp
+    alt: "Čtenářka odpočívá v lehátku, vedle čte mladá žena"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-04.webp
+    alt: "Čtenářský přívoz: muž vesluje, děti v lodičce na přehradě Olešná"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-05.webp
+    alt: "Promítnutý reliéf Krista na fasádě bývalého sirotčince a diváci"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-06.webp
+    alt: "Autor Miloš Habrnál podepisuje knihu"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-07.webp
+    alt: "Muž fotí mobilem během Čtení v papučích ve vile"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-08.webp
+    alt: "Čtenářka v tričku „čtu“ s otevřenou knihou"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-09.webp
+    alt: "Dva čtenáři se skloněnými hlavami nad knihou"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-10.webp
+    alt: "Mladá žena soustředěně čte"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-11.webp
+    alt: "Čtenářka v lavici kostela"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-12.webp
+    alt: "Lodička se čtenáři na přehradě Olešná"
