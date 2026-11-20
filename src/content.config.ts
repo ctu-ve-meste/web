@@ -144,6 +144,8 @@ const partneri = defineCollection({
       popis: z.string().optional(),
       logo: image().optional(),
       poradi: z.number().default(100),
+      /** Pivní/alkoholové značky: neukazovat na úvodu ani u dětských akcí. */
+      proDospele: z.boolean().default(false),
     }),
 });
 

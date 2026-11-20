@@ -8,6 +8,7 @@
   nazev: Pilsner Urquell
   url: https://www.pilsner-urquell.cz
   poradi: 2
+  proDospele: true   # pivní značka: ne na úvodu a ne u dětských akcí
 - id: kapitola
   nazev: Knihkupectví KAPITOLA
   url: https://www.kapitola.eu

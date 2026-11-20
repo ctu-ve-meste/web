@@ -25,7 +25,7 @@ const karty = budouci.length ? budouci : vse.filter((a) => a.data.cover).slice(0
 // Velká fotka: první výběrová fotka nejnovějšího ročníku, který nějakou má.
 const sFotkou = (await vsechnyRocniky()).find((x) => x.data.fotky.length > 0);
 const velkaFotka = sFotkou?.data.fotky[0];
-const partneri = (await getCollection('partneri')).sort((a, b) => a.data.poradi - b.data.poradi);
+const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).sort((a, b) => a.data.poradi - b.data.poradi);
 ---
 <BaseLayout title={stranka.data.title} description={stranka.data.description}>
   <section class="hero">

@@ -82,6 +82,8 @@ Originály zůstávají na Google Disku (složka „ČTU - nové“). **Nikdy ne
    `rok-mesto-akce-poradi.webp`). Originály dejte do `_fotky-originaly/` (je v `.gitignore`).
 3. Skript uloží výsledek do `src/assets/fotky/<rok>/`. Do frontmatteru akce doplňte `cover`, `coverAlt`
    a `galerie` s cestou `../../assets/fotky/<rok>/<soubor>.webp` (každá fotka potřebuje `alt` – krátký popis, co je na ní).
+   Fotky z iPhonu ve formátu HEIC skript neumí. Stáhněte je z Disku jako JPEG přes
+   `https://lh3.googleusercontent.com/d/<ID souboru>=w2000`.
 4. Commitujte po dávkách (jedna akce = jeden commit). Smazané fotky v historii gitu zůstávají, proto nejdřív vybírejte, pak commitujte.
 5. Celé `src/assets/` má rozpočet **300 MB**. Skript vypíše celkovou velikost.
 
@@ -98,6 +100,16 @@ Originály zůstávají na Google Disku (složka „ČTU - nové“). **Nikdy ne
 3. Přidejte barvu do `src/styles/tokens.css` (`--rocnik-<rok>`).
 4. Logo se štítkem ročníku dodá Marek do `docs/brand/logo/`, pak ho vyměňte v `src/components/Logo.astro`
    a spusťte `node scripts/og-default.mjs` (obrázek pro sdílení).
+
+### Aktualizuj materiály pro média
+`node scripts/media-balicek.mjs <složka s originály>` vytvoří `public/media/ctu-ve-meste-loga.zip`
+(loga SVG + PNG) a fotky ve vysokém rozlišení v `public/media/foto/`. Náhledy na stránce Pro média
+se berou z výběru fotek ročníku 2026 (`src/pages/pro-media.astro`).
+
+### Formuláře (newsletter, kontakt)
+Formuláře posílají data do Google Apps Scriptu (`apps-script/Web.gs`, návod v `apps-script/README.md`).
+URL web appu je v proměnné `PUBLIC_APPS_SCRIPT_URL` (GitHub → Settings → Variables, lokálně `.env`).
+Bez ní se místo formulářů ukáže odkaz na e-mail.
 
 ## Pravidla pro obsah (důležité)
 
@@ -119,5 +131,6 @@ Originály zůstávají na Google Disku (složka „ČTU - nové“). **Nikdy ne
   Archiv ročníku a karty akcí používají barvu svého ročníku. Text na akcentu je vždy černý.
 - Interní odkazy v šablonách vždy přes `url('/cesta/')` z `src/lib/url.ts` (web zatím běží v podsložce `/web/`).
 - Web nesmí nastavovat cookies. Analytika se zapíná jen v `src/config.ts` (`analytika`).
-- Do budoucna: přepnutí na doménu ctuvemeste.cz = proměnné repozitáře `SITE=https://www.ctuvemeste.cz`, `BASE=/`
-  + vlastní doména v Settings → Pages. DNS mění jen tým (MX a TXT záznamy pro e-mail se nesmí smazat).
+- Přepnutí na doménu ctuvemeste.cz: krok za krokem v `docs/spusteni.md` (MX a TXT záznamy pro e-mail se nesmí smazat).
+- Kontroly: `npm run build`, `npm run kontrola-odkazu`, `npm run kontrola-presmerovani` (spouští je i GitHub u každého PR).
+- Pivní partner má v `partneri.yaml` příznak `proDospele: true`, proto se neukazuje na úvodní stránce.
