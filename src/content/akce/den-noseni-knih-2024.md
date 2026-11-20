@@ -9,6 +9,27 @@ misto:
   nazev: "celé město"
   adresa: "Frýdek-Místek"
 # proKoho: na starém webu u této akce nebylo
+cover: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-01.webp
+coverAlt: "Žena s kloboukem čte na lavičce"
+galerie:
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-02.webp
+    alt: "Kniha 1913 v ruce na ulici"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-03.webp
+    alt: "Čtenářka si čte na trávě v parku"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-04.webp
+    alt: "Žena nese knihu spolu s kabelkou"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-05.webp
+    alt: "Čtenářka s knihou opřená o strom"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-06.webp
+    alt: "Otevřená kniha nad řekou Ostravicí"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-07.webp
+    alt: "Usměvavá žena s knihou v knihkupectví"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-08.webp
+    alt: "Dívka čte na kolotoči na hřišti"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-09.webp
+    alt: "Kniha a sklenice u stolu"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-10.webp
+    alt: "Kniha se záložkou „čtu“ pod paží"
 ---
 
 Celý den jsme u sebe nosili knihu a vyzkoušeli si, jaké to je mít u sebe stále knihu a být s ní viděn/a.
