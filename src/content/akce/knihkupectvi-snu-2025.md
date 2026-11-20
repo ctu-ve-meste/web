@@ -9,6 +9,17 @@ misto:
   nazev: "U Staré pošty 745"
   adresa: "Frýdek-Místek"
 # proKoho: na starém webu u této akce nebylo
+cover: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-01.webp
+coverAlt: "Vchod do Knihkupectví SNŮ"
+galerie:
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-02.webp
+    alt: "Barevné hřbety knih v regálu"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-03.webp
+    alt: "Chlapec s knihou zdarma v Knihkupectví SNŮ"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-04.webp
+    alt: "Stoly a regály plné knih k rozdání"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-05.webp
+    alt: "Nápis „čtu“ v knihkupectví"
 ---
 
 Rozdali jsme stovky knih zdarma a věříme, že i spoustu radosti.
