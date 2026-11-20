@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { vsechnyRocniky } from '../../lib/rocniky';
+import { rozsah } from '../../lib/datum';
+import { url } from '../../lib/url';
+const rocniky = await vsechnyRocniky();
+---
+<BaseLayout title="Ročníky" description="Všechny ročníky festivalu Čtu ve městě. Každý rok má svou náladu, každý rok svou barvu.">
+  <section class="container section">
+    <SectionHeading as="h1" label="ROČNÍKY" spines>Každý rok svou barvu</SectionHeading>
+    <ul class="rocniky" role="list">
+      {rocniky.map((r) => (
+        <li style={`--rocnik: ${r.data.barva}`}>
+          <a href={url(`/rocniky/${r.data.rok}/`)}>
+            <span class="tecka" aria-hidden="true"></span>
+            <span class="rok">{r.data.rok}</span>
+            <span class="label muted">{r.data.cislo}. ročník{r.data.od && ` · ${rozsah(r.data.od, r.data.do)}`}</span>
+            <span class="perex">{r.data.perex}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .rocniky { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+  .rocniky a { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); background: var(--gray-1); border-radius: var(--radius); text-decoration: none; height: 100%; }
+  .rocniky a:hover .rok { color: var(--rocnik); }
+  .tecka { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--rocnik); }
+  .rok { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: 1; }
+</style>

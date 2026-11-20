@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi - b.data.poradi);
+---
+<BaseLayout title="Kdo jsme" description="Čtu ve městě, z.s. – parta dobrovolníků z Frýdku-Místku, která festival staví po večerech a o víkendech.">
+  <section class="container section">
+    <SectionHeading as="h1" label="KDO JSME" spines>Lidi z města</SectionHeading>
+    <p class="prose lead">TODO: příběh vzniku „Jednou zprávou“ a chatová konverzace z pitche (fáze 3–4).</p>
+  </section>
+  <section class="container section">
+    <SectionHeading label="DOBROVOLNÍCI">Kdo festival staví</SectionHeading>
+    <ul class="lide" role="list">
+      {lide.map((l) => (
+        <li>
+          {l.data.foto && <Image src={l.data.foto} alt="" width={400} />}
+          <h3>{l.data.jmeno}<span class="dot">.</span></h3>
+          {l.data.citat && <blockquote>„{l.data.citat}“</blockquote>}
+          <p>{l.data.popis}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .lead { font-size: var(--fs-lead); }
+  .lide { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+  .lide li { background: var(--gray-1); padding: var(--space-4); border-radius: var(--radius); }
+  blockquote { margin: 0 0 var(--space-3); font-style: italic; }
+</style>

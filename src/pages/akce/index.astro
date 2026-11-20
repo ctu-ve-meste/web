@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import EventCard from '../../components/EventCard.astro';
+import { vsechnyAkce, rokAkce } from '../../lib/akce';
+
+const akce = await vsechnyAkce();
+const roky = [...new Set(akce.map(rokAkce))].sort((a, b) => b - a);
+---
+<BaseLayout title="Všechny akce" description="Všechny akce festivalu Čtu ve městě a celoroční akce spolku, od roku 2024.">
+  <section class="container section">
+    <SectionHeading as="h1" label="AKCE" spines>Všechno, co jsme spolu přečetli</SectionHeading>
+
+    <form class="filtr" aria-label="Filtrovat akce" data-filtr>
+      <fieldset>
+        <legend class="label">Rok</legend>
+        <label><input type="radio" name="rok" value="" checked /> Všechny</label>
+        {roky.map((r) => <label><input type="radio" name="rok" value={String(r)} /> {r}</label>)}
+      </fieldset>
+      <fieldset>
+        <legend class="label">Typ</legend>
+        <label><input type="radio" name="typ" value="" checked /> Vše</label>
+        <label><input type="radio" name="typ" value="festival" /> Festival</label>
+        <label><input type="radio" name="typ" value="celorocni" /> Během roku</label>
+      </fieldset>
+    </form>
+    <p class="muted" aria-live="polite" data-pocet>{akce.length} akcí</p>
+
+    <ul class="grid" role="list">
+      {akce.map((a) => (
+        <li data-rok={rokAkce(a)} data-typ={a.data.typ === 'festival' ? 'festival' : 'celorocni'}>
+          <EventCard akce={a} headingLevel="h2" />
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-filtr]');
+  const pocet = document.querySelector('[data-pocet]');
+  const items = document.querySelectorAll<HTMLLIElement>('.grid > li');
+  const sklon = (n: number) => (n === 1 ? 'akce' : n >= 2 && n <= 4 ? 'akce' : 'akcí');
+  const apply = () => {
+    if (!form) return;
+    const fd = new FormData(form);
+    const rok = fd.get('rok');
+    const typ = fd.get('typ');
+    let n = 0;
+    items.forEach((li) => {
+      const ok = (!rok || li.dataset.rok === rok) && (!typ || li.dataset.typ === typ);
+      li.hidden = !ok;
+      if (ok) n++;
+    });
+    if (pocet) pocet.textContent = `${n} ${sklon(n)}`;
+    const params = new URLSearchParams();
+    if (rok) params.set('rok', String(rok));
+    if (typ) params.set('typ', String(typ));
+    history.replaceState(null, '', params.size ? `?${params}` : location.pathname);
+  };
+  if (form) {
+    const p = new URLSearchParams(location.search);
+    for (const k of ['rok', 'typ']) {
+      const v = p.get(k);
+      const input = v && form.querySelector<HTMLInputElement>(`input[name="${k}"][value="${CSS.escape(v)}"]`);
+      if (input) input.checked = true;
+    }
+    form.addEventListener('change', apply);
+    apply();
+  }
+</script>
+
+<style>
+  .filtr { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-bottom: var(--space-3); }
+  .filtr fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .filtr legend { float: left; margin-right: var(--space-2); color: var(--text-muted); }
+  .filtr label {
+    font-family: var(--font-head);
+    font-weight: 700;
+    border: 2px solid var(--gray-3);
+    border-radius: 999px;
+    padding: 0.35em 0.9em;
+    cursor: pointer;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .filtr input { position: absolute; opacity: 0; pointer-events: none; }
+  .filtr label:has(input:checked) { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .filtr label:has(input:focus-visible) { outline: var(--focus); outline-offset: 3px; }
+  .grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+</style>

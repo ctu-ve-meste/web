@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
+import { config } from '../config';
+import { absUrl, url } from '../lib/url';
+import { aktualniRocnik } from '../lib/rocniky';
+import { zkontrolujObsah } from '../lib/kontrola';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Absolutní nebo relativní URL obrázku pro sdílení. */
+  image?: string;
+  noindex?: boolean;
+  /** Barva akcentu stránky (archiv ročníku používá barvu svého ročníku). */
+  accent?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description = config.popis, image, noindex = false, accent, jsonLd } = Astro.props;
+await zkontrolujObsah();
+const rocnik = await aktualniRocnik();
+const accentColor = accent ?? rocnik.data.barva;
+const fullTitle = Astro.url.pathname === url('/') ? `${config.nazev} – ${config.podtitul.toLowerCase()}` : `${title} · ${config.nazev}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = image ? new URL(image, Astro.site).toString() : absUrl('/og-default.png', Astro.site);
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: config.spolek.nazev,
+  alternateName: config.nazev,
+  url: absUrl('/', Astro.site),
+  email: config.email,
+  taxID: config.spolek.ico,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: config.spolek.ulice,
+    postalCode: config.spolek.psc,
+    addressLocality: config.spolek.mesto,
+    addressCountry: 'CZ',
+  },
+  sameAs: [config.site.instagram, config.site.facebook],
+};
+const ld = [organization, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+---
+<!doctype html>
+<html lang="cs" style={`--accent: ${accentColor}`}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={url('/sitemap-index.xml')} />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:site_name" content={config.nazev} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {ld.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+    <Analytics />
+  </head>
+  <body>
+    <a class="skip-link" href="#obsah">Přeskočit na obsah</a>
+    <Header />
+    <main id="obsah">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

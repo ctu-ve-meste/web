@@ -1,0 +1,23 @@
+# Ohlasy v médiích. Titulky přebíráme doslova (popisují stav v době vydání).
+- id: denik-2024-08-12
+  datum: 2024-08-12
+  medium: Frýdecko-místecký a třinecký deník
+  autor: Michaela Kaňoková
+  titulek: "Ve FM vzniká ojedinělý čtenářský projekt. Bez dotací i peněz z města"
+  url: https://fm.denik.cz/zpravy_region/ve-fm-vznika-ojedinely-ctenarsky-projekt-bez-dotaci-i-penez-z-mesta-20240812.html
+- id: polar-2024-09-03
+  datum: 2024-09-03
+  medium: Polar
+  titulek: "Frýdek-Místek ožije festivalem Čtu ve městě. Unikátní akce spojuje lidi a podporuje čtení knih"
+  url: https://polar.cz/zpravy/pr/11000017175/frydekmistek-ozije-festivalem-ctu-ve-meste-unikatni-akce-spojuje-lidi-a-podporuje-cteni-knih
+- id: novinky-2024-09-04
+  datum: 2024-09-04
+  medium: Novinky.cz
+  autor: Pavel Karban
+  titulek: "Knihy a čtenáři vpřed! Ve Frýdku-Místku budou knihy venčit nebo si číst v parku pod dekou"
+  url: https://www.novinky.cz/clanek/kultura-knihy-knihy-a-ctenari-vpred-ve-frydku-mistku-budou-knihy-vencit-nebo-si-cist-v-parku-pod-dekou-40485802
+- id: vefm-2026-01-30
+  datum: 2026-01-30
+  medium: vefm.cz
+  titulek: "Frýdek-Místek má další fenomén: čtenářský festival. Měli by ho kopírovat"
+  url: https://www.vefm.cz/frydek-mistek-ma-dalsi-fenomen-ctenarsky-festival-meli-by-ho-kopirovat/

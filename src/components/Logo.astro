@@ -1,0 +1,25 @@
+---
+/**
+ * Logo z dodaných SVG (docs/brand/logo/). Nepřekreslovat!
+ * zakladni = „čtu“, rozsirene = + „opravdu čtenářský festival“,
+ * web = + ctuvemeste.cz, rocnik = + štítek aktuálního ročníku.
+ */
+import zakladni from '../../docs/brand/logo/logo_jen_ctu.svg?raw';
+import rozsirene from '../../docs/brand/logo/logo_rozsirene.svg?raw';
+import web from '../../docs/brand/logo/logo_rozsirene_s_web.svg?raw';
+import rocnik from '../../docs/brand/logo/logo_rozsirene_4_rocnik_s_web.svg?raw';
+
+interface Props {
+  varianta?: 'zakladni' | 'rozsirene' | 'web' | 'rocnik';
+  class?: string;
+}
+const { varianta = 'zakladni', class: cls } = Astro.props;
+const svg = { zakladni, rozsirene, web, rocnik }[varianta]
+  .replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
+---
+<span class:list={['logo', `logo--${varianta}`, cls]} set:html={svg} />
+
+<style>
+  .logo { display: inline-block; line-height: 0; }
+  .logo :global(svg) { width: 100%; height: auto; }
+</style>

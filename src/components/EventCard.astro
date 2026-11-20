@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import type { Akce } from '../lib/akce';
+import { casAkce } from '../lib/akce';
+import { datumDlouze, rozsah } from '../lib/datum';
+import { url } from '../lib/url';
+
+interface Props {
+  akce: Akce;
+  headingLevel?: 'h2' | 'h3';
+}
+const { akce, headingLevel: H = 'h3' } = Astro.props;
+const d = akce.data;
+const rocnik = d.rocnik ? await getEntry(d.rocnik) : undefined;
+const barva = rocnik?.data.barva ?? 'var(--fg)';
+const kdy = d.dateEnd ? rozsah(d.date, d.dateEnd) : datumDlouze(d.date);
+const stitek = d.typ === 'festival' && rocnik ? `${rocnik.data.cislo}. ročník` : d.typ === 'kafe-a-kniha' ? 'Kafe&kniha' : 'Během roku';
+---
+<article class="event-card" style={`--rocnik: ${barva}`}>
+  {d.cover && (
+    <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[400, 800]} sizes="(min-width: 64rem) 30vw, 100vw" class="event-card__img" />
+  )}
+  <div class="event-card__body">
+    <p class="event-card__tag label"><span class="event-card__dot" aria-hidden="true"></span>{stitek}</p>
+    <H class="event-card__title"><a href={url(`/akce/${akce.id}/`)}>{d.title}</a></H>
+    <p class="event-card__meta">
+      <span>{kdy}{casAkce(akce) && `, ${casAkce(akce)}`}</span><br />
+      <span class="muted">{d.misto.nazev}</span>
+    </p>
+    {d.registrace?.vyprodano && <p class="event-card__flag label">Vyprodáno</p>}
+  </div>
+</article>
+
+<style>
+  .event-card {
+    position: relative;
+    background: var(--gray-1);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .event-card__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .event-card__body { padding: var(--space-4); }
+  .event-card__tag { display: flex; align-items: center; gap: var(--space-2); color: var(--text-muted); margin-bottom: var(--space-2); }
+  .event-card__dot { width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--rocnik); flex: none; }
+  .event-card__title { font-size: var(--fs-h3); margin-bottom: var(--space-2); }
+  .event-card__title a { text-decoration: none; }
+  .event-card__title a::after { content: ''; position: absolute; inset: 0; }
+  .event-card:hover .event-card__title a { color: var(--rocnik); }
+  .event-card:focus-within { outline: var(--focus); outline-offset: 3px; }
+  .event-card__title a:focus-visible { outline: none; }
+  .event-card__meta { font-size: var(--fs-small); margin: 0; }
+  .event-card__flag { display: inline-block; margin: var(--space-3) 0 0; background: var(--fg); color: var(--black); padding: 0.2em 0.6em; border-radius: var(--radius); }
+</style>

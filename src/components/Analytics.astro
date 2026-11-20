@@ -1,0 +1,14 @@
+---
+/**
+ * Jediné místo pro měřicí kód. Řídí se config.analytika.
+ * Zatím vypnuto. Bezcookiesové nástroje (GoatCounter, Cloudflare) nepotřebují lištu.
+ */
+import { config } from '../config';
+const a = config.analytika;
+---
+{a?.typ === 'goatcounter' && (
+  <script is:inline data-goatcounter={`https://${a.kod}.goatcounter.com/count`} async src="//gc.zgo.at/count.js"></script>
+)}
+{a?.typ === 'cloudflare' && (
+  <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: a.token })}></script>
+)}

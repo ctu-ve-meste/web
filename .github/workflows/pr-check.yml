@@ -1,0 +1,24 @@
+name: Kontrola pull requestu
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Build (astro check + astro build, chyba v obsahu build shodí)
+        run: npm run build
+      - name: Kontrola interních odkazů
+        run: npm run kontrola-odkazu

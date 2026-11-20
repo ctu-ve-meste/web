@@ -1,0 +1,17 @@
+---
+/** Dočasná stránka pro sekce, které se doplní v dalších fázích. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from './SectionHeading.astro';
+import { url } from '../lib/url';
+interface Props { title: string; label: string; description: string }
+const { title, label, description } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <section class="container section">
+    <SectionHeading as="h1" label={label} spines>{title}</SectionHeading>
+    <div class="prose">
+      <slot />
+      <p class="muted">Na této stránce se ještě pracuje. Mezitím se podívejte na <a href={url('/akce/')}>proběhlé akce</a>.</p>
+    </div>
+  </section>
+</BaseLayout>

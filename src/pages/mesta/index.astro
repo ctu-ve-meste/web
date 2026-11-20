@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { url } from '../../lib/url';
+const mesta = (await getCollection('mesta', (m) => m.data.aktivni)).sort((a, b) => a.data.odRoku - b.data.odRoku);
+---
+<BaseLayout title="Města" description="Kde všude se čte. Čtu ve městě se šíří do dalších měst, každé si ho dělá po svém.">
+  <section class="container section">
+    <SectionHeading as="h1" label="KDE SE TO DĚJE" spines>Festival nemá areál, má město</SectionHeading>
+    <ul class="mesta" role="list">
+      {mesta.map((m) => (
+        <li>
+          <a href={url(`/mesta/${m.id}/`)}>
+            <span class="label muted">od roku {m.data.odRoku}</span>
+            <span class="nazev">{m.data.nazev}</span>
+            {m.data.partner && <span>{m.data.partner.nazev}</span>}
+          </a>
+        </li>
+      ))}
+      <li class="vase">
+        <a href={url('/pridejte-se/')}>
+          <span class="label">Další město?</span>
+          <span class="nazev">Vaše město<span class="dot">?</span></span>
+          <span>Chcete, aby se četlo i u vás?</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .mesta { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+  .mesta a { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); background: var(--gray-1); border-radius: var(--radius); text-decoration: none; height: 100%; }
+  .nazev { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h3); }
+  .vase a { background: transparent; border: 2px dashed var(--accent); }
+</style>

@@ -1,0 +1,47 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import EventCard from '../../components/EventCard.astro';
+import { vsechnyAkce, rokAkce } from '../../lib/akce';
+
+export async function getStaticPaths() {
+  const mesta = await getCollection('mesta', (m) => m.data.aktivni);
+  return mesta.map((m) => ({ params: { slug: m.id }, props: { mesto: m } }));
+}
+const { mesto } = Astro.props as { mesto: CollectionEntry<'mesta'> };
+const m = mesto.data;
+const { Content } = await render(mesto);
+const akce = (await vsechnyAkce()).filter((a) => a.data.mesto.id === mesto.id);
+const poRocich = Map.groupBy(akce, rokAkce);
+---
+<BaseLayout title={m.nazev} description={`Čtu ve městě – ${m.nazev}. ${m.perex}`}>
+  <section class="container section">
+    <SectionHeading as="h1" label={`MĚSTO · OD ROKU ${m.odRoku}`} spines>{m.nazev}</SectionHeading>
+    <div class="prose">
+      <p class="lead">{m.perex}</p>
+      <Content />
+      {m.partner && <p><span class="label muted">Místní partner: </span>{m.partner.url ? <a href={m.partner.url} rel="noopener">{m.partner.nazev}</a> : m.partner.nazev}</p>}
+      {m.tym && <p><span class="label muted">Tým: </span>{m.tym}</p>}
+      {m.kontakt && <p><span class="label muted">Kontakt: </span><a href={`mailto:${m.kontakt}`}>{m.kontakt}</a></p>}
+      {(m.site.instagram || m.site.facebook || m.site.web) && (
+        <p>
+          {m.site.instagram && <a href={m.site.instagram} rel="noopener">Instagram</a>}{' '}
+          {m.site.facebook && <a href={m.site.facebook} rel="noopener">Facebook</a>}{' '}
+          {m.site.web && <a href={m.site.web} rel="noopener">Web</a>}
+        </p>
+      )}
+    </div>
+  </section>
+  {[...poRocich.entries()].map(([rok, seznam]) => (
+    <section class="container section">
+      <SectionHeading label="AKCE">{String(rok)}</SectionHeading>
+      <ul class="grid" role="list">{seznam.map((a) => <li><EventCard akce={a} /></li>)}</ul>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .lead { font-size: var(--fs-lead); }
+  .grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+</style>

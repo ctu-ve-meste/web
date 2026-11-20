@@ -1,0 +1,89 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import EventCard from '../components/EventCard.astro';
+import BookSpines from '../components/BookSpines.astro';
+import Logo from '../components/Logo.astro';
+import { vsechnyAkce, nadchazejici } from '../lib/akce';
+import { aktualniRocnik } from '../lib/rocniky';
+import { rozsah } from '../lib/datum';
+import { url } from '../lib/url';
+
+const stranka = (await getEntry('stranky', 'uvod'))!;
+const { Content } = await render(stranka);
+const rocnik = await aktualniRocnik();
+const r = rocnik.data;
+const vse = await vsechnyAkce();
+const budouci = nadchazejici(vse).slice(0, 3);
+const karty = budouci.length ? budouci : vse.slice(0, 3);
+---
+<BaseLayout title={stranka.data.title} description={stranka.data.description}>
+  <section class="hero">
+    <BookSpines varianta="vypln" radku={7} class="hero__bg" />
+    <div class="container hero__inner">
+      <div class="hero__logo"><Logo varianta="rozsirene" /></div>
+      <p class="label hero__status">
+        <span class="hero__dot" aria-hidden="true"></span>
+        {budouci.length
+          ? `Nejbližší akce: ${budouci[0].data.title}`
+          : `${r.cislo}. ročník ${r.rok} se připravuje${r.od ? ` · ${rozsah(r.od, r.do)}` : ''}`}
+      </p>
+      <h1 class="hero__title">Festival, kde hvězdy nic nepředvádějí. Jen čtou<span class="dot">.</span></h1>
+      <p class="hero__cta">
+        <a class="btn" href={url('/program/')}>Program</a>
+        <a class="btn btn--ghost" href={url('/pridejte-se/')}>Chci čtení i u nás</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <SectionHeading label="CO TO JE" spines>Hvězdy jsou čtenáři</SectionHeading>
+    <div class="prose lead"><Content /></div>
+    <p class="motto">sedni si, čti, buď vidět<span class="dot">.</span></p>
+  </section>
+
+  <section class="container section">
+    <SectionHeading label={budouci.length ? 'NEJBLIŽŠÍ AKCE' : 'NAPOSLEDY JSME ČETLI'}>
+      {budouci.length ? 'Přijďte si číst' : 'Takhle to vypadalo'}
+    </SectionHeading>
+    <ul class="grid" role="list">
+      {karty.map((a) => <li><EventCard akce={a} /></li>)}
+    </ul>
+    <p><a href={url('/akce/')}>Všechny akce →</a></p>
+  </section>
+
+  {stranka.data.cisla.length > 0 && (
+    <section class="container section">
+      <SectionHeading label="V ČÍSLECH">Nápad porazil rozpočet</SectionHeading>
+      <dl class="cisla">
+        {stranka.data.cisla.map((c) => (
+          <div><dt class="cisla__hodnota">{c.hodnota}</dt><dd>{c.popis}</dd></div>
+        ))}
+      </dl>
+    </section>
+  )}
+
+  <section class="container section">
+    <SectionHeading label="PŘIDEJTE SE">A příští rok můžou číst i u vás</SectionHeading>
+    <p class="prose lead">Chcete, aby se četlo i u vás? Stačí místo k sezení a někdo, kdo si sedne první.</p>
+    <p><a class="btn" href={url('/pridejte-se/')}>Jak se přidat</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--gray-2); }
+  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero__inner { position: relative; padding-block: var(--space-6) var(--space-7); }
+  .hero__logo { width: min(16rem, 60vw); margin-bottom: var(--space-5); }
+  .hero__status { display: flex; align-items: center; gap: var(--space-2); }
+  .hero__dot { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--accent); }
+  .hero__title { max-width: 14ch; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
+  .lead { font-size: var(--fs-lead); }
+  .motto { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: 1.1; margin-top: var(--space-5); }
+  .grid { list-style: none; padding: 0; margin: 0 0 var(--space-4); display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+  .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); margin: 0; }
+  .cisla__hodnota { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-number); line-height: 1; color: var(--accent); }
+  .cisla dd { margin: var(--space-2) 0 0; }
+</style>
