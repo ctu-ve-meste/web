@@ -9,6 +9,8 @@ misto:
   nazev: "pomník padlým v 1. světové válce"
   adresa: "Kostíkovo náměstí, Frýdek"
 # proKoho: na starém webu u této akce nebylo
+cover: ../../assets/fotky/2024/2024-frydek-mistek-dopisy-z-valky-01.webp
+coverAlt: "Pozvánka na čtení Dopisy z války"
 ---
 
 V Den válečných veteránů jsme četli z dopisů a vzpomínek našich dědů a pradědů, kteří prožili peklo Velké války.
