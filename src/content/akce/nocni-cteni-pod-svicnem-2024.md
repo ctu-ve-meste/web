@@ -11,6 +11,31 @@ misto:
   adresa: "Frýdek"
 poznamka: Čtení trvalo od 20:00 do půlnoci.
 # proKoho: na starém webu u této akce nebylo
+cover: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-01.webp
+coverAlt: "Večerní posezení čtenářů před Antikvariátem Pod Svícnem"
+galerie:
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-02.webp
+    alt: "Svícen s hořícími svíčkami mezi knihami v antikvariátu"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-03.webp
+    alt: "Svíčky a knihy na stolku"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-04.webp
+    alt: "Muž čte při svíčce v antikvariátu"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-05.webp
+    alt: "Mladá žena čte mezi regály knih"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-06.webp
+    alt: "Čtenáři u stolků před antikvariátem"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-07.webp
+    alt: "Čtenáři venku za tmy u stolků"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-08.webp
+    alt: "Čtenářka si čte v chodbě"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-09.webp
+    alt: "Čtenáři v křeslech uvnitř antikvariátu"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-10.webp
+    alt: "Hořící svíčky v antikvariátu"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-11.webp
+    alt: "Čtenáři mezi regály v antikvariátu"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-nocni-cteni-pod-svicnem-12.webp
+    alt: "Čtenářka si v noci čte s knihou"
 ---
 
 Vyzkoušeli jsme si noční čtení při svíčkách v antikvariátu.
