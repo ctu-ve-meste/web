@@ -263,7 +263,7 @@ svg {
   font-size: var(--fs-h3);
   margin-top: var(--space-5);
 }
-.prose h2::after {
+.prose h2:not(:has(.dot))::after {
   content: '.';
   color: var(--accent);
 }

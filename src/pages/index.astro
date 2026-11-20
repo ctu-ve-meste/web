@@ -13,6 +13,7 @@ import { vsechnyAkce, nadchazejici } from '../lib/akce';
 import { aktualniRocnik, vsechnyRocniky } from '../lib/rocniky';
 import { rozsah } from '../lib/datum';
 import { url } from '../lib/url';
+import { config } from '../config';
 
 const stranka = (await getEntry('stranky', 'uvod'))!;
 const { Content } = await render(stranka);
@@ -30,7 +31,7 @@ const partneri = (await getCollection('partneri')).sort((a, b) => a.data.poradi 
   <section class="hero">
     <BookSpines varianta="vypln" radku={7} class="hero__bg" />
     <div class="container hero__inner">
-      <div class="hero__logo"><Logo varianta="rozsirene" /></div>
+      <div class:list={['hero__logo', { 'hero__logo--jen-mobil': config.logoZahlavi === 'rozsirene' }]}><Logo varianta="rozsirene" /></div>
       <p class="label hero__status">
         <span class="hero__dot" aria-hidden="true"></span>
         {budouci.length
@@ -106,6 +107,8 @@ const partneri = (await getCollection('partneri')).sort((a, b) => a.data.poradi 
   .hero :global(.hero__bg) { position: absolute; inset: 0; pointer-events: none; }
   .hero__inner { position: relative; padding-block: var(--space-6); }
   .hero__logo { width: min(16rem, 60vw); margin-bottom: var(--space-5); }
+  /* na desktopu je rozšířené logo v záhlaví, v úvodu by se opakovalo */
+  @media (min-width: 64rem) { .hero__logo--jen-mobil { display: none; } }
   .hero__status { display: flex; align-items: center; gap: var(--space-2); }
   .hero__dot { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--accent); flex: none; }
   .hero__title { max-width: 14ch; }

@@ -72,7 +72,7 @@ const velke = await Promise.all(fotky.map((f) => getImage({ src: f.src, width: 2
 </script>
 
 <style>
-  .gallery__grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+  .gallery__grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(min(45%, 14rem), 1fr)); }
   .gallery__thumb { display: block; overflow: hidden; border-radius: var(--radius); }
   .gallery__thumb :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform 0.3s var(--ease); }
   .gallery__thumb:hover :global(img) { transform: scale(1.03); }
