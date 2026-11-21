@@ -16,12 +16,11 @@ import { url } from '../../lib/url';
   import { odeslat } from '../../lib/apps-script';
   const el = document.querySelector<HTMLElement>('[data-stav]')!;
   const p = new URLSearchParams(location.search);
-  const e = p.get('e');
   const t = p.get('t');
-  if (!el.dataset.url || !e || !t) {
+  if (!el.dataset.url || !t) {
     el.textContent = `Odkaz je neúplný. Napište nám prosím na ${el.dataset.email}.`;
   } else {
-    odeslat(el.dataset.url, { akce: el.dataset.akce, e, t })
+    odeslat(el.dataset.url, { akce: el.dataset.akce, t })
       .then((r) => (el.textContent = r.ok ? el.dataset.ok! : r.zprava ?? 'Odkaz už neplatí.'))
       .catch(() => (el.textContent = `Něco se nepovedlo. Napište nám prosím na ${el.dataset.email}.`));
   }
