@@ -12,7 +12,7 @@ misto:
 proKoho: "pro čtenáře i nečtenáře a pro patrioty Frýdku-Místku všech věkových kategorií."
 poznamka: "Akce se konala za každého počasí. Beseda a křest měly v případě deště proběhnout v knihkupectví Kapitola, Hlavní třída 107, 738 01 Místek a promítnutí reliéfu se mělo konat na původním místě za každého počasí s výjimkou tornáda."
 cover: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-01.webp
-coverAlt: "Videomapping vrátil reliéf Krista na fasádu bývalého sirotčince"
+coverAlt: "Promítnutý reliéf Krista na fasádě bývalého sirotčince, před ním diváci"
 galerie:
   - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-02.webp
     alt: "Hromádka knih Procházky Frýdkem-Místkem před besedou"
@@ -21,15 +21,22 @@ galerie:
   - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-04.webp
     alt: "Portrét autora Miloše Habrnála"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-05.webp
-    alt: "Lidé usazení na ulici před budovou bývalého sirotčince"
+    alt: "Autor Miloš Habrnál u stolku s lampou, vedle moderátor s mikrofonem"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-06.webp
-    alt: "Promítnutý reliéf Krista s dětmi a nápisem „Nechte maličkých přijíti ke mně“"
+    alt: "Beseda u stolku s lampou, za ní plné hlediště na ulici"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-07.webp
-    alt: "Detail promítnutého reliéfu na fasádě"
+    alt: "Posluchači za soumraku před stanem s besedou"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-08.webp
-    alt: "Žena odpočívá v lehátku mezi židlemi před besedou"
+    alt: "Diváci v lehátkách a na židlích na ulici za soumraku"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-09.webp
-    alt: "Divák fotí promítání reliéfu mobilem"
+    alt: "Knihy a mikrofon na stolku, v pozadí řady židlí"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-10.webp
+    alt: "Křest knihy: muž polévá z lahve knihu, kterou drží autor"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-11.webp
+    alt: "Autor Miloš Habrnál podepisuje knihu čtenářce"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-12.webp
+    alt: "Promítnutý reliéf Krista s dětmi a nápisem „Nechte maličkých přijíti ke mně“"
+fotoAutor: Jiří Bartek a další  # TODO: autor fotky 12 (detail reliéfu, z mobilu) není známý
 ---
 
 V tento večer bylo možné zažít hned dvě unikátní akce. Tou první byla beseda s autorem Milošem Habrnálem nad jeho právě vydanou knihou Procházky Frýdkem-Místkem a její křest. Knihu pokřtil Václav Peter. Kniha je průvodcem po zajímavých a historických místech Frýdku-Místku, i po těch zmizelých. Kniha byla na místě k zakoupení a bylo možné získat podpis autora.
