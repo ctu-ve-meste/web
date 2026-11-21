@@ -6,7 +6,6 @@ import SectionHeading from '../components/SectionHeading.astro';
 import { config } from '../config';
 const s = (await getEntry('stranky', 'aplikace'))!;
 const { Content } = await render(s);
-const fotka = (await getEntry('rocniky', '2026'))!.data.fotky[9];
 import { url } from '../lib/url';
 import { Image } from 'astro:assets';
 import seznamka from '../assets/aplikace/seznamka.png';
@@ -15,7 +14,7 @@ import mapa from '../assets/aplikace/mapa.png';
 <BaseLayout title={s.data.title} description={s.data.description}>
   <article class="container section">
     <SectionHeading as="h1" label="APLIKACE" spines>Knižní seznamka a deník</SectionHeading>
-    <TextPanel fotka={fotka}>
+    <TextPanel>
       <p class="lead">Objevujte nové příběhy, vytvořte si seznam knih k přečtení a nechte se motivovat k tomu, abyste četli každý den.</p>
       <p class="jen-mobil"><a class="btn" href={config.site.aplikace} rel="noopener">Stáhnout na Google Play</a></p>
       <div class="prose"><Content /></div>
