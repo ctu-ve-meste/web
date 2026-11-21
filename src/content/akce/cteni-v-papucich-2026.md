@@ -9,7 +9,7 @@ mesto: frydek-mistek
 format: cteni-v-papucich
 misto:
   nazev: Vila Jaro Čermáka
-  adresa: Místek
+  adresa: Palackého 202, Místek
 proKoho: "pro větší, starší, zvědavé, romantiky a patrioty Frýdku-Místku."
 registrace:
   kapacita: omezená

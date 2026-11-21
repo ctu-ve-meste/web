@@ -9,7 +9,7 @@ mesto: frydek-mistek
 format: kafe-a-kniha
 misto:
   nazev: Lu Café
-  adresa: Frýdek
+  adresa: Zámecké náměstí 1260, Frýdek
 proKoho: "Pro malé (ne nejmenší), velké, pro mladé i pro seniory, pro milovníky knih, čtení a dobré kávy (a dobrých dortíků!)."
 cover: ../../assets/fotky/2026/2026-frydek-mistek-kafe-a-kniha-01.webp
 coverAlt: "Kavárna plná čtenářů s knihami"

@@ -32,6 +32,6 @@ galerie:
     alt: "Divák fotí promítání reliéfu mobilem"
 ---
 
-V tento večer bylo možné zažít hned dvě unikátní akce. Tou první byla beseda s autorem Milošem Habrnálem nad jeho právě vydanou knihou Procházky Frýdkem-Místkem a její křest. Kniha je průvodcem po zajímavých a historických místech Frýdku-Místku, i po těch zmizelých. Kniha byla na místě k zakoupení a bylo možné získat podpis autora.
+V tento večer bylo možné zažít hned dvě unikátní akce. Tou první byla beseda s autorem Milošem Habrnálem nad jeho právě vydanou knihou Procházky Frýdkem-Místkem a její křest. Knihu pokřtil Václav Peter. Kniha je průvodcem po zajímavých a historických místech Frýdku-Místku, i po těch zmizelých. Kniha byla na místě k zakoupení a bylo možné získat podpis autora.
 
 Po besedě cca ve 20:20 jsme vrátili na fasádu budovy bývalého místeckého sirotčince (dnes Střední uměleckoprůmyslová škola) 15 metrový reliéf Krista, který budovu zdobil až do poloviny 80. let, kdy byl odstraněn. Za pomoci videomappingu si tak bylo možné tuto zmizelou památku na několik minut prohlédnout, než opět nenávratně zmizela.
