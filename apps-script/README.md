@@ -7,8 +7,9 @@ web appu. Ten je zapíše do Google tabulky a pošle e-mail. Kód je v `Web.gs`.
 
 1. Otevřete existující projekt Apps Scriptu s rozesílkou newsletteru (Code.gs, Admin.html).
 2. Přidejte nový soubor `Web.gs` a vložte do něj obsah `apps-script/Web.gs` z tohoto repozitáře.
-3. **Pokud už Code.gs obsahuje funkci `doPost`**, přejmenujte jednu z nich a z `doPost` volejte obě
-   (podle pole `akce`). Dvě funkce `doPost` v jednom projektu fungovat nebudou.
+3. **Pokud už Code.gs obsahuje funkci `doPost`**, přejmenujte ji na `doNewsletterPost`. Funkce v `Web.gs`
+   se jmenuje `DoWebPost`. Přidejte soubor `Router.gs` (obsah z `apps-script/Router.gs`): obsahuje jediný
+   `doPost`, který rozdělí požadavky podle pole `akce`. Dvě funkce `doPost` v jednom projektu fungovat nebudou.
 4. Project Settings → Script properties, přidejte:
    - `SHEET_ID` – ID tabulky odběratelů (část URL mezi `/d/` a `/edit`)
    - `SITE_URL` – `https://www.ctuvemeste.cz` (do přepnutí domény `https://ctu-ve-meste.github.io/web`)

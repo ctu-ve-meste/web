@@ -2,8 +2,8 @@
  * Čtu ve městě – endpoint pro web (newsletter + kontaktní formulář).
  *
  * Přidejte tento soubor do existujícího projektu Apps Scriptu s rozesílkou
- * newsletteru (vedle Code.gs a Admin.html). Pokud už Code.gs obsahuje funkci
- * doPost, je potřeba je sloučit – viz apps-script/README.md.
+ * newsletteru (vedle Code.gs a Admin.html). Funkce se jmenuje DoWebPost; společný
+ * doPost, který rozdělí požadavky mezi web a rozesílku, je v Router.gs.
  *
  * Nastavení (Project Settings → Script properties):
  *   SHEET_ID      ID Google tabulky odběratelů (z URL tabulky)
@@ -12,17 +12,17 @@
  *   SECRET        dlouhý náhodný text pro podepisování odkazů (vygenerujte funkcí vygenerujSecret)
  *
  * Listy v tabulce (vytvoří se samy, pokud chybí):
- *   Odběratelé: email | stav | datum přihlášení | datum potvrzení | datum odhlášení | zdroj | souhlas
+ *   Odběratele: email | stav | datum přihlášení | datum potvrzení | datum odhlášení | zdroj | souhlas
  *   Kontakt:    datum | jméno | email | téma | zpráva | souhlas
  *   Města:      datum | jméno | město | email | telefon | odkud o nás víte | poznámka | souhlas
  */
 
-var LIST_ODBERATELE = 'Odběratelé';
+var LIST_ODBERATELE = 'Odběratele';
 var LIST_KONTAKT = 'Kontakt';
 var LIST_MESTA = 'Města';
 var MIN_CAS_MS = 3000; // formulář vyplněný rychleji než za 3 s považujeme za robota
 
-function doPost(e) {
+function DoWebPost(e) {
   try {
     var data = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     switch (data.akce) {
