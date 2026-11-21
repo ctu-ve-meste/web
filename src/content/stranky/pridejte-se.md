@@ -26,6 +26,6 @@ Festival se šíří bez centrálního řízení. Místní tým si akce udělá 
 
 ## Co dodáme
 
-- **Formáty**, které fungují: obývák na náměstí, čtenářský přívoz, čtení pod dekou, Kafe&kniha a další z [našich formátů](/formaty/).
+- **Formáty**, které fungují: obývák na náměstí, čtenářský přívoz, čtení pod dekou, Kafe&kniha a další z [našich formátů](/formaty/). Celý katalog s podrobnostmi vám rádi pošleme.
 - **Vizuál**: logo, plakáty a grafiku od autora identity festivalu.
 - **Zkušenosti ze tří ročníků**: co se osvědčilo, co dopředu zařídit a jak o akci dát vědět.
