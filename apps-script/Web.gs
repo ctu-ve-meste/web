@@ -8,7 +8,8 @@
  * Funkce se jmenuje DoWebPost, protože doPost je jen jeden (v Code.gs) a volá DoWebPost
  * pro všechno, co není přihlášení k newsletteru. Viz apps-script/README.md.
  *
- * Script properties navíc: NOTIFY_EMAIL (kam chodí upozornění z formulářů).
+ * Script properties navíc: NOTIFY_EMAIL (kam chodí upozornění z formulářů) a volitelně
+ * FORMS_SHEET_ID (ID samostatné tabulky pro listy Kontakt a Města; bez ní se použije tabulka newsletteru).
  *
  * Listy (vytvoří se samy, pokud chybí):
  *   Kontakt:    datum | jméno | email | téma | zpráva | souhlas
@@ -98,7 +99,9 @@ function omezeni_(klic, kolik) {
 }
 
 function list_(nazev, hlavicka) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // volitelně samostatná tabulka pro kontakty a města: Script property FORMS_SHEET_ID
+  var id = PropertiesService.getScriptProperties().getProperty('FORMS_SHEET_ID');
+  var ss = id ? SpreadsheetApp.openById(id) : SpreadsheetApp.getActiveSpreadsheet();
   var list = ss.getSheetByName(nazev);
   if (!list) {
     list = ss.insertSheet(nazev);

@@ -5,7 +5,6 @@ dateEnd: 2024-09-08
 rocnik: 2024
 typ: festival
 mesto: frydek-mistek
-format: knihobudka
 misto:
   nazev: "celé město"
   adresa: "Frýdek-Místek"

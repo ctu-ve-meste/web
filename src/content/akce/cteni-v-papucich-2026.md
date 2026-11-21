@@ -6,7 +6,6 @@ timeEnd: "13:00"
 rocnik: 2026
 typ: festival
 mesto: frydek-mistek
-format: cteni-v-papucich
 misto:
   nazev: Vila Jaro Čermáka
   adresa: Palackého 202, Místek

@@ -5,7 +5,6 @@ timeStart: "20:00"
 rocnik: 2024
 typ: festival
 mesto: frydek-mistek
-format: nocni-cteni
 misto:
   nazev: "Antikvariát Pod Svícnem"
   adresa: "Frýdek"

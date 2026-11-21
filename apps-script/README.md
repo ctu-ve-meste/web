@@ -26,7 +26,9 @@ v jeho `Code.gs`). `Web.gs` přidává jen **kontaktní formulář** a **přihl�
 7. Adresu `/exec` nastav na GitHubu: Settings → Secrets and variables → Actions → **Variables** →
    `PUBLIC_APPS_SCRIPT_URL`, a spusť znovu nasazení webu (Actions → Nasazení na GitHub Pages → Run workflow).
 
-Listy `Kontakt` a `Města` se založí samy při první zprávě.
+Listy `Kontakt` a `Města` se založí samy při první zprávě. Ve výchozím stavu v tabulce newsletteru. Chceš-li je mít
+v samostatné tabulce, vytvoř novou Google tabulku a její ID (část URL mezi `/d/` a `/edit`) dej do Script property
+`FORMS_SHEET_ID`. Při dalším odeslání formuláře se listy založí tam. Starší řádky v původní tabulce zůstanou, případně je přesuň ručně.
 
 ## Ochrana proti spamu
 

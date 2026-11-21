@@ -17,7 +17,7 @@ const stav = { 'v-prodeji': 'V prodeji', pripravujeme: 'Připravujeme', 'na-akci
     <TextPanel>
       <div class="prose"><Content /></div>
       <p class="cta">
-        <a class="btn" href={`mailto:${config.email}?subject=Chci se přidat k dobrovolníkům`}>Chci být dobrovolník</a>
+        <a class="btn" href={url(`/kontakt/?tema=${encodeURIComponent('Chci pomáhat v týmu')}`)}>Chci být dobrovolník</a>
         <a class="btn btn--ghost" href={url('/partneri/')}>Partneři festivalu</a>
       </p>
       <Fragment slot="panel">

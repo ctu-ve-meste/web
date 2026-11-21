@@ -5,7 +5,7 @@
  */
 import type { ImageMetadata } from 'astro';
 import { Image, getImage } from 'astro:assets';
-import { config } from '../config';
+import { url } from '../lib/url';
 interface Foto { src: ImageMetadata; alt: string }
 interface Props { fotky: Foto[]; nazev?: string }
 const { fotky, nazev = 'Fotky' } = Astro.props;
@@ -30,7 +30,7 @@ const velke = await Promise.all(fotky.map((f) => getImage({ src: f.src, width: 2
     <button type="button" class="gallery__btn gallery__prev" aria-label="Předchozí fotka">‹</button>
     <button type="button" class="gallery__btn gallery__next" aria-label="Další fotka">›</button>
   </dialog>
-  <p class="gallery__pozn">Jste na fotce a nechcete tam být? <a href={`mailto:${config.email}?subject=${encodeURIComponent('Odstranění fotky')}`}>Napište nám</a> a fotku odstraníme.</p>
+  <p class="gallery__pozn">Jste na fotce a nechcete tam být? <a href={url(`/kontakt/?tema=${encodeURIComponent('Odstranění fotky')}`)}>Napište nám</a> a fotku odstraníme.</p>
 </div>
 
 <script>

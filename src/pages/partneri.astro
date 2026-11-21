@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { config } from '../config';
+import { url } from '../lib/url';
 import Kopirovat from '../components/Kopirovat.astro';
 const stranka = (await getEntry('stranky', 'partneri'))!;
 const { Content } = await render(stranka);
@@ -23,7 +24,7 @@ const partneri = (await getCollection('partneri')).sort((a, b) => a.data.poradi 
       ))}
     </ul>
     <p class="lead">Chcete se stát také partnerem? Ozvěte se nám.</p>
-    <p><a class="btn" href={`mailto:${config.email}?subject=Chci vás podpořit`}>Chci vás podpořit</a></p>
+    <p><a class="btn" href={url(`/kontakt/?tema=${encodeURIComponent('Partnerství a podpora')}`)}>Chci vás podpořit</a></p>
     <p class="muted">E-mail: <Kopirovat text={config.email} odkaz={`mailto:${config.email}?subject=Chci vás podpořit`} /></p>
   </section>
 </BaseLayout>
