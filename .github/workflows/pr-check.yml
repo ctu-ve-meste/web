@@ -20,6 +20,8 @@ jobs:
       - run: npm ci
       - name: Build (astro check + astro build, chyba v obsahu build shodí)
         run: npm run build
+        env:
+          PUBLIC_APPS_SCRIPT_URL: ${{ vars.PUBLIC_APPS_SCRIPT_URL }}
       - name: Kontrola interních odkazů
         run: npm run kontrola-odkazu
       - name: Kontrola přesměrování ze starého webu
