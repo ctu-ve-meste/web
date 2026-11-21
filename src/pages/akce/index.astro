@@ -2,10 +2,17 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import EventCard from '../../components/EventCard.astro';
+import { getCollection } from 'astro:content';
 import { vsechnyAkce, rokAkce } from '../../lib/akce';
 
 const akce = await vsechnyAkce();
 const roky = [...new Set(akce.map(rokAkce))].sort((a, b) => b - a);
+const pocetPodleMesta = new Map<string, number>();
+for (const a of akce) pocetPodleMesta.set(a.data.mesto.id, (pocetPodleMesta.get(a.data.mesto.id) ?? 0) + 1);
+// města seřazená podle počtu akcí (Frýdek-Místek první)
+const mesta = (await getCollection('mesta'))
+  .filter((m) => pocetPodleMesta.has(m.id))
+  .sort((a, b) => (pocetPodleMesta.get(b.id) ?? 0) - (pocetPodleMesta.get(a.id) ?? 0));
 ---
 <BaseLayout title="Všechny akce" description="Všechny akce festivalu Čtu ve městě a celoroční akce spolku, od roku 2024.">
   <section class="container section">
@@ -23,12 +30,18 @@ const roky = [...new Set(akce.map(rokAkce))].sort((a, b) => b - a);
         <label><input type="radio" name="typ" value="festival" /> Festival</label>
         <label><input type="radio" name="typ" value="celorocni" /> Během roku</label>
       </fieldset>
+      <fieldset>
+        <legend class="label">Město</legend>
+        <label><input type="radio" name="mesto" value="" checked /> Všechna</label>
+        {mesta.map((m) => <label><input type="radio" name="mesto" value={m.id} /> {m.data.nazev}</label>)}
+      </fieldset>
     </form>
     <p class="muted" aria-live="polite" data-pocet>{akce.length} akcí</p>
 
+    <p class="prazdno" data-prazdno hidden>Takovou akci jsme zatím nepořádali. Zkuste jiný filtr.</p>
     <ul class="grid" role="list">
       {akce.map((a) => (
-        <li data-rok={rokAkce(a)} data-typ={a.data.typ === 'festival' ? 'festival' : 'celorocni'}>
+        <li data-rok={rokAkce(a)} data-typ={a.data.typ === 'festival' ? 'festival' : 'celorocni'} data-mesto={a.data.mesto.id}>
           <EventCard akce={a} headingLevel="h2" />
         </li>
       ))}
@@ -46,21 +59,25 @@ const roky = [...new Set(akce.map(rokAkce))].sort((a, b) => b - a);
     const fd = new FormData(form);
     const rok = fd.get('rok');
     const typ = fd.get('typ');
+    const mesto = fd.get('mesto');
     let n = 0;
     items.forEach((li) => {
-      const ok = (!rok || li.dataset.rok === rok) && (!typ || li.dataset.typ === typ);
+      const ok = (!rok || li.dataset.rok === rok) && (!typ || li.dataset.typ === typ) && (!mesto || li.dataset.mesto === mesto);
       li.hidden = !ok;
       if (ok) n++;
     });
     if (pocet) pocet.textContent = `${n} ${sklon(n)}`;
+    const prazdno = document.querySelector<HTMLElement>('[data-prazdno]');
+    if (prazdno) prazdno.hidden = n > 0;
     const params = new URLSearchParams();
     if (rok) params.set('rok', String(rok));
     if (typ) params.set('typ', String(typ));
+    if (mesto) params.set('mesto', String(mesto));
     history.replaceState(null, '', params.size ? `?${params}` : location.pathname);
   };
   if (form) {
     const p = new URLSearchParams(location.search);
-    for (const k of ['rok', 'typ']) {
+    for (const k of ['rok', 'typ', 'mesto']) {
       const v = p.get(k);
       const input = v && form.querySelector<HTMLInputElement>(`input[name="${k}"][value="${CSS.escape(v)}"]`);
       if (input) input.checked = true;

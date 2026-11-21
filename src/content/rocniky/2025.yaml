@@ -4,8 +4,7 @@ od: 2025-09-04
 do: 2025-09-07
 barva: "#ABFF93"
 nazevBarvy: zelená
-mesta: [frydek-mistek, tisnov]
-dalsiMesta: [Göteborg (Švédsko), Ostravice, Těrlicko]
+mesta: [frydek-mistek, tisnov, ostravice, terlicko, goteborg]
 perex: "Pět měst, až po Göteborg. Poprvé se přidala další města."
 fotky:
   - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-na-svobode-01.webp

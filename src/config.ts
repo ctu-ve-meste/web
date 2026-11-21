@@ -23,6 +23,8 @@ export const config = {
   logoZahlavi: 'rozsirene' as 'rozsirene' | 'zakladni',
 
   email: 'ctuvemeste.cz@gmail.com',
+  /** Kontakt pro ruční přihlášení k newsletteru (dokud neběží formulář přes Apps Script). */
+  emailNewsletter: 'tobias.otta@ctuvemeste.cz',
   spolek: {
     nazev: 'Čtu ve městě, z.s.',
     ico: '22293752',
