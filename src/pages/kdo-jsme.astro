@@ -13,7 +13,7 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
   <section class="container section">
     <SectionHeading as="h1" label="KDO JSME" spines>Lidi z města</SectionHeading>
     <div class="prose lead"><Content /></div>
-    <p><a href={url('/manifest/')}>Přečtěte si náš manifest →</a></p>
+    <p><a href={url('/manifest/')}>Přečtěte si náš manifest <span aria-hidden="true">→</span></a></p>
   </section>
 
   <section class="container section pribeh reveal">
@@ -23,7 +23,7 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
         Festival vznikl jednou zprávou. Jan Becher z knihkupectví Kapitola napsal branding designérovi Marku Vlčkovi.
       </p>
       <p class="prose muted">
-        Žádný rozpočet, žádná instituce — jen knihkupec, designér a chuť udělat čtení ve městě viditelné.
+        V roce 2024 to začalo bez rozpočtu a bez instituce — jen knihkupec, designér a chuť udělat čtení ve městě viditelné.
       </p>
     </div>
     <Chat
@@ -51,11 +51,12 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
         </li>
       ))}
     </ul>
-    <p class="muted">Tým se schází v knihkupectví Kapitola, kde vymýšlí další akce.</p>
+    <p class="muted pozn">Tým se schází v knihkupectví Kapitola, kde vymýšlí další akce.</p>
   </section>
 </BaseLayout>
 
 <style>
+  .pozn { margin-top: var(--space-4); }
   .pribeh { display: grid; gap: var(--space-5); }
   .foto { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); margin-bottom: var(--space-3); }
   @media (min-width: 64rem) { .pribeh { grid-template-columns: 1fr 1fr; align-items: start; } }

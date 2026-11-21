@@ -6,6 +6,7 @@ import { vsechnyAkce } from '../lib/akce';
 import { url } from '../lib/url';
 const formaty = (await getCollection('formaty')).sort((a, b) => a.data.poradi - b.data.poradi);
 const akce = await vsechnyAkce();
+const mestaNazvy = new Map((await getCollection('mesta')).map((m) => [m.id, m.data.nazev]));
 ---
 <BaseLayout title="Slovníček formátů" description="Opakující se formáty festivalu Čtu ve městě, které si můžete vyzkoušet i ve svém městě.">
   <section class="container section">
@@ -21,7 +22,7 @@ const akce = await vsechnyAkce();
             {probehle.length > 0 && (
               <p class="small">
                 <span class="label muted">Proběhlo: </span>
-                {probehle.map((a, i) => <>{i > 0 && ', '}<a href={url(`/akce/${a.id}/`)}>{a.data.date.getUTCFullYear()}</a></>)}
+                {probehle.map((a, i) => <>{i > 0 && ', '}<a href={url(`/akce/${a.id}/`)}>{a.data.date.getUTCFullYear()}{a.data.mesto.id !== 'frydek-mistek' && ` (${mestaNazvy.get(a.data.mesto.id) ?? a.data.mesto.id})`}</a></>)}
               </p>
             )}
           </li>
@@ -34,7 +35,7 @@ const akce = await vsechnyAkce();
 <style>
   .lead { font-size: var(--fs-lead); }
   .formaty { list-style: none; padding: 0; margin: var(--space-5) 0 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
-  .formaty li { background: var(--gray-1); padding: var(--space-4); border-radius: var(--radius); }
+  .formaty li { background: var(--gray-1); padding: var(--space-4); border: var(--border); border-radius: var(--radius-card); }
   .formaty h2 { font-size: var(--fs-h3); }
   .small { font-size: var(--fs-small); margin: 0; }
 </style>

@@ -57,6 +57,8 @@ const akce = defineCollection({
         zruseno: z.boolean().default(false),
         cover: image().optional(),
         coverAlt: z.string().optional(),
+        /** 'contain' pro plakáty, aby se neořízl text. */
+        coverFit: z.enum(['cover', 'contain']).default('cover'),
         galerie: z
           .array(z.object({ src: image(), alt: z.string() }))
           .max(12, 'Galerie akce má mít nejvýš 12 fotek.')

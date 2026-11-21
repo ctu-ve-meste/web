@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { config } from '../config';
 import KontaktForm from '../components/KontaktForm.astro';
+import Kopirovat from '../components/Kopirovat.astro';
 const s = (await getEntry('stranky', 'kontakt'))!;
 const { Content } = await render(s);
 ---
@@ -12,7 +13,7 @@ const { Content } = await render(s);
     <SectionHeading as="h1" label="KONTAKT" spines>Ozvěte se nám</SectionHeading>
     <div class="kontakt">
       <div>
-        <p class="lead"><a href={`mailto:${config.email}`}>{config.email}</a></p>
+        <p class="lead"><Kopirovat text={config.email} odkaz={`mailto:${config.email}`} velky /></p>
         <p>
           <a href={config.site.instagram} rel="noopener">Instagram</a>{' · '}
           <a href={config.site.facebook} rel="noopener">Facebook</a>{' · '}

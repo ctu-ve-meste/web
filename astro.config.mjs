@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { unified } from '@astrojs/markdown-remark';
 import { redirects } from './src/redirects.ts';
 
 // Dokud web neběží na vlastní doméně, je na https://ctu-ve-meste.github.io/web/.
@@ -9,15 +10,28 @@ import { redirects } from './src/redirects.ts';
 const site = process.env.SITE ?? 'https://ctu-ve-meste.github.io';
 const base = process.env.BASE ?? '/web';
 
-/** Doplní base k interním odkazům v Markdownu ([text](/formaty/) → /web/formaty/). */
-function rehypeBase() {
+/**
+ * Úpravy HTML z Markdownu:
+ *  - interní odkazy dostanou base ([text](/formaty/) → /web/formaty/),
+ *  - nadpisy h2 dostanou tečku v barvě akcentu (jen když nekončí ? ! . … nebo uvozovkou),
+ *  - za jednopísmenné předložky a spojky se vloží pevná mezera (česká sazba).
+ */
+function rehypeCtu() {
   const prefix = base.replace(/\/$/, '');
+  const nbsp = (/** @type {string} */ t) => t.replace(/(^|[\s(„])([ksvzaiouKSVZAIOU])\s+/g, '$1$2\u00a0');
   /** @param {any} node */
   const walk = (node) => {
+    if (node.type === 'text' && typeof node.value === 'string') node.value = nbsp(node.value);
     if (node.type === 'element' && node.tagName === 'a') {
       const href = node.properties?.href;
       if (typeof href === 'string' && href.startsWith('/') && !href.startsWith('//') && prefix && !href.startsWith(`${prefix}/`)) {
         node.properties.href = `${prefix}${href}`;
+      }
+    }
+    if (node.type === 'element' && node.tagName === 'h2') {
+      const text = JSON.stringify(node).match(/"value":"([^"]*)"/g)?.pop() ?? '';
+      if (!/[?!.…“"]"$/.test(text)) {
+        node.children.push({ type: 'element', tagName: 'span', properties: { className: ['dot'], ariaHidden: 'true' }, children: [{ type: 'text', value: '.' }] });
       }
     }
     node.children?.forEach(walk);
@@ -27,7 +41,7 @@ function rehypeBase() {
 
 export default defineConfig({
   markdown: {
-    rehypePlugins: [rehypeBase],
+    processor: unified({ rehypePlugins: [rehypeCtu] }),
   },
   site,
   base,

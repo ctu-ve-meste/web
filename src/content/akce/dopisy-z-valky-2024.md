@@ -10,6 +10,7 @@ misto:
   adresa: "Kostíkovo náměstí, Frýdek"
 # proKoho: na starém webu u této akce nebylo
 cover: ../../assets/fotky/2024/2024-frydek-mistek-dopisy-z-valky-01.webp
+coverFit: contain
 coverAlt: "Pozvánka na čtení Dopisy z války"
 ---
 

@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { config } from '../config';
+import Kopirovat from '../components/Kopirovat.astro';
 const stranka = (await getEntry('stranky', 'partneri'))!;
 const { Content } = await render(stranka);
 const partneri = (await getCollection('partneri')).sort((a, b) => a.data.poradi - b.data.poradi);
@@ -23,11 +24,12 @@ const partneri = (await getCollection('partneri')).sort((a, b) => a.data.poradi 
     </ul>
     <p class="lead">Chcete se stát také partnerem? Ozvěte se nám.</p>
     <p><a class="btn" href={`mailto:${config.email}?subject=Chci vás podpořit`}>Chci vás podpořit</a></p>
+    <p class="muted">E-mail: <Kopirovat text={config.email} odkaz={`mailto:${config.email}?subject=Chci vás podpořit`} /></p>
   </section>
 </BaseLayout>
 
 <style>
   .lead { font-size: var(--fs-lead); }
-  .partneri { list-style: none; padding: 0; margin: var(--space-5) 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
-  .partneri a { display: flex; align-items: center; justify-content: center; min-height: 7rem; padding: var(--space-3); border: 1px solid var(--gray-2); border-radius: var(--radius); text-align: center; font-family: var(--font-head); font-weight: 700; text-decoration: none; }
+  .partneri { list-style: none; padding: 0; margin: var(--space-5) 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
+  .partneri a { display: flex; align-items: center; justify-content: center; min-height: 7rem; padding: var(--space-3); border: var(--border); border-radius: var(--radius-card); background: var(--gray-1); text-align: center; font-family: var(--font-head); font-weight: 700; text-decoration: none; }
 </style>

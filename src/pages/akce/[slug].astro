@@ -3,7 +3,10 @@ import { getCollection, getEntry, render } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Gallery from '../../components/Gallery.astro';
-import { casAkce, type Akce } from '../../lib/akce';
+import { casAkce, jeMinula, vsechnyAkce, chronologicky, type Akce } from '../../lib/akce';
+import EventCard from '../../components/EventCard.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import BookSpines from '../../components/BookSpines.astro';
 import { datumDlouze, rozsah, isoDatum, isoPraha } from '../../lib/datum';
 import { absUrl, url } from '../../lib/url';
 
@@ -22,7 +25,12 @@ const kdy = d.dateEnd ? rozsah(d.date, d.dateEnd) : datumDlouze(d.date);
 const cas = casAkce(akce);
 const ogImage = d.cover ? (await getImage({ src: d.cover, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src : undefined;
 const popis = `${d.title} – ${kdy}${cas ? `, ${cas}` : ''}, ${d.misto.nazev}.${d.proKoho ? ` ${d.proKoho}` : ''}`.slice(0, 160);
-const minula = (d.dateEnd ?? d.date).getTime() < Date.now() - 86400000;
+const minula = jeMinula(akce);
+// Další akce stejného ročníku (nebo stejného roku u celoročních), max. 3
+const vse = await vsechnyAkce();
+const souvisejici = chronologicky(
+  vse.filter((a) => a.id !== akce.id && (d.rocnik ? a.data.rocnik?.id === d.rocnik.id : !a.data.rocnik && a.data.date.getUTCFullYear() === d.date.getUTCFullYear())),
+).slice(0, 3);
 
 const startIso = d.timeStart ? isoPraha(d.date, d.timeStart) : isoDatum(d.date);
 const endIso = d.timeEnd ? isoPraha(d.dateEnd ?? d.date, d.timeEnd) : d.dateEnd ? isoDatum(d.dateEnd) : undefined;
@@ -35,7 +43,7 @@ const event = {
   eventStatus: d.zruseno ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   isAccessibleForFree: !d.vstupne,
-  description: d.proKoho ?? `${d.title}, ${d.misto.nazev}`,
+  description: (akce.body ?? '').replace(/[#*_>\[\]()]/g, '').trim().split('\n')[0].slice(0, 300) || d.proKoho || `${d.title}, ${d.misto.nazev}`,
   url: absUrl(`/akce/${akce.id}/`, Astro.site),
   location: {
     '@type': 'Place',
@@ -47,20 +55,23 @@ const event = {
   ...(rocnik && { superEvent: { '@type': 'Festival', name: `Čtu ve městě ${rocnik.data.rok} (${rocnik.data.cislo}. ročník)`, url: absUrl(`/rocniky/${rocnik.data.rok}/`, Astro.site) } }),
 };
 ---
-<BaseLayout title={d.title} description={popis} image={ogImage} accent={rocnik?.data.barva} jsonLd={event}>
+<BaseLayout title={d.title} description={popis} image={ogImage} imageAlt={d.coverAlt} accent={rocnik?.data.barva} jsonLd={event}>
   <article class="akce">
     <header class="container akce__head">
-      <p class="label muted">
+      <p class="akce__zpet"><a href={url('/akce/')}><span aria-hidden="true">←</span> Všechny akce</a></p>
+      <p class="label label--accent">
         {rocnik ? <a href={url(`/rocniky/${rocnik.data.rok}/`)}>{rocnik.data.cislo}. ročník {rocnik.data.rok}</a> : 'Akce během roku'}
         {mesto && <> · {mesto.data.aktivni ? <a href={url(`/mesta/${mesto.id}/`)}>{mesto.data.nazev}</a> : mesto.data.nazev}</>}
       </p>
       <h1>{d.title}<span class="dot">.</span></h1>
       {d.zruseno && <p class="akce__flag label">Zrušeno</p>}
+      {!d.zruseno && minula && <p class="akce__flag akce__flag--minula label">Proběhlo</p>}
     </header>
 
+    {!d.cover && <BookSpines varianta="pas" akcent class="akce__spines" />}
     {d.cover && (
       <div class="container">
-        <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[800, 1400, 2000]} sizes="(min-width: 75rem) 75rem, 100vw" class="akce__cover" loading="eager" />
+        <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[800, 1400, 2000]} sizes="(min-width: 75rem) 75rem, 100vw" class:list={['akce__cover', { 'akce__cover--plakat': d.coverFit === 'contain' }]} loading="eager" />
       </div>
     )}
 
@@ -71,7 +82,7 @@ const event = {
           <dd>{kdy}{cas && <><br />{cas}</>}</dd>
           <dt class="label">Kde</dt>
           <dd>
-            {d.misto.nazev}{d.misto.adresa && <><br /><span class="muted">{d.misto.adresa}</span></>}
+            {d.misto.adresa?.startsWith(d.misto.nazev) ? d.misto.adresa : <>{d.misto.nazev}{d.misto.adresa && <><br /><span class="muted">{d.misto.adresa}</span></>}</>}
             {d.misto.mapa && <><br /><a href={d.misto.mapa} rel="noopener">Ukázat na mapě</a></>}
           </dd>
           <dt class="label">Vstup</dt>
@@ -79,7 +90,7 @@ const event = {
         </dl>
         {d.registrace && (
           d.registrace.vyprodano
-            ? <p class="akce__flag label">Vyprodáno</p>
+            ? !minula && <p class="akce__flag label">Vyprodáno</p>
             : d.registrace.url && !minula && <a class="btn" href={d.registrace.url} rel="noopener">Registrovat se</a>
         )}
         {!minula && <p><a class="btn btn--ghost" href={url(`/akce/${akce.id}.ics`)} download>Přidat do kalendáře</a></p>}
@@ -106,12 +117,22 @@ const event = {
         <Gallery fotky={d.galerie} nazev={`Fotky: ${d.title}`} />
       </section>
     )}
+    {souvisejici.length > 0 && (
+      <section class="container section">
+        <SectionHeading label={rocnik ? `${rocnik.data.cislo}. ROČNÍK ${rocnik.data.rok}` : `AKCE ${d.date.getUTCFullYear()}`}>Další akce</SectionHeading>
+        <ul class="grid-cards" role="list">{souvisejici.map((a) => <li><EventCard akce={a} /></li>)}</ul>
+        <p class="dalsi"><a href={url(rocnik ? `/rocniky/${rocnik.data.rok}/` : '/akce/')}>{rocnik ? `Celý ${rocnik.data.cislo}. ročník →` : 'Všechny akce →'}</a></p>
+      </section>
+    )}
   </article>
 </BaseLayout>
 
 <style>
   .akce__head { padding-top: var(--space-6); padding-bottom: var(--space-4); }
   .akce__head a { text-decoration: none; }
+  .akce__cover--plakat { object-fit: contain; max-height: 70vh; background: var(--black); }
+  .akce__zpet { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-small); margin-bottom: var(--space-4); }
+  .akce__zpet a { text-decoration: none; }
   .akce__cover { width: 100%; max-height: 80vh; object-fit: cover; border-radius: var(--radius); }
   .akce__layout { display: grid; gap: var(--space-5); padding-block: var(--space-5); }
   .akce__info dl { margin: 0 0 var(--space-4); }
@@ -119,6 +140,8 @@ const event = {
   .akce__info dd { margin: 0; }
   .akce__info .btn { margin-top: var(--space-2); }
   .akce__flag { display: inline-block; background: var(--fg); color: var(--black); padding: 0.2em 0.6em; border-radius: var(--radius); }
+  .akce__flag--minula { background: transparent; color: var(--fg); border: 1px solid var(--gray-3); }
+  .dalsi { margin-top: var(--space-4); }
   .akce__prokoho-nadpis { font-size: var(--fs-h3); margin-top: var(--space-5); }
   .akce__poznamka { border-left: 3px solid var(--accent); padding-left: var(--space-3); }
   @media (min-width: 64rem) {

@@ -5,7 +5,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import EventCard from '../components/EventCard.astro';
 import BookSpines from '../components/BookSpines.astro';
-import Logo from '../components/Logo.astro';
 import BigNumber from '../components/BigNumber.astro';
 import RocnikList from '../components/RocnikList.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
@@ -31,7 +30,6 @@ const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).so
   <section class="hero">
     <BookSpines varianta="vypln" radku={7} class="hero__bg" />
     <div class="container hero__inner">
-      <div class:list={['hero__logo', { 'hero__logo--jen-mobil': config.logoZahlavi === 'rozsirene' }]}><Logo varianta="rozsirene" /></div>
       <p class="label hero__status">
         <span class="hero__dot" aria-hidden="true"></span>
         {budouci.length
@@ -40,8 +38,12 @@ const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).so
       </p>
       <h1 class="hero__title">Festival, kde hvězdy nic nepředvádějí. Jen čtou<span class="dot">.</span></h1>
       <p class="hero__cta">
-        <a class="btn" href={url('/program/')}>Program</a>
-        <a class="btn btn--ghost" href={url('/pridejte-se/')}>Chci čtení i u nás</a>
+        {budouci.length ? (
+          <a class="btn" href={url('/program/')}>Program</a>
+        ) : (
+          <a class="btn" href={config.site.instagram} rel="noopener">Sledujte nás na Instagramu</a>
+        )}
+        <a class="btn btn--ghost" href={url('/akce/')}>Co jsme už přečetli</a>
       </p>
     </div>
   </section>
@@ -49,7 +51,7 @@ const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).so
   {velkaFotka && sFotkou && (
     <figure class="velka-fotka">
       <Image src={velkaFotka.src} alt={velkaFotka.alt} widths={[800, 1400, 2000, 2400]} sizes="100vw" loading="eager" fetchpriority="high" />
-      <figcaption class="container small muted">{sFotkou.data.cislo}. ročník {sFotkou.data.rok}</figcaption>
+      <figcaption class="container small muted">{velkaFotka.alt} · <a href={url(`/rocniky/${sFotkou.data.rok}/`)}>{sFotkou.data.cislo}. ročník {sFotkou.data.rok}</a></figcaption>
     </figure>
   )}
 
@@ -69,7 +71,7 @@ const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).so
     <ul class="grid-cards" role="list">
       {karty.map((a) => <li><EventCard akce={a} /></li>)}
     </ul>
-    <p class="vice"><a href={url('/akce/')}>Všechny akce →</a></p>
+    <p class="vice"><a href={url('/akce/')}>Všechny akce <span aria-hidden="true">→</span></a></p>
   </section>
 
   {stranka.data.cisla.length > 0 && (
@@ -98,17 +100,14 @@ const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).so
     <ul role="list">
       {partneri.map((p) => <li>{p.data.url ? <a href={p.data.url} rel="noopener">{p.data.nazev}</a> : p.data.nazev}</li>)}
     </ul>
-    <p><a href={url('/partneri/')}>Partneři festivalu →</a></p>
+    <p><a href={url('/partneri/')}>Partneři festivalu <span aria-hidden="true">→</span></a></p>
   </section>
 </BaseLayout>
 
 <style>
   .hero { position: relative; overflow: hidden; }
   .hero :global(.hero__bg) { position: absolute; inset: 0; pointer-events: none; }
-  .hero__inner { position: relative; padding-block: var(--space-6); }
-  .hero__logo { width: min(16rem, 60vw); margin-bottom: var(--space-5); }
-  /* na desktopu je rozšířené logo v záhlaví, v úvodu by se opakovalo */
-  @media (min-width: 64rem) { .hero__logo--jen-mobil { display: none; } }
+  .hero__inner { position: relative; padding-block: var(--space-5) var(--space-6); }
   .hero__status { display: flex; align-items: center; gap: var(--space-2); }
   .hero__dot { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--accent); flex: none; }
   .hero__title { max-width: 14ch; }

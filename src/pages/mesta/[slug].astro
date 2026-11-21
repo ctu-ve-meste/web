@@ -3,7 +3,8 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import EventCard from '../../components/EventCard.astro';
-import { vsechnyAkce, rokAkce } from '../../lib/akce';
+import { vsechnyAkce } from '../../lib/akce';
+import { url } from '../../lib/url';
 
 export async function getStaticPaths() {
   const mesta = await getCollection('mesta', (m) => m.data.aktivni);
@@ -13,7 +14,8 @@ const { mesto } = Astro.props as { mesto: CollectionEntry<'mesta'> };
 const m = mesto.data;
 const { Content } = await render(mesto);
 const akce = (await vsechnyAkce()).filter((a) => a.data.mesto.id === mesto.id);
-const poRocich = Map.groupBy(akce, rokAkce);
+const LIMIT = 6;
+const posledni = akce.slice(0, LIMIT);
 ---
 <BaseLayout title={m.nazev} description={`Čtu ve městě – ${m.nazev}. ${m.perex}`}>
   <section class="container section">
@@ -33,15 +35,19 @@ const poRocich = Map.groupBy(akce, rokAkce);
       )}
     </div>
   </section>
-  {[...poRocich.entries()].map(([rok, seznam]) => (
+  {posledni.length > 0 && (
     <section class="container section">
-      <SectionHeading label="AKCE">{String(rok)}</SectionHeading>
-      <ul class="grid" role="list">{seznam.map((a) => <li><EventCard akce={a} /></li>)}</ul>
+      <SectionHeading label="AKCE">Naposledy se četlo</SectionHeading>
+      <ul class="grid" role="list">{posledni.map((a) => <li><EventCard akce={a} /></li>)}</ul>
+      {akce.length > LIMIT && (
+        <p class="vsechny"><a class="btn btn--ghost" href={url(`/akce/?mesto=${mesto.id}`)}>Všech {akce.length} akcí v {m.nazev === 'Frýdek-Místek' ? 'Frýdku-Místku' : m.nazev === 'Tišnov' ? 'Tišnově' : m.nazev} <span aria-hidden="true">→</span></a></p>
+      )}
     </section>
-  ))}
+  )}
 </BaseLayout>
 
 <style>
   .lead { font-size: var(--fs-lead); }
+  .vsechny { margin-top: var(--space-4); }
   .grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
 </style>

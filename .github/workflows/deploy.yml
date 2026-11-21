@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Každý den ráno znovu sestavit web, aby se proběhlé akce přesunuly z „nejbližších“ do archivu.
+  schedule:
+    - cron: '17 3 * * *'
 
 permissions:
   contents: read

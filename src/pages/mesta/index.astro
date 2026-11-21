@@ -3,6 +3,10 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import { url } from '../../lib/url';
+import { Image } from 'astro:assets';
+import { vsechnyAkce } from '../../lib/akce';
+const akce = await vsechnyAkce();
+const foto = (id: string) => akce.find((a) => a.data.mesto.id === id && a.data.cover)?.data.cover;
 const mesta = (await getCollection('mesta', (m) => m.data.aktivni)).sort((a, b) => a.data.odRoku - b.data.odRoku);
 ---
 <BaseLayout title="Města" description="Kde všude se čte. Čtu ve městě se šíří do dalších měst, každé si ho dělá po svém.">
@@ -12,8 +16,9 @@ const mesta = (await getCollection('mesta', (m) => m.data.aktivni)).sort((a, b) 
       {mesta.map((m) => (
         <li>
           <a href={url(`/mesta/${m.id}/`)}>
-            <span class="label muted">od roku {m.data.odRoku}</span>
-            <span class="nazev">{m.data.nazev}</span>
+            {foto(m.id) && <Image src={foto(m.id)!} alt="" widths={[400, 800]} sizes="(min-width: 64rem) 30vw, 100vw" class="foto" />}
+            <h2 class="nazev">{m.data.nazev}</h2>
+            <span class="label muted od">od roku {m.data.odRoku}</span>
             {m.data.partner && <span>{m.data.partner.nazev}</span>}
           </a>
         </li>
@@ -26,12 +31,18 @@ const mesta = (await getCollection('mesta', (m) => m.data.aktivni)).sort((a, b) 
         </a>
       </li>
     </ul>
+    <p class="drive">Ve 2. ročníku (2025) se četlo i v Ostravici, Těrlicku a švédském Göteborgu. <a href={url('/rocniky/2025/')}>Podívejte se do archivu 2025 <span aria-hidden="true">→</span></a></p>
   </section>
 </BaseLayout>
 
 <style>
   .mesta { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
-  .mesta a { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); background: var(--gray-1); border-radius: var(--radius); text-decoration: none; height: 100%; }
-  .nazev { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h3); }
+  .mesta a { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); background: var(--gray-1); border: var(--border); border-radius: var(--radius-card); overflow: hidden; text-decoration: none; height: 100%; }
+  .foto { order: 0; width: calc(100% + 2 * var(--space-4)); margin: calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) var(--space-2); aspect-ratio: 3 / 2; object-fit: cover; max-width: none; }
+  .nazev { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h3); margin: 0; order: 2; }
+  .od { order: 1; }
+  .mesta a > :not(.nazev):not(.od):not(.foto) { order: 3; }
+  .mesta a > .foto { order: -1; }
+  .drive { margin-top: var(--space-5); max-width: var(--max-w-text); }
   .vase a { background: transparent; border: 2px dashed var(--accent); }
 </style>

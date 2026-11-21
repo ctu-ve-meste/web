@@ -22,8 +22,8 @@ const velke = await Promise.all(fotky.map((f) => getImage({ src: f.src, width: 2
   </ul>
   <dialog class="gallery__dialog" aria-label={nazev}>
     <figure>
-      <img alt="" />
-      <figcaption></figcaption>
+      <img alt="" hidden />
+      <figcaption aria-live="polite"></figcaption>
     </figure>
     <button type="button" class="gallery__btn gallery__close" aria-label="Zavřít">×</button>
     <button type="button" class="gallery__btn gallery__prev" aria-label="Předchozí fotka">‹</button>
@@ -41,7 +41,9 @@ const velke = await Promise.all(fotky.map((f) => getImage({ src: f.src, width: 2
     const show = (n: number) => {
       i = (n + links.length) % links.length;
       img.src = links[i].href;
-      img.alt = links[i].dataset.alt ?? '';
+      img.hidden = false;
+      // popis čte figcaption (živý region), obrázek ho neopakuje
+      img.alt = '';
       cap.textContent = `${links[i].dataset.alt ?? ''} (${i + 1}/${links.length})`;
     };
     links.forEach((a, n) =>
@@ -49,6 +51,7 @@ const velke = await Promise.all(fotky.map((f) => getImage({ src: f.src, width: 2
         e.preventDefault();
         show(n);
         dlg.showModal();
+        document.body.style.overflow = 'hidden';
       }),
     );
     dlg.querySelector('.gallery__close')!.addEventListener('click', () => dlg.close());
@@ -67,12 +70,16 @@ const velke = await Promise.all(fotky.map((f) => getImage({ src: f.src, width: 2
       if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
       x0 = null;
     });
-    dlg.addEventListener('close', () => links[i]?.focus());
+    dlg.addEventListener('close', () => {
+      document.body.style.overflow = '';
+      links[i]?.focus();
+    });
   });
 </script>
 
 <style>
-  .gallery__grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(min(45%, 14rem), 1fr)); }
+  .gallery__grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(min(45%, 14rem), 1fr)); grid-auto-flow: dense; }
+  .gallery__grid > li:first-child { grid-column: span 2; grid-row: span 2; }
   .gallery__thumb { display: block; overflow: hidden; border-radius: var(--radius); }
   .gallery__thumb :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform 0.3s var(--ease); }
   .gallery__thumb:hover :global(img) { transform: scale(1.03); }

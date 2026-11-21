@@ -20,7 +20,7 @@ const { label, as: Tag = 'h2', spines = false, id } = Astro.props;
       {label}{spines && <BookSpines varianta="doplnek" />}
     </p>
   )}
-  <Tag id={id} class="section-heading__title"><slot /><span class="dot">.</span></Tag>
+  <Tag id={id} class="section-heading__title"><slot /><span class="dot" aria-hidden="true">.</span></Tag>
 </div>
 
 <style>

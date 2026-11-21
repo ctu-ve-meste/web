@@ -14,6 +14,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -135,6 +139,9 @@ svg {
 .js-reveal .reveal.is-visible {
   opacity: 1;
   transform: none;
+}
+@media print {
+  .js-reveal .reveal { opacity: 1; transform: none; }
 }
 
 .field {
@@ -263,10 +270,7 @@ svg {
   font-size: var(--fs-h3);
   margin-top: var(--space-5);
 }
-.prose h2:not(:has(.dot))::after {
-  content: '.';
-  color: var(--accent);
-}
+
 .prose ul {
   padding-left: 1.2em;
   margin: 0 0 var(--space-3);
@@ -288,3 +292,10 @@ svg {
   font-style: normal;
   color: var(--text-muted);
 }
+
+/* dlouhé e-maily a čísla se nesmí roztáhnout přes šířku displeje */
+dd { overflow-wrap: anywhere; }
+@media (max-width: 40rem) {
+  a[href^='mailto:'] { overflow-wrap: anywhere; }
+}
+.nowrap { white-space: nowrap; }

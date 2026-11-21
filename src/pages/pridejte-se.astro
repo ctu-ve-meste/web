@@ -1,12 +1,15 @@
 ---
 import { getEntry, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import BigNumber from '../components/BigNumber.astro';
-import BookSpines from '../components/BookSpines.astro';
 import { config } from '../config';
 import { url } from '../lib/url';
+import Kopirovat from '../components/Kopirovat.astro';
 const s = (await getEntry('stranky', 'pridejte-se'))!;
+const r2026 = (await getEntry('rocniky', '2026'))!;
+const fotka = r2026.data.fotky[3] ?? r2026.data.fotky[0];
 const { Content } = await render(s);
 const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu ve městě i u nás')}`;
 ---
@@ -18,9 +21,14 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
       <a class="btn" href={mailto}>Ozvěte se nám</a>
       <a class="btn btn--ghost" href={url('/manifest/')}>Přečtěte si manifest</a>
     </p>
+    <p class="muted">E-mail: <Kopirovat text={config.email} odkaz={mailto} /></p>
   </section>
 
-  <BookSpines varianta="pas" class="spines-gray" />
+  {fotka && (
+    <figure class="container fotka">
+      <Image src={fotka.src} alt={fotka.alt} widths={[800, 1400, 2000]} sizes="(min-width: 75rem) 75rem, 100vw" />
+    </figure>
+  )}
 
   <section class="container section reveal">
     <SectionHeading label="PROČ SE PŘIDAT">Festival se děje ve vašich ulicích</SectionHeading>
@@ -32,7 +40,11 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
         </li>
       ))}
     </ul>
-    <p class="pointa">Podniky nejsou sponzoři. Jsou scény<span class="dot">.</span></p>
+  </section>
+
+  <section class="container section reveal">
+    <SectionHeading label="KDE SE TO DĚJE">Podniky nejsou sponzoři. Jsou scény</SectionHeading>
+    <p class="prose lead">Festival nemá areál — má město. Čte se v knihkupectví, kavárně, obchůdku, kostele i na lodičkách. Ve 3. ročníku takhle festival neslo <strong class="akcent">13 lokálních podniků a institucí</strong>.</p>
   </section>
 
   <section class="container section reveal">
@@ -49,12 +61,14 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
       <a class="btn" href={mailto}>Chci čtení i u nás</a>
       <a class="btn btn--ghost" href={url('/mesta/')}>Další města</a>
     </p>
+    <p class="muted">Napište nám, kde a kdy by se u vás mohlo číst, a ozveme se. E-mail: <Kopirovat text={config.email} odkaz={mailto} /></p>
   </section>
 </BaseLayout>
 
 <style>
   .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
   .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
-  .pointa { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: 1.1; margin-top: var(--space-5); }
-  :global(.spines-gray) { color: var(--gray-3); }
+  .fotka { margin-block: 0 var(--space-5); }
+  .fotka :global(img) { width: 100%; max-height: 70vh; object-fit: cover; border-radius: var(--radius-card); }
+  .akcent { color: var(--accent); font-weight: 700; }
 </style>

@@ -41,10 +41,15 @@ const isActive = (href: string) => !demo && current.startsWith(url(href));
       <nav aria-label="Hlavní navigace (mobil)" class="container">
         <ul>
           {navigace.map((n) => (
-            <li><a href={url(n.href)} aria-current={isActive(n.href) ? 'page' : undefined}>{n.text}<span class="dot">.</span></a></li>
+            <li><a href={url(n.href)} aria-current={isActive(n.href) ? 'page' : undefined}>{n.text}<span class="dot" aria-hidden="true">.</span></a></li>
           ))}
         </ul>
         <a href={url(navigaceTlacitko.href)} class="btn">{navigaceTlacitko.text}</a>
+        <p class="mobile-menu__dalsi">
+          <a href={config.site.instagram} rel="noopener">Instagram</a>
+          <a href={url('/newsletter/')}>Newsletter</a>
+          <a href={url('/kafe-a-kniha/')}>Kafe&kniha</a>
+        </p>
       </nav>
     </div>
   )}
@@ -65,6 +70,8 @@ const isActive = (href: string) => !demo && current.startsWith(url(href));
       btn.querySelector('.menu-toggle__text')!.textContent = open ? 'Zavřít' : 'Menu';
       menu.hidden = !open;
       document.body.style.overflow = open ? 'hidden' : '';
+      // obsah pod menu vyřadit z klávesnice i čteček, dokud je menu otevřené
+      document.querySelectorAll('main, footer, .skip-link').forEach((el) => el.toggleAttribute('inert', open));
     };
     btn.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
     document.addEventListener('keydown', (e) => {
@@ -137,6 +144,8 @@ const isActive = (href: string) => !demo && current.startsWith(url(href));
     padding-block: var(--space-1);
   }
   .mobile-menu li a[aria-current='page'] { color: var(--accent); }
+  .mobile-menu__dalsi { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin-top: var(--space-5); font-family: var(--font-head); font-weight: 700; }
+  .mobile-menu__dalsi a { padding-block: var(--space-2); }
 
   @media (min-width: 64rem) {
     .site-header__logo { width: 5.5rem; }
