@@ -1,0 +1,25 @@
+---
+/**
+ * Seznam partnerů festivalu (loga a textové odkazy) ve stejném pořadí podle `poradi`.
+ * Používá ho stránka /partneri/ i závěr úvodní stránky. Data jsou v src/content/partneri/partneri.yaml.
+ */
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+const partneri = (await getCollection('partneri')).sort((a, b) => a.data.poradi - b.data.poradi);
+---
+<ul class="partneri" role="list">
+  {partneri.map((p) => (
+    <li>
+      <a href={p.data.url} rel="noopener" class:list={{ 's-logem': p.data.logo }}>
+        {p.data.logo ? <Image src={p.data.logo} alt={p.data.nazev} width={360} /> : <span>{p.data.nazev}</span>}
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .partneri { list-style: none; padding: 0; margin: var(--space-5) 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
+  .partneri a { display: flex; align-items: center; justify-content: center; min-height: 7rem; padding: var(--space-3); border: var(--border); border-radius: var(--radius-card); background: var(--gray-1); text-align: center; font-family: var(--font-head); font-weight: 700; text-decoration: none; }
+  .partneri a.s-logem { background: #fff; }
+  .partneri a.s-logem img { width: auto; max-width: 100%; max-height: 4.5rem; height: auto; object-fit: contain; }
+</style>

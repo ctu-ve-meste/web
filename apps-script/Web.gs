@@ -8,17 +8,35 @@
  * Funkce se jmenuje DoWebPost, protože doPost je jen jeden (v Code.gs) a volá DoWebPost
  * pro všechno, co není přihlášení k newsletteru. Viz apps-script/README.md.
  *
- * Script properties navíc: NOTIFY_EMAIL (kam chodí upozornění z formulářů) a volitelně
- * FORMS_SHEET_ID (ID samostatné tabulky pro listy Kontakt a Města; bez ní se použije tabulka newsletteru).
+ * Script property navíc: NOTIFY_EMAIL (kam chodí upozornění z formulářů).
  *
- * Listy (vytvoří se samy, pokud chybí):
- *   Kontakt:    datum | jméno | email | téma | zpráva | souhlas
- *   Města:      datum | jméno | město | email | telefon | odkud o nás víte | poznámka | souhlas
+ * Kam se co ukládá (přehled je i v apps-script/README.md):
+ *   newsletter        → tabulka newsletteru, list „Odběratelé“ (řeší Code.gs, ne tento soubor)
+ *   kontaktní formulář → tabulka FORMS_SHEET_ID, list „Kontakt“
+ *   přihláška města    → tabulka FORMS_SHEET_ID, list „Města“
+ * Každý další formulář z webu patří taky do FORMS_SHEET_ID, na vlastní list (přidejte ho do LISTY níže).
+ * Do tabulky newsletteru tento soubor nikdy nezapisuje.
  */
 
-var LIST_KONTAKT = 'Kontakt';
-var LIST_MESTA = 'Města';
+/** Jediné místo s ID tabulek. */
+var TABULKY = {
+  /** Tabulka newsletteru. Tady se jen hlídá, aby do ní formuláře nezapsaly; zapisuje do ní Code.gs. */
+  NEWSLETTER: '1Wb2d2mZtleRf6Qc1jjpEneUOWcr5lRWstKT8IssuE2g',
+  /** Tabulka pro všechny ostatní formuláře z webu (každý formulář má vlastní list). */
+  FORMULARE: '1vudmmDNjazSU6E_prh0TXbz2IYaP-lDICNo3FjFnKDQ',
+};
+
+/** Listy v tabulce formulářů: název a hlavička sloupců (list se založí při prvním zápisu). */
+var LISTY = {
+  kontakt: { nazev: 'Kontakt', hlavicka: ['datum', 'jméno', 'email', 'téma', 'zpráva', 'souhlas'] },
+  mesto: {
+    nazev: 'Města',
+    hlavicka: ['datum', 'jméno', 'město', 'email', 'telefon', 'odkud o nás víte', 'poznámka', 'souhlas'],
+  },
+};
+
 var MIN_CAS_MS = 3000; // formulář vyplněný rychleji než za 3 s považujeme za robota
+var CHYBA_ULOZENI = 'Zprávu se teď nepodařilo uložit. Napište nám prosím e-mailem.';
 
 function DoWebPost(e) {
   try {
@@ -44,7 +62,7 @@ function kontakt_(d) {
   if (!omezeni_('kontakt:' + email, 3)) return { ok: false, zprava: 'Zkuste to prosím za chvíli.' };
   var jmeno = String(d.jmeno || '').trim().slice(0, 200);
   var tema = String(d.tema || '').trim().slice(0, 100);
-  list_(LIST_KONTAKT, ['datum', 'jméno', 'email', 'téma', 'zpráva', 'souhlas']).appendRow([new Date(), jmeno, email, tema, zprava, String(d.souhlas || '')]);
+  if (!zapis_(LISTY.kontakt, [new Date(), jmeno, email, tema, zprava, String(d.souhlas || '')])) return { ok: false, zprava: CHYBA_ULOZENI };
   MailApp.sendEmail({
     to: prop_('NOTIFY_EMAIL'),
     replyTo: email,
@@ -70,8 +88,9 @@ function mesto_(d) {
   var telefon = String(d.telefon || '').trim().slice(0, 50);
   var odkud = String(d.odkud || '').trim().slice(0, 300);
   var poznamka = String(d.poznamka || '').trim().slice(0, 3000);
-  list_(LIST_MESTA, ['datum', 'jméno', 'město', 'email', 'telefon', 'odkud o nás víte', 'poznámka', 'souhlas'])
-    .appendRow([new Date(), jmeno, mesto, email, telefon, odkud, poznamka, String(d.souhlas)]);
+  if (!zapis_(LISTY.mesto, [new Date(), jmeno, mesto, email, telefon, odkud, poznamka, String(d.souhlas)])) {
+    return { ok: false, zprava: CHYBA_ULOZENI };
+  }
   MailApp.sendEmail({
     to: prop_('NOTIFY_EMAIL'),
     replyTo: email,
@@ -85,8 +104,14 @@ function mesto_(d) {
 
 /* ---------- pomocné funkce ---------- */
 
+/**
+ * Robot = vyplněné skryté pole `web` nebo odeslání dřív než za MIN_CAS_MS po načtení formuláře.
+ * Chybějící nebo nečíselný čas (`cas`) se bere jako robot. Volající pak vrátí { ok: true },
+ * takže z odpovědi robot nepozná, proč nic neproběhlo.
+ */
 function jeRobot_(d) {
-  return Boolean(d.web) || Number(d.cas || 0) < MIN_CAS_MS;
+  var cas = Number(d.cas);
+  return String(d.web || '').trim() !== '' || !(cas >= MIN_CAS_MS);
 }
 
 /** Jednoduchý limit: max. `kolik` požadavků za 10 minut na klíč. */
@@ -98,16 +123,30 @@ function omezeni_(klic, kolik) {
   return true;
 }
 
-function list_(nazev, hlavicka) {
-  // volitelně samostatná tabulka pro kontakty a města: Script property FORMS_SHEET_ID
-  var id = PropertiesService.getScriptProperties().getProperty('FORMS_SHEET_ID');
-  var ss = id ? SpreadsheetApp.openById(id) : SpreadsheetApp.getActiveSpreadsheet();
-  var list = ss.getSheetByName(nazev);
-  if (!list) {
-    list = ss.insertSheet(nazev);
-    if (hlavicka) list.appendRow(hlavicka);
+/**
+ * Připojí řádek na list v tabulce formulářů (list s hlavičkou založí, když chybí).
+ * Vrací true při úspěchu. Když se zápis nepovede (např. účet skriptu nemá k tabulce právo úprav),
+ * zaloguje chybu a vrátí false; data se NIKAM jinam neukládají.
+ */
+function zapis_(list, radek) {
+  var lock = LockService.getScriptLock();
+  try {
+    if (TABULKY.FORMULARE === TABULKY.NEWSLETTER) throw new Error('FORMULARE nesmí být tabulka newsletteru.');
+    lock.waitLock(20000);
+    var ss = SpreadsheetApp.openById(TABULKY.FORMULARE);
+    var sh = ss.getSheetByName(list.nazev);
+    if (!sh) {
+      sh = ss.insertSheet(list.nazev);
+      sh.appendRow(list.hlavicka);
+    }
+    sh.appendRow(radek);
+    return true;
+  } catch (err) {
+    console.error('Zápis do tabulky formulářů (' + list.nazev + ') selhal: ' + err);
+    return false;
+  } finally {
+    try { lock.releaseLock(); } catch (ignore) {}
   }
-  return list;
 }
 
 function json_(obj) {

@@ -2,16 +2,21 @@
 /**
  * Grafický prvek „hřbety knih“: lomítka a svislé čáry /|||/||/||||/.
  * varianta: 'pas' (řádek přes celou šířku), 'doplnek' (malý vedle nadpisu),
- * 'vypln' (několik řádků jako pozadí hero).
- * Sazba písmem Bricolage, ne obrázek. Pro čtečky je skrytý.
+ * 'vypln' (několik řádků jako pozadí hero), 'karta' (řádek na zástupném obrázku karty akce,
+ * barva z --rocnik; vzor a počet opakování jdou zadat přes `vzor` a `opakovani`).
+ * Sazba písmem Bricolage, ne obrázek. Vždy aria-hidden a user-select: none: čtečky ho
+ * nepředčítají a při kopírování textu se nekopíruje. Dekor tedy vždy vykreslujte jen tímhle
+ * komponentem, nikdy ho nepište do textu ručně.
  */
 interface Props {
-  varianta?: 'pas' | 'doplnek' | 'vypln';
+  varianta?: 'pas' | 'doplnek' | 'vypln' | 'karta';
+  vzor?: string;
+  opakovani?: number;
   radku?: number;
   akcent?: boolean;
   class?: string;
 }
-const { varianta = 'pas', radku = 6, akcent = false, class: cls } = Astro.props;
+const { varianta = 'pas', radku = 6, akcent = false, class: cls, vzor: vlastniVzor, opakovani = 1 } = Astro.props;
 const vzor = '/|||/||/||||/||/|||/||/||||/||/';
 const radek = (posun: number) => {
   const r = vzor.repeat(8);
@@ -19,6 +24,9 @@ const radek = (posun: number) => {
 };
 const radky = varianta === 'vypln' ? Array.from({ length: radku }, (_, i) => radek(i * 4)) : [];
 ---
+{varianta === 'karta' && (
+  <span class:list={['spines spines--karta', cls]} aria-hidden="true">{(vlastniVzor ?? vzor).repeat(opakovani)}</span>
+)}
 {varianta === 'doplnek' && (
   <span class:list={['spines spines--doplnek', { 'spines--akcent': akcent }, cls]} aria-hidden="true">/|||/||/</span>
 )}
@@ -39,6 +47,7 @@ const radky = varianta === 'vypln' ? Array.from({ length: radku }, (_, i) => rad
     white-space: nowrap;
     overflow: hidden;
     user-select: none;
+    -webkit-user-select: none;
     color: var(--fg);
   }
   .spines--akcent { color: var(--accent); }
@@ -50,6 +59,15 @@ const radky = varianta === 'vypln' ? Array.from({ length: radku }, (_, i) => rad
     margin-left: 0.5em;
     letter-spacing: 0;
     color: var(--fg);
+  }
+  .spines--karta {
+    overflow: visible;
+    font-size: 2.25rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--rocnik);
+    opacity: 0.55;
+    padding-block: var(--space-2);
   }
   .spines--pas {
     font-size: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);

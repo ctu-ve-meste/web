@@ -10,7 +10,7 @@
   url: https://www.prazdroj.cz
   logo: ./loga/plzensky-prazdroj.png
   poradi: 2
-  proDospele: true   # pivní značka: ne na úvodu a ne u dětských akcí
+  proDospele: true   # pivní značka: ne u dětských akcí
 - id: kapitola
   nazev: Knihkupectví KAPITOLA
   url: https://www.kapitola.eu
