@@ -1,0 +1,128 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Gallery from '../../components/Gallery.astro';
+import { casAkce, type Akce } from '../../lib/akce';
+import { datumDlouze, rozsah, isoDatum, isoPraha } from '../../lib/datum';
+import { absUrl, url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const akce = await getCollection('akce');
+  return akce.map((a) => ({ params: { slug: a.id }, props: { akce: a } }));
+}
+
+const { akce } = Astro.props as { akce: Akce };
+const d = akce.data;
+const { Content } = await render(akce);
+const rocnik = d.rocnik ? await getEntry(d.rocnik) : undefined;
+const mesto = await getEntry(d.mesto);
+const format = d.format ? await getEntry(d.format) : undefined;
+const kdy = d.dateEnd ? rozsah(d.date, d.dateEnd) : datumDlouze(d.date);
+const cas = casAkce(akce);
+const ogImage = d.cover ? (await getImage({ src: d.cover, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src : undefined;
+const popis = `${d.title} – ${kdy}${cas ? `, ${cas}` : ''}, ${d.misto.nazev}.${d.proKoho ? ` ${d.proKoho}` : ''}`.slice(0, 160);
+const minula = (d.dateEnd ?? d.date).getTime() < Date.now() - 86400000;
+
+const startIso = d.timeStart ? isoPraha(d.date, d.timeStart) : isoDatum(d.date);
+const endIso = d.timeEnd ? isoPraha(d.dateEnd ?? d.date, d.timeEnd) : d.dateEnd ? isoDatum(d.dateEnd) : undefined;
+const event = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: d.title,
+  startDate: startIso,
+  ...(endIso && { endDate: endIso }),
+  eventStatus: d.zruseno ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  isAccessibleForFree: !d.vstupne,
+  description: d.proKoho ?? `${d.title}, ${d.misto.nazev}`,
+  url: absUrl(`/akce/${akce.id}/`, Astro.site),
+  location: {
+    '@type': 'Place',
+    name: d.misto.nazev,
+    address: { '@type': 'PostalAddress', streetAddress: d.misto.adresa ?? d.misto.nazev, addressLocality: mesto?.data.nazev, addressCountry: 'CZ' },
+  },
+  organizer: { '@type': 'Organization', name: 'Čtu ve městě, z.s.', url: absUrl('/', Astro.site) },
+  ...(ogImage && { image: [new URL(ogImage, Astro.site).toString()] }),
+  ...(rocnik && { superEvent: { '@type': 'Festival', name: `Čtu ve městě ${rocnik.data.rok} (${rocnik.data.cislo}. ročník)`, url: absUrl(`/rocniky/${rocnik.data.rok}/`, Astro.site) } }),
+};
+---
+<BaseLayout title={d.title} description={popis} image={ogImage} accent={rocnik?.data.barva} jsonLd={event}>
+  <article class="akce">
+    <header class="container akce__head">
+      <p class="label muted">
+        {rocnik ? <a href={url(`/rocniky/${rocnik.data.rok}/`)}>{rocnik.data.cislo}. ročník {rocnik.data.rok}</a> : 'Akce během roku'}
+        {mesto && <> · {mesto.data.aktivni ? <a href={url(`/mesta/${mesto.id}/`)}>{mesto.data.nazev}</a> : mesto.data.nazev}</>}
+      </p>
+      <h1>{d.title}<span class="dot">.</span></h1>
+      {d.zruseno && <p class="akce__flag label">Zrušeno</p>}
+    </header>
+
+    {d.cover && (
+      <div class="container">
+        <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[800, 1400, 2000]} sizes="(min-width: 75rem) 75rem, 100vw" class="akce__cover" loading="eager" />
+      </div>
+    )}
+
+    <div class="container akce__layout">
+      <aside class="akce__info" aria-label="Kdy a kde">
+        <dl>
+          <dt class="label">Kdy</dt>
+          <dd>{kdy}{cas && <><br />{cas}</>}</dd>
+          <dt class="label">Kde</dt>
+          <dd>
+            {d.misto.nazev}{d.misto.adresa && <><br /><span class="muted">{d.misto.adresa}</span></>}
+            {d.misto.mapa && <><br /><a href={d.misto.mapa} rel="noopener">Ukázat na mapě</a></>}
+          </dd>
+          <dt class="label">Vstup</dt>
+          <dd>{d.vstupne ?? 'Zdarma'}{d.registrace && ' · nutná registrace'}</dd>
+        </dl>
+        {d.registrace && (
+          d.registrace.vyprodano
+            ? <p class="akce__flag label">Vyprodáno</p>
+            : d.registrace.url && !minula && <a class="btn" href={d.registrace.url} rel="noopener">Registrovat se</a>
+        )}
+        {!minula && <p><a class="btn btn--ghost" href={url(`/akce/${akce.id}.ics`)} download>Přidat do kalendáře</a></p>}
+      </aside>
+
+      <div class="akce__text prose">
+        <Content />
+        {d.proKoho && (
+          <>
+            <h2 class="akce__prokoho-nadpis">Pro koho<span class="dot">.</span></h2>
+            <p>{d.proKoho}</p>
+          </>
+        )}
+        {d.poznamka && <p class="akce__poznamka"><strong>Poznámka:</strong> {d.poznamka}</p>}
+        {format && (
+          <p class="muted">Formát: <a href={url(`/formaty/#${format.id}`)}>{format.data.nazev}</a></p>
+        )}
+      </div>
+    </div>
+
+    {d.galerie.length > 0 && (
+      <section class="container section" aria-labelledby="galerie">
+        <h2 id="galerie">Fotky<span class="dot">.</span></h2>
+        <Gallery fotky={d.galerie} nazev={`Fotky: ${d.title}`} />
+      </section>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .akce__head { padding-top: var(--space-6); padding-bottom: var(--space-4); }
+  .akce__head a { text-decoration: none; }
+  .akce__cover { width: 100%; max-height: 80vh; object-fit: cover; border-radius: var(--radius); }
+  .akce__layout { display: grid; gap: var(--space-5); padding-block: var(--space-5); }
+  .akce__info dl { margin: 0 0 var(--space-4); }
+  .akce__info dt { color: var(--text-muted); margin-top: var(--space-3); }
+  .akce__info dd { margin: 0; }
+  .akce__info .btn { margin-top: var(--space-2); }
+  .akce__flag { display: inline-block; background: var(--fg); color: var(--black); padding: 0.2em 0.6em; border-radius: var(--radius); }
+  .akce__prokoho-nadpis { font-size: var(--fs-h3); margin-top: var(--space-5); }
+  .akce__poznamka { border-left: 3px solid var(--accent); padding-left: var(--space-3); }
+  @media (min-width: 64rem) {
+    .akce__layout { grid-template-columns: 18rem 1fr; }
+    .akce__info { position: sticky; top: calc(var(--header-h) + var(--space-4)); align-self: start; }
+  }
+</style>

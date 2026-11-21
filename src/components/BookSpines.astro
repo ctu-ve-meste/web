@@ -1,0 +1,64 @@
+---
+/**
+ * Grafický prvek „hřbety knih“: lomítka a svislé čáry /|||/||/||||/.
+ * varianta: 'pas' (řádek přes celou šířku), 'doplnek' (malý vedle nadpisu),
+ * 'vypln' (několik řádků jako pozadí hero).
+ * Sazba písmem Bricolage, ne obrázek. Pro čtečky je skrytý.
+ */
+interface Props {
+  varianta?: 'pas' | 'doplnek' | 'vypln';
+  radku?: number;
+  akcent?: boolean;
+  class?: string;
+}
+const { varianta = 'pas', radku = 6, akcent = false, class: cls } = Astro.props;
+const vzor = '/|||/||/||||/||/|||/||/||||/||/';
+const radek = (posun: number) => {
+  const r = vzor.repeat(8);
+  return r.slice(posun % vzor.length) + r.slice(0, posun % vzor.length);
+};
+const radky = varianta === 'vypln' ? Array.from({ length: radku }, (_, i) => radek(i * 4)) : [];
+---
+{varianta === 'doplnek' && (
+  <span class:list={['spines spines--doplnek', { 'spines--akcent': akcent }, cls]} aria-hidden="true">/|||/||/</span>
+)}
+{varianta === 'pas' && (
+  <div class:list={['spines spines--pas', { 'spines--akcent': akcent }, cls]} aria-hidden="true">{radek(0)}</div>
+)}
+{varianta === 'vypln' && (
+  <div class:list={['spines spines--vypln', { 'spines--akcent': akcent }, cls]} aria-hidden="true">
+    {radky.map((r) => <div>{r}</div>)}
+  </div>
+)}
+
+<style>
+  .spines {
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    user-select: none;
+    color: var(--fg);
+  }
+  .spines--akcent { color: var(--accent); }
+  .spines--doplnek {
+    display: inline;
+    vertical-align: baseline;
+    font-size: 1.15em;
+    line-height: 1;
+    margin-left: 0.5em;
+    letter-spacing: 0;
+    color: var(--fg);
+  }
+  .spines--pas {
+    font-size: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+    line-height: 1;
+    padding-block: var(--space-3);
+  }
+  .spines--vypln {
+    font-size: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
+    line-height: 1;
+    opacity: 0.16;
+  }
+</style>

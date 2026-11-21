@@ -1,0 +1,60 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import BigNumber from '../components/BigNumber.astro';
+import BookSpines from '../components/BookSpines.astro';
+import { config } from '../config';
+import { url } from '../lib/url';
+const s = (await getEntry('stranky', 'pridejte-se'))!;
+const { Content } = await render(s);
+const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu ve městě i u nás')}`;
+---
+<BaseLayout title={s.data.title} description={s.data.description}>
+  <section class="container section">
+    <SectionHeading as="h1" label="4. ROČNÍK · 2027" spines>Chcete, aby se četlo i u vás</SectionHeading>
+    <div class="prose lead"><Content /></div>
+    <p class="cta">
+      <a class="btn" href={mailto}>Ozvěte se nám</a>
+      <a class="btn btn--ghost" href={url('/manifest/')}>Přečtěte si manifest</a>
+    </p>
+  </section>
+
+  <BookSpines varianta="pas" class="spines-gray" />
+
+  <section class="container section reveal">
+    <SectionHeading label="PROČ SE PŘIDAT">Festival se děje ve vašich ulicích</SectionHeading>
+    <ul class="grid-cards" role="list">
+      {s.data.bloky.map((b) => (
+        <li class="card">
+          <h3>{b.nadpis}<span class="dot">.</span></h3>
+          <p>{b.text}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="pointa">Podniky nejsou sponzoři. Jsou scény<span class="dot">.</span></p>
+  </section>
+
+  <section class="container section reveal">
+    <SectionHeading label="3. ROČNÍK V ČÍSLECH">Nápad porazil rozpočet</SectionHeading>
+    <div class="cisla">
+      {s.data.cisla.map((c) => <BigNumber hodnota={c.hodnota} popis={c.popis} />)}
+    </div>
+  </section>
+
+  <section class="container section reveal">
+    <SectionHeading label="KDE UŽ SE ČTE">Frýdek-Místek, Tišnov a vaše město</SectionHeading>
+    <p class="prose">Ve 2. ročníku se přidaly Tišnov, Göteborg, Ostravice a Těrlicko. Ve 3. ročníku už Tišnov běžel samostatně.</p>
+    <p class="cta">
+      <a class="btn" href={mailto}>Chci čtení i u nás</a>
+      <a class="btn btn--ghost" href={url('/mesta/')}>Další města</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
+  .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .pointa { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: 1.1; margin-top: var(--space-5); }
+  :global(.spines-gray) { color: var(--gray-3); }
+</style>

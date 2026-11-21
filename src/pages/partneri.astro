@@ -1,0 +1,33 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { config } from '../config';
+const stranka = (await getEntry('stranky', 'partneri'))!;
+const { Content } = await render(stranka);
+const partneri = (await getCollection('partneri')).sort((a, b) => a.data.poradi - b.data.poradi);
+---
+<BaseLayout title="Partneři" description="Partneři festivalu Čtu ve městě. Děkujeme.">
+  <section class="container section">
+    <SectionHeading as="h1" label="PARTNEŘI" spines>Děkujeme</SectionHeading>
+    <div class="prose"><Content /></div>
+    <ul class="partneri" role="list">
+      {partneri.map((p) => (
+        <li>
+          <a href={p.data.url} rel="noopener">
+            {p.data.logo ? <Image src={p.data.logo} alt={p.data.nazev} width={240} /> : <span>{p.data.nazev}</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="lead">Chcete se stát také partnerem? Ozvěte se nám.</p>
+    <p><a class="btn" href={`mailto:${config.email}?subject=Chci vás podpořit`}>Chci vás podpořit</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .lead { font-size: var(--fs-lead); }
+  .partneri { list-style: none; padding: 0; margin: var(--space-5) 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+  .partneri a { display: flex; align-items: center; justify-content: center; min-height: 7rem; padding: var(--space-3); border: 1px solid var(--gray-2); border-radius: var(--radius); text-align: center; font-family: var(--font-head); font-weight: 700; text-decoration: none; }
+</style>

@@ -1,0 +1,18 @@
+# závislosti a build
+node_modules/
+dist/
+.astro/
+
+# prostředí a tajné hodnoty
+.env
+.env.*
+!.env.example
+
+# originály fotek z Google Disku – NIKDY do gitu
+_fotky-originaly/
+_nahledy/
+
+# systém
+.DS_Store
+Thumbs.db
+*.log

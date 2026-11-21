@@ -1,0 +1,39 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { config } from '../config';
+import KontaktForm from '../components/KontaktForm.astro';
+const s = (await getEntry('stranky', 'kontakt'))!;
+const { Content } = await render(s);
+---
+<BaseLayout title={s.data.title} description={s.data.description}>
+  <section class="container section">
+    <SectionHeading as="h1" label="KONTAKT" spines>Ozvěte se nám</SectionHeading>
+    <div class="kontakt">
+      <div>
+        <p class="lead"><a href={`mailto:${config.email}`}>{config.email}</a></p>
+        <p>
+          <a href={config.site.instagram} rel="noopener">Instagram</a>{' · '}
+          <a href={config.site.facebook} rel="noopener">Facebook</a>{' · '}
+          <a href={config.site.facebookSkupina} rel="noopener">Facebooková skupina</a>
+        </p>
+        <p class="muted">
+          {config.spolek.nazev}<br />
+          {config.spolek.ulice}<br />
+          {config.spolek.psc} {config.spolek.mesto}<br />
+          IČ: {config.spolek.ico}
+        </p>
+      </div>
+      <div class="prose">
+        <Content />
+        <KontaktForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .kontakt { display: grid; gap: var(--space-5); }
+  @media (min-width: 64rem) { .kontakt { grid-template-columns: 1fr 1fr; } }
+</style>

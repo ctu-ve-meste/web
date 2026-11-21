@@ -1,0 +1,13 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+const s = (await getEntry('stranky', 'ochrana-osobnich-udaju'))!;
+const { Content } = await render(s);
+---
+<BaseLayout title={s.data.title} description={s.data.description}>
+  <article class="container section">
+    <SectionHeading as="h1" label="GDPR" spines>Ochrana osobních údajů</SectionHeading>
+    <div class="prose"><Content /></div>
+  </article>
+</BaseLayout>

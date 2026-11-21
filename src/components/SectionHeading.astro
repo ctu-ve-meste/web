@@ -1,0 +1,30 @@
+---
+/**
+ * Nadpis sekce jako v pitchi: malý štítek verzálkami nad úderným nadpisem
+ * zakončeným tečkou v barvě akcentu.
+ * <SectionHeading label="CO TO JE">Hvězdy jsou čtenáři</SectionHeading>
+ * (tečku na konci nepište, doplní se sama)
+ */
+import BookSpines from './BookSpines.astro';
+interface Props {
+  label?: string;
+  as?: 'h1' | 'h2' | 'h3';
+  spines?: boolean;
+  id?: string;
+}
+const { label, as: Tag = 'h2', spines = false, id } = Astro.props;
+---
+<div class="section-heading">
+  {label && (
+    <p class="label label--accent section-heading__label">
+      {label}{spines && <BookSpines varianta="doplnek" />}
+    </p>
+  )}
+  <Tag id={id} class="section-heading__title"><slot /><span class="dot">.</span></Tag>
+</div>
+
+<style>
+  .section-heading { margin-bottom: var(--space-4); }
+  .section-heading__label { margin-bottom: var(--space-3); }
+  .section-heading__title { margin: 0; }
+</style>

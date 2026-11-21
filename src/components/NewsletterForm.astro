@@ -1,0 +1,86 @@
+---
+/**
+ * Přihlášení k newsletteru. Posílá na Google Apps Script (config.appsScriptUrl).
+ * Ochrana proti spamu: skryté pole (honeypot) + minimální čas vyplnění. Žádná reCAPTCHA.
+ * Když URL web appu není nastavená, ukáže se náhradní odkaz na e-mail.
+ */
+import { config } from '../config';
+import { url } from '../lib/url';
+interface Props { id?: string; kompaktni?: boolean }
+const { id = 'newsletter', kompaktni = false } = Astro.props;
+const souhlasText = 'Souhlasím se zpracováním e-mailu pro zasílání newsletteru spolku Čtu ve městě, z.s.';
+---
+{config.appsScriptUrl ? (
+  <form class:list={['nl', { 'nl--kompaktni': kompaktni }]} data-newsletter data-url={config.appsScriptUrl} novalidate>
+    <div class="field">
+      <label for={`${id}-email`}>Váš e-mail</label>
+      <input class="input" id={`${id}-email`} name="email" type="email" autocomplete="email" required placeholder="jmeno@example.cz" />
+    </div>
+    <div class="nl__hp" aria-hidden="true">
+      <label for={`${id}-web`}>Nevyplňujte</label>
+      <input id={`${id}-web`} name="web" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <label class="check">
+      <input type="checkbox" name="souhlas" required value={souhlasText} />
+      <span>{souhlasText} Více v <a href={url('/ochrana-osobnich-udaju/')}>zásadách ochrany osobních údajů</a>.</span>
+    </label>
+    <p><button class="btn" type="submit">Přihlásit se</button></p>
+    <p class="nl__stav" role="status" aria-live="polite"></p>
+  </form>
+) : (
+  <p class="prose">
+    Přihlašování k newsletteru spouštíme. Do té doby nám napište na
+    <a href={`mailto:${config.email}?subject=Chci%20newsletter`}>{config.email}</a> a přidáme vás.
+  </p>
+)}
+
+<script>
+  import { odeslat } from '../lib/apps-script';
+  document.querySelectorAll<HTMLFormElement>('[data-newsletter]').forEach((form) => {
+    const start = Date.now();
+    const stav = form.querySelector<HTMLElement>('.nl__stav')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const email = String(fd.get('email') ?? '').trim();
+      const souhlas = fd.get('souhlas');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        stav.textContent = 'Zkontrolujte prosím e-mailovou adresu.';
+        form.querySelector<HTMLInputElement>('input[name=email]')?.focus();
+        return;
+      }
+      if (!souhlas) {
+        stav.textContent = 'Bez souhlasu vám newsletter posílat nemůžeme.';
+        return;
+      }
+      if (fd.get('web')) return; // honeypot vyplnil robot
+      btn.disabled = true;
+      stav.textContent = 'Odesíláme…';
+      try {
+        const r = await odeslat(form.dataset.url!, {
+          akce: 'prihlaseni',
+          email,
+          souhlas,
+          zdroj: 'web',
+          web: fd.get('web') ?? '',
+          cas: Date.now() - start,
+        });
+        stav.textContent = r.ok
+          ? 'Děkujeme! Poslali jsme vám e-mail s odkazem pro potvrzení odběru.'
+          : r.zprava ?? 'Něco se nepovedlo, zkuste to prosím později.';
+        if (r.ok) form.reset();
+      } catch {
+        stav.textContent = 'Něco se nepovedlo. Zkuste to prosím později.';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  });
+</script>
+
+<style>
+  .nl { max-width: var(--max-w-text); }
+  .nl__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .nl__stav { min-height: 1.5em; font-family: var(--font-head); font-weight: 700; }
+</style>

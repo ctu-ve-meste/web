@@ -1,0 +1,30 @@
+---
+/** Seznam ročníků s barevnými tečkami (pitch, strana 3). */
+import { vsechnyRocniky } from '../lib/rocniky';
+import { url } from '../lib/url';
+interface Props { odkazy?: boolean }
+const { odkazy = true } = Astro.props;
+const rocniky = (await vsechnyRocniky()).reverse();
+---
+<ul class="rocnik-list" role="list">
+  {rocniky.map((r) => (
+    <li style={`--rocnik: ${r.data.barva}`}>
+      <span class="rocnik-list__dot" aria-hidden="true"></span>
+      <span>
+        {odkazy
+          ? <a href={url(`/rocniky/${r.data.rok}/`)} class="rocnik-list__nazev">{r.data.cislo}. ročník · {r.data.rok}</a>
+          : <span class="rocnik-list__nazev">{r.data.cislo}. ročník · {r.data.rok}</span>}
+        <span class="rocnik-list__perex muted">{r.data.perex}</span>
+      </span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .rocnik-list { list-style: none; margin: 0; padding: 0; }
+  .rocnik-list li { display: flex; gap: var(--space-3); align-items: center; padding-block: var(--space-3); border-bottom: var(--border); }
+  .rocnik-list__dot { width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--rocnik); flex: none; }
+  .rocnik-list__nazev { display: block; font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h3); color: var(--rocnik); text-decoration: none; }
+  a.rocnik-list__nazev:hover { text-decoration: underline; }
+  .rocnik-list__perex { display: block; font-size: var(--fs-small); }
+</style>

@@ -1,0 +1,31 @@
+---
+/**
+ * Chatová konverzace jako vizuální prvek (pitch: „Jednou zprávou.“).
+ * zpravy: [{ od: 'levy' | 'pravy', text, jmeno? }]
+ */
+interface Zprava { od: 'levy' | 'pravy'; text: string; jmeno?: string }
+interface Props { zpravy: Zprava[]; popis?: string }
+const { zpravy, popis = 'Konverzace' } = Astro.props;
+---
+<figure class="chat" aria-label={popis}>
+  <ol role="list">
+    {zpravy.map((z) => (
+      <li class:list={['chat__msg', `chat__msg--${z.od}`]}>
+        {z.jmeno && <span class="chat__jmeno">{z.jmeno}</span>}
+        <span class="chat__bublina">{z.text}</span>
+      </li>
+    ))}
+  </ol>
+</figure>
+
+<style>
+  .chat { margin: 0; max-width: 34rem; }
+  .chat ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+  .chat__msg { display: flex; flex-direction: column; max-width: 85%; }
+  .chat__msg--levy { align-self: flex-start; }
+  .chat__msg--pravy { align-self: flex-end; align-items: flex-end; }
+  .chat__jmeno { font-size: 0.8rem; color: var(--text-muted); margin: var(--space-3) 0 var(--space-1); }
+  .chat__bublina { padding: 0.6em 1em; border-radius: 1.1em; line-height: 1.45; }
+  .chat__msg--levy .chat__bublina { background: var(--bubble); border-bottom-left-radius: 0.3em; }
+  .chat__msg--pravy .chat__bublina { background: var(--accent); color: var(--on-accent); font-family: var(--font-head); font-weight: 700; border-bottom-right-radius: 0.3em; }
+</style>

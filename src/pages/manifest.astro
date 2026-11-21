@@ -1,0 +1,15 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { url } from '../lib/url';
+const s = (await getEntry('stranky', 'manifest'))!;
+const { Content } = await render(s);
+---
+<BaseLayout title={s.data.title} description={s.data.description}>
+  <article class="container section">
+    <SectionHeading as="h1" label="ČTU MANIFEST" spines>Manifest</SectionHeading>
+    <div class="prose"><Content /></div>
+    <p><a class="btn" href={url('/pridejte-se/')}>Chci Čtu i v našem městě</a></p>
+  </article>
+</BaseLayout>

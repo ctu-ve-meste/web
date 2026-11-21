@@ -1,0 +1,62 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Chat from '../components/Chat.astro';
+import { url } from '../lib/url';
+const s = (await getEntry('stranky', 'kdo-jsme'))!;
+const { Content } = await render(s);
+const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi - b.data.poradi);
+---
+<BaseLayout title={s.data.title} description={s.data.description}>
+  <section class="container section">
+    <SectionHeading as="h1" label="KDO JSME" spines>Lidi z města</SectionHeading>
+    <div class="prose lead"><Content /></div>
+    <p><a href={url('/manifest/')}>Přečtěte si náš manifest →</a></p>
+  </section>
+
+  <section class="container section pribeh reveal">
+    <div>
+      <SectionHeading label="JAK TO VZNIKLO">Jednou zprávou</SectionHeading>
+      <p class="prose">
+        Festival vznikl jednou zprávou. Jan Becher z knihkupectví Kapitola napsal branding designérovi Marku Vlčkovi.
+      </p>
+      <p class="prose muted">
+        Žádný rozpočet, žádná instituce — jen knihkupec, designér a chuť udělat čtení ve městě viditelné.
+      </p>
+    </div>
+    <Chat
+      popis="Konverzace Jana Bechera a Marka Vlčka, kterou festival vznikl"
+      zpravy={[
+        { od: 'levy', jmeno: 'Jan Becher · knihkupectví Kapitola', text: 'Ahoj Máro,' },
+        { od: 'levy', text: 'Mám pro tebe báječnou nabídku! Chtěl bys dělat vizuál pro čtenářský festival ve F‑M?' },
+        { od: 'pravy', jmeno: 'Marek Vlček · branding designer', text: 'Tyyjoo jsem poctěn' },
+        { od: 'levy', text: 'Komplet — logo, plakáty, socky, merch…' },
+        { od: 'levy', text: 'A to nejlepší na konec: bylo by to zadarmo! 😀' },
+        { od: 'pravy', text: 'To je skvělá výzva' },
+        { od: 'levy', text: 'Ok, zavolám ti' },
+      ]}
+    />
+  </section>
+
+  <section class="container section reveal">
+    <SectionHeading label="NAŠE PARTA DOBROVOLNÍKŮ">Kdo festival staví</SectionHeading>
+    <ul class="grid-cards" role="list">
+      {lide.map((l) => (
+        <li class="card">
+          {l.data.foto && <Image src={l.data.foto} alt="" width={400} class="foto" />}
+          <h3>{l.data.jmeno}<span class="dot">.</span></h3>
+          <p>{l.data.popis}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="muted">Tým se schází v knihkupectví Kapitola, kde vymýšlí další akce.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .pribeh { display: grid; gap: var(--space-5); }
+  .foto { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); margin-bottom: var(--space-3); }
+  @media (min-width: 64rem) { .pribeh { grid-template-columns: 1fr 1fr; align-items: start; } }
+</style>

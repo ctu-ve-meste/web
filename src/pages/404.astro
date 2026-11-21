@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookSpines from '../components/BookSpines.astro';
+import { navigace } from '../config';
+import { url } from '../lib/url';
+---
+<BaseLayout title="Stránka nenalezena" noindex>
+  <section class="container section nf">
+    <BookSpines varianta="vypln" radku={3} />
+    <p class="label muted">404</p>
+    <h1>Tahle stránka se asi začetla<span class="dot">.</span></h1>
+    <p class="lead">Zkuste to jinudy:</p>
+    <ul>
+      <li><a href={url('/')}>Úvod</a></li>
+      {navigace.map((n) => <li><a href={url(n.href)}>{n.text}</a></li>)}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-4); font-family: var(--font-head); font-weight: 700; font-size: var(--fs-lead); }
+  .lead { font-size: var(--fs-lead); }
+</style>

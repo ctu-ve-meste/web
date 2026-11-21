@@ -1,0 +1,39 @@
+# Partneři festivalu. Nový partner = nová položka (id bez diakritiky).
+# Logo (volitelné) uložte do src/content/partneri/loga/ jako SVG/PNG/WebP.
+- id: mesto-frydek-mistek
+  nazev: město Frýdek-Místek
+  url: https://www.frydekmistek.cz
+  poradi: 1
+- id: pilsner-urquell
+  nazev: Pilsner Urquell
+  url: https://www.pilsner-urquell.cz
+  poradi: 2
+  proDospele: true   # pivní značka: ne na úvodu a ne u dětských akcí
+- id: kapitola
+  nazev: Knihkupectví KAPITOLA
+  url: https://www.kapitola.eu
+  poradi: 3
+- id: marek-vlcek
+  nazev: grafický designér Marek Vlček
+  url: https://www.marekvlcek.cz
+  poradi: 4
+- id: japa-sport
+  nazev: JAPA Sport
+  url: https://www.japasport.cz
+  poradi: 5
+- id: cafe-lu
+  nazev: Café Lu
+  url: https://www.dvorekkorek.cz/korek
+  poradi: 6
+- id: moraviarent
+  nazev: Půjčovna dodávek MORAVIARENT
+  url: https://www.moraviarent.cz
+  poradi: 7
+- id: vceli-obchudek
+  nazev: Včelí obchůdek
+  url: https://www.vceliobchudek.cz
+  poradi: 8
+- id: morava-press
+  nazev: tiskárna Morava Press
+  url: https://www.moravapress.cz
+  poradi: 9

@@ -1,0 +1,38 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import EventCard from '../components/EventCard.astro';
+import { vsechnyAkce, nadchazejici } from '../lib/akce';
+import { url } from '../lib/url';
+const s = (await getEntry('stranky', 'kafe-a-kniha'))!;
+const { Content } = await render(s);
+const vse = (await vsechnyAkce()).filter((a) => a.data.typ === 'kafe-a-kniha' || a.data.format?.id === 'kafe-a-kniha');
+const budouci = nadchazejici(vse);
+const probehle = vse.filter((a) => !budouci.includes(a));
+---
+<BaseLayout title={s.data.title} description={s.data.description}>
+  <section class="container section">
+    <SectionHeading as="h1" label="KAFE&KNIHA" spines>Kniha, kafe a zákusek</SectionHeading>
+    <div class="prose lead"><Content /></div>
+  </section>
+
+  <section class="container section">
+    <SectionHeading label="NEJBLIŽŠÍ TERMÍN">{budouci.length ? 'Přijďte si počíst' : 'Další termín brzy'}</SectionHeading>
+    {budouci.length ? (
+      <ul class="grid-cards" role="list">{budouci.map((a) => <li><EventCard akce={a} /></li>)}</ul>
+    ) : (
+      <div class="prose">
+        <p>Další termín brzy, přihlaste se k newsletteru a dáme vám vědět.</p>
+        <p><a class="btn" href={url('/newsletter/')}>Přihlásit se k newsletteru</a></p>
+      </div>
+    )}
+  </section>
+
+  {probehle.length > 0 && (
+    <section class="container section">
+      <SectionHeading label="PROBĚHLO">Kde už jsme si četli</SectionHeading>
+      <ul class="grid-cards" role="list">{probehle.map((a) => <li><EventCard akce={a} /></li>)}</ul>
+    </section>
+  )}
+</BaseLayout>

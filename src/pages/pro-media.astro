@@ -1,0 +1,89 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import BigNumber from '../components/BigNumber.astro';
+import { config } from '../config';
+import { datumKratce } from '../lib/datum';
+import { url } from '../lib/url';
+
+const s = (await getEntry('stranky', 'pro-media'))!;
+const { Content } = await render(s);
+const media = (await getCollection('media')).sort((a, b) => b.data.datum.getTime() - a.data.datum.getTime());
+const rocnik2026 = (await getEntry('rocniky', '2026'))!;
+// Fotky ve vysokém rozlišení (public/media/foto, vytváří scripts/media-balicek.mjs) a jejich náhledy z výběru ročníku 2026.
+const fotky = [1, 2, 4, 5, 8, 9, 10, 12].map((n, i) => ({
+  nahled: rocnik2026.data.fotky[n - 1],
+  soubor: url(`/media/foto/ctu-ve-meste-2026-${String(i + 1).padStart(2, '0')}.jpg`),
+}));
+---
+<BaseLayout title={s.data.title} description={s.data.description}>
+  <section class="container section">
+    <SectionHeading as="h1" label="PRO MÉDIA" spines>Hvězdy jsou čtenáři</SectionHeading>
+    <div class="prose"><Content /></div>
+  </section>
+
+  <section class="container section">
+    <SectionHeading label="FAKTA A ČÍSLA">V kostce</SectionHeading>
+    <div class="cisla">{s.data.cisla.map((c) => <BigNumber hodnota={c.hodnota} popis={c.popis} />)}</div>
+    <dl class="fakta prose">
+      <dt>Název</dt><dd>Čtu ve městě – opravdu čtenářský festival</dd>
+      <dt>Pořadatel</dt><dd>{config.spolek.nazev}, IČ {config.spolek.ico}</dd>
+      <dt>Kde</dt><dd>Frýdek-Místek a další města</dd>
+      <dt>Kdy</dt><dd>každý rok začátkem září (čtvrtek–neděle), během roku menší akce</dd>
+      <dt>Vstupné</dt><dd>zdarma</dd>
+      <dt>Sítě</dt><dd>#ctuvemeste, <a href={config.site.instagram} rel="noopener">@ctuvemeste_cz</a></dd>
+    </dl>
+  </section>
+
+  <section class="container section">
+    <SectionHeading label="KE STAŽENÍ">Loga a fotky</SectionHeading>
+    <p><a class="btn" href={url('/media/ctu-ve-meste-loga.zip')} download>Stáhnout loga (ZIP, SVG a PNG)</a></p>
+    <p class="muted small">Logo prosím neupravujte. Slovo „čtu“ je vždy bílé na černém pozadí. Podle brandmanuálu má přednost varianta s webovkou.</p>
+    <ul class="fotky" role="list">
+      {fotky.map((f) => (
+        <li>
+          <a href={f.soubor} download>
+            <Image src={f.nahled.src} alt={f.nahled.alt} widths={[400, 800]} sizes="(min-width: 64rem) 25vw, 50vw" />
+            <span class="small">Stáhnout ve vysokém rozlišení</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="muted small">Foto: Jiří Bartek, 3. ročník 2026. Při použití prosím uveďte autora.</p>
+  </section>
+
+  <section class="container section">
+    <SectionHeading label="OHLASY V MÉDIÍCH">Napsali o nás</SectionHeading>
+    <ul class="ohlasy" role="list">
+      {media.map((m) => (
+        <li>
+          <p class="label muted">{datumKratce(m.data.datum)} · {m.data.medium}{m.data.autor && ` · ${m.data.autor}`}</p>
+          <a href={m.data.url} rel="noopener" class="ohlasy__titulek">{m.data.titulek}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container section">
+    <SectionHeading label="KONTAKT PRO MÉDIA">Ozvěte se</SectionHeading>
+    <p class="lead"><a href={`mailto:${config.email}?subject=Dotaz%20médií`}>{config.email}</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .small { font-size: var(--fs-small); }
+  .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); margin-bottom: var(--space-5); }
+  .fakta { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-2) var(--space-4); }
+  .fakta dt { font-family: var(--font-head); font-weight: 700; }
+  .fakta dd { margin: 0; }
+  .fotky { list-style: none; padding: 0; margin: var(--space-4) 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+  .fotky a { display: flex; flex-direction: column; gap: var(--space-2); text-decoration: none; }
+  .fotky :global(img) { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+  .ohlasy { list-style: none; padding: 0; margin: 0; }
+  .ohlasy li { border-top: var(--border); padding-block: var(--space-3); }
+  .ohlasy li p { margin-bottom: var(--space-1); }
+  .ohlasy__titulek { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h3); text-decoration: none; }
+  .ohlasy__titulek:hover { text-decoration: underline; text-decoration-color: var(--accent); }
+</style>
