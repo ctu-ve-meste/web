@@ -19,8 +19,13 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       .from('.hero__cta .btn', { autoAlpha: 0, y: 16, duration: 0.5, stagger: 0.12 }, '-=0.4');
   }
 
-  // 2) levé menu: položky se objeví postupně
-  gsap.from('.site-nav__list li', { autoAlpha: 0, x: -16, duration: 0.5, stagger: 0.06, ease: 'power2.out', delay: 0.1 });
+  // 2) levé menu: položky se objeví postupně jen při prvním načtení v dané návštěvě,
+  //    při proklikávání mezi stránkami zůstává menu klidné
+  let menuUzBylo = false;
+  try { menuUzBylo = sessionStorage.getItem('menu-animace') === '1'; sessionStorage.setItem('menu-animace', '1'); } catch { /* bez úložiště se animuje vždy */ }
+  if (!menuUzBylo) {
+    gsap.from('.site-nav__list li', { autoAlpha: 0, x: -16, duration: 0.5, stagger: 0.06, ease: 'power2.out', delay: 0.1 });
+  }
 
   // 3) sekce s .reveal se objeví při scrollu
   q('.reveal').forEach((el) =>
