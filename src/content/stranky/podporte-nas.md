@@ -21,7 +21,6 @@ polozky:
     text: "Lehátka používáme nejčastěji v tzv. „čti-out“ zónách. A taky doprovázejí většinu našich akcí v rámci festivalu."
 ---
 
-## Podpořte nás
 
 Největší podporou je přijít a přidat se k týmu dobrovolníků při organizování akcí. Ovšem pokud vám to čas nedovolí a nebo jste z daleka, každý finanční příspěvek nás velmi těší. Festival žije díky vám.
 

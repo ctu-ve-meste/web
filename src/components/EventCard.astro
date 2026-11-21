@@ -2,9 +2,10 @@
 import { Image } from 'astro:assets';
 import { getEntry } from 'astro:content';
 import type { Akce } from '../lib/akce';
-import { casAkce } from '../lib/akce';
+import { casAkce, jeMinula } from '../lib/akce';
 import { datumDlouze, rozsah } from '../lib/datum';
 import { url } from '../lib/url';
+import Logo from './Logo.astro';
 
 interface Props {
   akce: Akce;
@@ -15,20 +16,28 @@ const d = akce.data;
 const rocnik = d.rocnik ? await getEntry(d.rocnik) : undefined;
 const barva = rocnik?.data.barva ?? 'var(--fg)';
 const kdy = d.dateEnd ? rozsah(d.date, d.dateEnd) : datumDlouze(d.date);
+const mesto = await getEntry(d.mesto);
+const jineMesto = mesto && mesto.id !== 'frydek-mistek' ? mesto.data.nazev : '';
 const stitek = d.typ === 'festival' && rocnik ? `${rocnik.data.cislo}. ročník` : d.typ === 'kafe-a-kniha' ? 'Kafe&kniha' : 'Během roku';
 ---
 <article class="event-card" style={`--rocnik: ${barva}`}>
-  {d.cover && (
-    <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[400, 800]} sizes="(min-width: 64rem) 30vw, 100vw" class="event-card__img" />
+  {d.cover ? (
+    <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[400, 800]} sizes="(min-width: 64rem) 30vw, 100vw" class:list={['event-card__img', { 'event-card__img--plakat': d.coverFit === 'contain' }]} />
+  ) : (
+    <div class="event-card__placeholder" aria-hidden="true">
+      <span class="event-card__ph-spines">{'/|||/||/||||/||/'.repeat(6)}</span>
+      <span class="event-card__ph-logo"><Logo varianta="zakladni" /></span>
+      <span class="event-card__ph-spines">{'/||/|||/||||/||/'.repeat(6)}</span>
+    </div>
   )}
   <div class="event-card__body">
     <p class="event-card__tag label"><span class="event-card__dot" aria-hidden="true"></span>{stitek}</p>
     <H class="event-card__title"><a href={url(`/akce/${akce.id}/`)}>{d.title}</a></H>
     <p class="event-card__meta">
       <span>{kdy}{casAkce(akce) && `, ${casAkce(akce)}`}</span><br />
-      <span class="muted">{d.misto.nazev}</span>
+      <span class="muted">{d.misto.nazev}{jineMesto && !d.misto.nazev.includes(jineMesto) && `, ${jineMesto}`}</span>
     </p>
-    {d.registrace?.vyprodano && <p class="event-card__flag label">Vyprodáno</p>}
+    {d.registrace?.vyprodano && !jeMinula(akce) && <p class="event-card__flag label">Vyprodáno</p>}
   </div>
 </article>
 
@@ -44,6 +53,29 @@ const stitek = d.typ === 'festival' && rocnik ? `${rocnik.data.cislo}. ročník`
     height: 100%;
   }
   .event-card__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .event-card__img--plakat { object-fit: contain; background: var(--black); }
+  .event-card__placeholder {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border);
+  }
+  .event-card__ph-spines {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 2.25rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    color: var(--rocnik);
+    opacity: 0.55;
+    padding-block: var(--space-2);
+  }
+  .event-card__ph-logo { width: 34%; }
   .event-card__body { padding: var(--space-4); }
   .event-card__tag { display: flex; align-items: center; gap: var(--space-2); color: var(--text-muted); margin-bottom: var(--space-2); }
   .event-card__dot { width: 0.9rem; height: 0.9rem; border-radius: 50%; background: var(--rocnik); flex: none; }

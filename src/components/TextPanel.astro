@@ -1,0 +1,38 @@
+---
+/**
+ * Rozvržení textové stránky: text vlevo, vpravo panel s fotkou a hlavní výzvou.
+ * Na desktopu panel drží při posouvání, na mobilu je pod textem.
+ * Použití:
+ *   <TextPanel fotka={{ src, alt }}>
+ *     …text…
+ *     <Fragment slot="panel"><a class="btn" …>Výzva</a></Fragment>
+ *   </TextPanel>
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+interface Props { fotka?: { src: ImageMetadata; alt: string } }
+const { fotka } = Astro.props;
+const maPanel = Astro.slots.has('panel');
+---
+<div class="tp">
+  <div class="tp__text"><slot /></div>
+  {(fotka || maPanel) && (
+    <aside class="tp__panel">
+      {fotka && <Image src={fotka.src} alt={fotka.alt} widths={[400, 800]} sizes="(min-width: 64rem) 24rem, 100vw" class="tp__foto" />}
+      {maPanel && <div class="tp__box"><slot name="panel" /></div>}
+    </aside>
+  )}
+</div>
+
+<style>
+  .tp { display: grid; gap: var(--space-5); }
+  .tp__text { min-width: 0; max-width: var(--max-w-text); }
+  .tp__panel { display: flex; flex-direction: column; gap: var(--space-4); }
+  .tp__foto { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); }
+  .tp__box { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  .tp__box :global(p) { margin: 0; }
+  @media (min-width: 64rem) {
+    .tp { grid-template-columns: minmax(0, 1fr) 22rem; gap: var(--space-6); align-items: start; }
+    .tp__panel { position: sticky; top: calc(var(--header-h) + var(--space-4)); }
+  }
+</style>

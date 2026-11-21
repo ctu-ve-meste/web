@@ -1,10 +1,12 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TextPanel from '../components/TextPanel.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { config } from '../config';
 import { url } from '../lib/url';
 import QrPlatba from '../components/QrPlatba.astro';
+import Kopirovat from '../components/Kopirovat.astro';
 const s = (await getEntry('stranky', 'podporte-nas'))!;
 const { Content } = await render(s);
 const stav = { 'v-prodeji': 'V prodeji', pripravujeme: 'Připravujeme', 'na-akcich': 'Potkáte na akcích' } as const;
@@ -12,19 +14,24 @@ const stav = { 'v-prodeji': 'V prodeji', pripravujeme: 'Připravujeme', 'na-akci
 <BaseLayout title={s.data.title} description={s.data.description}>
   <section class="container section">
     <SectionHeading as="h1" label="PODPOŘTE NÁS" spines>Festival žije díky vám</SectionHeading>
-    <div class="prose"><Content /></div>
-    <div class="ucet">
+    <TextPanel>
+      <div class="prose"><Content /></div>
+      <p class="cta">
+        <a class="btn" href={`mailto:${config.email}?subject=Chci se přidat k dobrovolníkům`}>Chci být dobrovolník</a>
+        <a class="btn btn--ghost" href={url('/partneri/')}>Partneři festivalu</a>
+      </p>
+      <Fragment slot="panel">
+    <div class="ucet ucet--panel">
       <div>
         <p class="label label--accent">Finanční příspěvek</p>
         <p class="ucet__cislo">{config.spolek.ucet}</p>
+        <p><Kopirovat text={config.spolek.ucet} popis="Zkopírovat číslo účtu" jenTlacitko /></p>
         <p class="muted small">{config.spolek.nazev}<br />IBAN {config.spolek.iban.replace(/(.{4})/g, '$1 ').trim()}</p>
       </div>
       <QrPlatba />
     </div>
-    <p class="cta">
-      <a class="btn" href={`mailto:${config.email}?subject=Chci se přidat k dobrovolníkům`}>Chci být dobrovolník</a>
-      <a class="btn btn--ghost" href={url('/partneri/')}>Partneři festivalu</a>
-    </p>
+      </Fragment>
+    </TextPanel>
   </section>
 
   <section class="container section">
@@ -33,7 +40,7 @@ const stav = { 'v-prodeji': 'V prodeji', pripravujeme: 'Připravujeme', 'na-akci
       {s.data.polozky.map((p) => (
         <li class="card predmet">
           <p class="label label--accent">{stav[p.stav]}</p>
-          <h3>{p.nazev}<span class="dot">.</span></h3>
+          <h3>{p.nazev}</h3>
           <p>{p.text}</p>
           {(p.cena || p.kde) && <p class="predmet__kde"><strong>{p.cena}</strong>{p.cena && p.kde && ' · '}{p.kde}</p>}
         </li>
@@ -44,14 +51,14 @@ const stav = { 'v-prodeji': 'V prodeji', pripravujeme: 'Připravujeme', 'na-akci
   <section class="container section">
     <div class="poukazka" role="img" aria-label="Poukázka: Dvě hodiny nerušeného čtení jsou vaše.">
       <p class="label">poukázka</p>
-      <p class="poukazka__text">Dvě hodiny nerušeného čtení jsou vaše<span class="dot">.</span></p>
+      <p class="poukazka__text">Dvě hodiny nerušeného čtení jsou vaše<span class="dot" aria-hidden="true">.</span></p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .ucet { display: flex; flex-wrap: wrap; gap: var(--space-5); align-items: flex-start; margin: var(--space-5) 0; padding: var(--space-4); border: var(--border); border-radius: var(--radius-card); background: var(--gray-1); }
-  .ucet__cislo { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: 1; margin: var(--space-2) 0; }
+  .ucet { width: 100%; display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: flex-start; margin: 0; padding: var(--space-4); border: var(--border); border-radius: var(--radius-card); background: var(--gray-1); }
+  .ucet__cislo { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h3); line-height: 1.1; margin: var(--space-2) 0; }
   .small { font-size: var(--fs-small); }
   .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
   .predmet h3 { margin-bottom: var(--space-2); }

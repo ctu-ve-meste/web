@@ -6,13 +6,16 @@
 interface Zprava { od: 'levy' | 'pravy'; text: string; jmeno?: string }
 interface Props { zpravy: Zprava[]; popis?: string }
 const { zpravy, popis = 'Konverzace' } = Astro.props;
+// krátké jméno mluvčího pro čtečky (z první zprávy na dané straně)
+const kratke = { levy: '', pravy: '' } as Record<'levy' | 'pravy', string>;
+for (const z of zpravy) if (z.jmeno && !kratke[z.od]) kratke[z.od] = z.jmeno.split(' ')[0];
 ---
 <figure class="chat" aria-label={popis}>
   <ol role="list">
     {zpravy.map((z) => (
       <li class:list={['chat__msg', `chat__msg--${z.od}`]}>
-        {z.jmeno && <span class="chat__jmeno">{z.jmeno}</span>}
-        <span class="chat__bublina">{z.text}</span>
+        {z.jmeno && <span class="chat__jmeno" aria-hidden="true">{z.jmeno}</span>}
+        <span class="chat__bublina"><span class="visually-hidden">{kratke[z.od]}: </span>{z.text}</span>
       </li>
     ))}
   </ol>

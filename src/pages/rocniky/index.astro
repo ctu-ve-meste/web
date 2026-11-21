@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
+import { Image } from 'astro:assets';
 import { vsechnyRocniky } from '../../lib/rocniky';
 import { rozsah } from '../../lib/datum';
 import { url } from '../../lib/url';
@@ -13,9 +14,10 @@ const rocniky = await vsechnyRocniky();
       {rocniky.map((r) => (
         <li style={`--rocnik: ${r.data.barva}`}>
           <a href={url(`/rocniky/${r.data.rok}/`)}>
+            {r.data.fotky[0] && <Image src={r.data.fotky[0].src} alt="" widths={[400, 800]} sizes="(min-width: 64rem) 25vw, 100vw" class="foto" />}
             <span class="tecka" aria-hidden="true"></span>
             <span class="rok">{r.data.rok}</span>
-            <span class="label muted">{r.data.cislo}. ročník{r.data.od && ` · ${rozsah(r.data.od, r.data.do)}`}</span>
+            <span class="label muted">{r.data.cislo}. ročník{r.data.od && <><br /><span class="nowrap">{rozsah(r.data.od, r.data.do)}</span></>}</span>
             <span class="perex">{r.data.perex}</span>
           </a>
         </li>
@@ -26,8 +28,9 @@ const rocniky = await vsechnyRocniky();
 
 <style>
   .rocniky { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
-  .rocniky a { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); background: var(--gray-1); border-radius: var(--radius); text-decoration: none; height: 100%; }
+  .rocniky a { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); background: var(--gray-1); border: var(--border); border-radius: var(--radius-card); overflow: hidden; text-decoration: none; height: 100%; }
   .rocniky a:hover .rok { color: var(--rocnik); }
+  .foto { width: calc(100% + 2 * var(--space-4)); margin: calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) var(--space-2); aspect-ratio: 3 / 2; object-fit: cover; max-width: none; }
   .tecka { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--rocnik); }
   .rok { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: 1; }
 </style>

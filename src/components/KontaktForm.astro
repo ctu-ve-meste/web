@@ -25,11 +25,11 @@ import { url } from '../lib/url';
       <input id="kf-web" name="web" type="text" tabindex="-1" autocomplete="off" />
     </div>
     <label class="check">
-      <input type="checkbox" name="souhlas" required value="Souhlasím se zpracováním údajů pro odpověď na zprávu." />
+      <input type="checkbox" id="kf-souhlas" name="souhlas" required value="Souhlasím se zpracováním údajů pro odpověď na zprávu." />
       <span>Souhlasím se zpracováním údajů pro odpověď na zprávu (<a href={url('/ochrana-osobnich-udaju/')}>zásady</a>).</span>
     </label>
     <p><button class="btn" type="submit">Odeslat</button></p>
-    <p class="kf__stav" role="status" aria-live="polite"></p>
+    <p class="kf__stav" id="kf-stav" role="status" aria-live="polite"></p>
   </form>
 ) : (
   <p><a class="btn" href={`mailto:${config.email}?subject=Nápad pro Čtu ve městě`}>Napsat nápad e-mailem</a></p>
@@ -47,9 +47,17 @@ import { url } from '../lib/url';
       const fd = new FormData(form);
       const email = String(fd.get('email') ?? '').trim();
       const zprava = String(fd.get('zprava') ?? '').trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { stav.textContent = 'Zkontrolujte prosím e-mail.'; return; }
-      if (zprava.length < 3) { stav.textContent = 'Napište nám prosím pár slov.'; return; }
-      if (!fd.get('souhlas')) { stav.textContent = 'Potřebujeme váš souhlas, abychom mohli odpovědět.'; return; }
+      const chyby: [string, string][] = [];
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) chyby.push(['kf-email', 'Zkontrolujte prosím e-mail.']);
+      if (zprava.length < 3) chyby.push(['kf-zprava', 'Napište nám prosím pár slov.']);
+      if (!fd.get('souhlas')) chyby.push(['kf-souhlas', 'Potřebujeme váš souhlas, abychom mohli odpovědět.']);
+      form.querySelectorAll('[aria-invalid]').forEach((el) => { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); });
+      if (chyby.length) {
+        stav.textContent = chyby.map((c) => c[1]).join(' ');
+        chyby.forEach(([id]) => { const el = document.getElementById(id); el?.setAttribute('aria-invalid', 'true'); el?.setAttribute('aria-describedby', 'kf-stav'); });
+        document.getElementById(chyby[0][0])?.focus();
+        return;
+      }
       if (fd.get('web')) return;
       btn.disabled = true;
       stav.textContent = 'Odesíláme…';

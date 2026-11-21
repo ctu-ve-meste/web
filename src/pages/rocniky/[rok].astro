@@ -3,6 +3,7 @@ import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import EventCard from '../../components/EventCard.astro';
+import { getImage } from 'astro:assets';
 import Gallery from '../../components/Gallery.astro';
 import { vsechnyAkce, chronologicky } from '../../lib/akce';
 import { rozsah, isoDatum } from '../../lib/datum';
@@ -15,6 +16,7 @@ export async function getStaticPaths() {
 const { rocnik } = Astro.props as { rocnik: CollectionEntry<'rocniky'> };
 const r = rocnik.data;
 const akce = chronologicky((await vsechnyAkce()).filter((a) => a.data.rocnik?.id === rocnik.id));
+const og = r.fotky[0] ? (await getImage({ src: r.fotky[0].src, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src : undefined;
 const mesta = (await Promise.all(r.mesta.map((m) => getEntry(m)))).filter((m) => !!m);
 const festival = {
   '@context': 'https://schema.org',
@@ -31,7 +33,7 @@ const festival = {
   subEvent: akce.map((a) => ({ '@type': 'Event', name: a.data.title, url: absUrl(`/akce/${a.id}/`, Astro.site) })),
 };
 ---
-<BaseLayout title={`${r.cislo}. ročník ${r.rok}`} description={`${r.cislo}. ročník festivalu Čtu ve městě ${r.rok}. ${r.perex}`} accent={r.barva} jsonLd={festival}>
+<BaseLayout title={`${r.cislo}. ročník ${r.rok}`} description={`${r.cislo}. ročník festivalu Čtu ve městě ${r.rok}. ${r.perex}`} accent={r.barva} jsonLd={festival} image={og} imageAlt={r.fotky[0]?.alt}>
   <section class="container section">
     <SectionHeading as="h1" label={`${r.cislo}. ROČNÍK${r.od ? ` · ${rozsah(r.od, r.do)}` : ''}`} spines>{String(r.rok)}</SectionHeading>
     <p class="lead prose">{r.perex}</p>
@@ -44,6 +46,13 @@ const festival = {
     )}
   </section>
 
+  {r.fotky.length > 0 && (
+    <section class="container section">
+      <SectionHeading label="FOTKY">Takhle to vypadalo</SectionHeading>
+      <Gallery fotky={r.fotky} nazev={`Fotky ${r.rok}`} />
+    </section>
+  )}
+
   {akce.length > 0 && (
     <section class="container section">
       <SectionHeading label="AKCE">Co se četlo</SectionHeading>
@@ -51,12 +60,6 @@ const festival = {
     </section>
   )}
 
-  {r.fotky.length > 0 && (
-    <section class="container section">
-      <SectionHeading label="FOTKY">Takhle to vypadalo</SectionHeading>
-      <Gallery fotky={r.fotky} nazev={`Fotky ${r.rok}`} />
-    </section>
-  )}
 </BaseLayout>
 
 <style>

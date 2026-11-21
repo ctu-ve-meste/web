@@ -1,12 +1,15 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TextPanel from '../components/TextPanel.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import EventCard from '../components/EventCard.astro';
 import { vsechnyAkce, nadchazejici } from '../lib/akce';
 import { url } from '../lib/url';
 const s = (await getEntry('stranky', 'kafe-a-kniha'))!;
 const { Content } = await render(s);
+const kafe2026 = (await getEntry('akce', 'kafe-a-kniha-2026'))!;
+const fotka = kafe2026.data.cover ? { src: kafe2026.data.cover, alt: kafe2026.data.coverAlt ?? '' } : undefined;
 const vse = (await vsechnyAkce()).filter((a) => a.data.typ === 'kafe-a-kniha' || a.data.format?.id === 'kafe-a-kniha');
 const budouci = nadchazejici(vse);
 const probehle = vse.filter((a) => !budouci.includes(a));
@@ -14,7 +17,13 @@ const probehle = vse.filter((a) => !budouci.includes(a));
 <BaseLayout title={s.data.title} description={s.data.description}>
   <section class="container section">
     <SectionHeading as="h1" label="KAFE&KNIHA" spines>Kniha, kafe a zákusek</SectionHeading>
-    <div class="prose lead"><Content /></div>
+    <TextPanel fotka={fotka}>
+      <div class="prose lead"><Content /></div>
+      <Fragment slot="panel">
+        <p class="label label--accent">Vždy první neděli v měsíci</p>
+        <a class="btn" href={url('/newsletter/')}>Chci vědět, kde příště</a>
+      </Fragment>
+    </TextPanel>
   </section>
 
   <section class="container section">
@@ -23,7 +32,7 @@ const probehle = vse.filter((a) => !budouci.includes(a));
       <ul class="grid-cards" role="list">{budouci.map((a) => <li><EventCard akce={a} /></li>)}</ul>
     ) : (
       <div class="prose">
-        <p>Další termín brzy, přihlaste se k newsletteru a dáme vám vědět.</p>
+        <p>Přihlaste se k newsletteru nebo sledujte Instagram, dáme vám vědět, kde se sejdeme příště.</p>
         <p><a class="btn" href={url('/newsletter/')}>Přihlásit se k newsletteru</a></p>
       </div>
     )}

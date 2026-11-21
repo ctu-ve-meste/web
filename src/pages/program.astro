@@ -1,13 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TextPanel from '../components/TextPanel.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import EventCard from '../components/EventCard.astro';
 import { vsechnyAkce, chronologicky } from '../lib/akce';
-import { aktualniRocnik } from '../lib/rocniky';
+import { aktualniRocnik, vsechnyRocniky } from '../lib/rocniky';
 import { datumDlouze, rozsah, isoDatum } from '../lib/datum';
 import { url } from '../lib/url';
+import { config } from '../config';
 
 const rocnik = await aktualniRocnik();
+const sFotkou = (await vsechnyRocniky()).find((x) => x.data.fotky.length > 1);
+const fotka = sFotkou?.data.fotky[1];
 const r = rocnik.data;
 const akce = chronologicky((await vsechnyAkce()).filter((a) => a.data.rocnik?.id === rocnik.id));
 const dny = new Map<string, typeof akce>();
@@ -22,19 +26,24 @@ for (const a of akce) {
     {r.od && <p class="lead">{rozsah(r.od, r.do)}</p>}
 
     {akce.length === 0 ? (
+      <TextPanel fotka={fotka}>
       <div class="prazdno">
         <p class="lead">
           {r.cislo}. ročník {r.rok} se připravuje.
           {r.od ? ` Těšte se na ${rozsah(r.od, r.do)}.` : ' Termín brzy oznámíme.'}
         </p>
-        <p>Program zveřejníme v létě. Chcete ho mít mezi prvními?</p>
-        <p><a class="btn" href={url('/newsletter/')}>Přihlaste se k newsletteru</a></p>
+        <p>Termín a program brzy oznámíme. Nejrychleji se to dozvíte na Instagramu nebo v newsletteru.</p>
+        <p class="cta">
+          <a class="btn" href={config.site.instagram} rel="noopener">Sledujte nás na Instagramu</a>
+          <a class="btn btn--ghost" href={url('/newsletter/')}>Newsletter</a>
+        </p>
         <p class="muted">Mezitím se podívejte, <a href={url('/akce/')}>co všechno už proběhlo</a>.</p>
       </div>
+      </TextPanel>
     ) : (
       [...dny.entries()].map(([den, seznam]) => (
         <section class="den" aria-labelledby={`den-${den}`}>
-          <h2 id={`den-${den}`} class="den__nadpis">{datumDlouze(seznam[0].data.date, false)}<span class="dot">.</span></h2>
+          <h2 id={`den-${den}`} class="den__nadpis">{datumDlouze(seznam[0].data.date, false)}<span class="dot" aria-hidden="true">.</span></h2>
           <ul class="grid" role="list">
             {seznam.map((a) => <li><EventCard akce={a} /></li>)}
           </ul>
@@ -47,6 +56,7 @@ for (const a of akce) {
 <style>
   .lead { font-size: var(--fs-lead); }
   .prazdno { max-width: var(--max-w-text); }
+  .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
   .den { margin-top: var(--space-5); }
   .den__nadpis { font-size: var(--fs-h3); text-transform: capitalize; }
   .grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }

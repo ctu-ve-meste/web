@@ -20,9 +20,11 @@ export const config = {
    * po scrollu se zmenší na „čtu“) nebo 'zakladni' (jen „čtu“). Na mobilu vždy „čtu“.
    * Obě varianty jsou k porovnání na /styleguide/.
    */
-  logoZahlavi: 'rozsirene' as 'rozsirene' | 'zakladni',
+  logoZahlavi: 'zakladni' as 'rozsirene' | 'zakladni',
 
   email: 'ctuvemeste.cz@gmail.com',
+  /** Kontakt pro ruční přihlášení k newsletteru (dokud neběží formulář přes Apps Script). */
+  emailNewsletter: 'tobias.otta@ctuvemeste.cz',
   spolek: {
     nazev: 'Čtu ve městě, z.s.',
     ico: '22293752',
@@ -82,7 +84,7 @@ export const paticka = [
   {
     nadpis: 'Spolek',
     odkazy: [
-      { href: '/kdo-jsme/', text: 'Kdo jsme' },
+      { href: '/kdo-jsme/', text: 'O nás' },
       { href: '/manifest/', text: 'Manifest' },
       { href: '/partneri/', text: 'Partneři' },
       { href: '/podporte-nas/', text: 'Podpořte nás' },
@@ -93,7 +95,7 @@ export const paticka = [
     nadpis: 'Zapojte se',
     odkazy: [
       { href: '/pridejte-se/', text: 'Přidejte se' },
-      { href: '/mesta/', text: 'Další města' },
+      { href: '/mesta/', text: 'Města' },
       { href: '/newsletter/', text: 'Newsletter' },
       { href: '/kontakt/', text: 'Kontakt' },
       { href: '/ochrana-osobnich-udaju/', text: 'Ochrana osobních údajů' },

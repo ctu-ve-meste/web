@@ -1,38 +1,47 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TextPanel from '../components/TextPanel.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import BigNumber from '../components/BigNumber.astro';
-import BookSpines from '../components/BookSpines.astro';
 import { config } from '../config';
 import { url } from '../lib/url';
+import Kopirovat from '../components/Kopirovat.astro';
 const s = (await getEntry('stranky', 'pridejte-se'))!;
+const r2026 = (await getEntry('rocniky', '2026'))!;
+const fotka = r2026.data.fotky[3] ?? r2026.data.fotky[0];
 const { Content } = await render(s);
 const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu ve městě i u nás')}`;
 ---
 <BaseLayout title={s.data.title} description={s.data.description}>
   <section class="container section">
     <SectionHeading as="h1" label="4. ROČNÍK · 2027" spines>Chcete, aby se četlo i u vás</SectionHeading>
+    <TextPanel fotka={fotka}>
     <div class="prose lead"><Content /></div>
     <p class="cta">
       <a class="btn" href={mailto}>Ozvěte se nám</a>
       <a class="btn btn--ghost" href={url('/manifest/')}>Přečtěte si manifest</a>
     </p>
+    <p class="muted">E-mail: <Kopirovat text={config.email} odkaz={mailto} /></p>
+    </TextPanel>
   </section>
 
-  <BookSpines varianta="pas" class="spines-gray" />
 
   <section class="container section reveal">
     <SectionHeading label="PROČ SE PŘIDAT">Festival se děje ve vašich ulicích</SectionHeading>
     <ul class="grid-cards" role="list">
       {s.data.bloky.map((b) => (
         <li class="card">
-          <h3>{b.nadpis}<span class="dot">.</span></h3>
+          <h3>{b.nadpis}</h3>
           <p>{b.text}</p>
         </li>
       ))}
     </ul>
-    <p class="pointa">Podniky nejsou sponzoři. Jsou scény<span class="dot">.</span></p>
+  </section>
+
+  <section class="container section reveal">
+    <SectionHeading label="KDE SE TO DĚJE">Podniky nejsou sponzoři. Jsou scény</SectionHeading>
+    <p class="prose lead">Festival nemá areál — má město. Čte se v knihkupectví, kavárně, obchůdku, kostele i na lodičkách. Ve 3. ročníku takhle festival neslo <strong class="akcent">13 lokálních podniků a institucí</strong>.</p>
   </section>
 
   <section class="container section reveal">
@@ -49,12 +58,12 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
       <a class="btn" href={mailto}>Chci čtení i u nás</a>
       <a class="btn btn--ghost" href={url('/mesta/')}>Další města</a>
     </p>
+    <p class="muted">Napište nám, kde a kdy by se u vás mohlo číst, a ozveme se. E-mail: <Kopirovat text={config.email} odkaz={mailto} /></p>
   </section>
 </BaseLayout>
 
 <style>
   .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
   .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
-  .pointa { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h2); line-height: 1.1; margin-top: var(--space-5); }
-  :global(.spines-gray) { color: var(--gray-3); }
+  .akcent { color: var(--accent); font-weight: 700; }
 </style>

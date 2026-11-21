@@ -6,13 +6,13 @@ const mesice = [
 
 /** 3. 9. 2026 */
 export function datumKratce(d: Date): string {
-  return `${d.getUTCDate()}. ${d.getUTCMonth() + 1}. ${d.getUTCFullYear()}`;
+  return `${d.getUTCDate()}.\u00a0${d.getUTCMonth() + 1}.\u00a0${d.getUTCFullYear()}`;
 }
 
 /** čtvrtek 3. září 2026 */
 export function datumDlouze(d: Date, sRokem = true): string {
-  const s = `${dny[d.getUTCDay()]} ${d.getUTCDate()}. ${mesice[d.getUTCMonth()]}`;
-  return sRokem ? `${s} ${d.getUTCFullYear()}` : s;
+  const s = `${dny[d.getUTCDay()]} ${d.getUTCDate()}.\u00a0${mesice[d.getUTCMonth()]}`;
+  return sRokem ? `${s}\u00a0${d.getUTCFullYear()}` : s;
 }
 
 /** 3.–6. 9. 2026, případně 30. 9. – 2. 10. 2026 */

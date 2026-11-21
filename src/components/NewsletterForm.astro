@@ -21,16 +21,16 @@ const souhlasText = 'Souhlasím se zpracováním e-mailu pro zasílání newslet
       <input id={`${id}-web`} name="web" type="text" tabindex="-1" autocomplete="off" />
     </div>
     <label class="check">
-      <input type="checkbox" name="souhlas" required value={souhlasText} />
+      <input type="checkbox" id={`${id}-souhlas`} name="souhlas" required value={souhlasText} />
       <span>{souhlasText} Více v <a href={url('/ochrana-osobnich-udaju/')}>zásadách ochrany osobních údajů</a>.</span>
     </label>
     <p><button class="btn" type="submit">Přihlásit se</button></p>
-    <p class="nl__stav" role="status" aria-live="polite"></p>
+    <p class="nl__stav" id={`${id}-stav`} role="status" aria-live="polite"></p>
   </form>
 ) : (
   <p class="prose">
-    Přihlašování k newsletteru spouštíme. Do té doby nám napište na
-    <a href={`mailto:${config.email}?subject=Chci%20newsletter`}>{config.email}</a> a přidáme vás.
+    Přihlašování k newsletteru spouštíme. Do té doby nám napište na{' '}
+    <a href={`mailto:${config.emailNewsletter}?subject=Chci%20newsletter`}>{config.emailNewsletter}</a> a přidáme vás.
   </p>
 )}
 
@@ -45,13 +45,19 @@ const souhlasText = 'Souhlasím se zpracováním e-mailu pro zasílání newslet
       const fd = new FormData(form);
       const email = String(fd.get('email') ?? '').trim();
       const souhlas = fd.get('souhlas');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        stav.textContent = 'Zkontrolujte prosím e-mailovou adresu.';
-        form.querySelector<HTMLInputElement>('input[name=email]')?.focus();
-        return;
-      }
-      if (!souhlas) {
-        stav.textContent = 'Bez souhlasu vám newsletter posílat nemůžeme.';
+      const oznac = (el: HTMLElement | null, chyba: boolean) => {
+        if (!el) return;
+        if (chyba) { el.setAttribute('aria-invalid', 'true'); el.setAttribute('aria-describedby', stav.id); }
+        else { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); }
+      };
+      const poleEmail = form.querySelector<HTMLInputElement>('input[name=email]');
+      const poleSouhlas = form.querySelector<HTMLInputElement>('input[name=souhlas]');
+      const spatnyEmail = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      oznac(poleEmail, spatnyEmail);
+      oznac(poleSouhlas, !souhlas);
+      if (spatnyEmail || !souhlas) {
+        stav.textContent = [spatnyEmail && 'Zkontrolujte prosím e-mailovou adresu.', !souhlas && 'Bez souhlasu vám newsletter posílat nemůžeme.'].filter(Boolean).join(' ');
+        (spatnyEmail ? poleEmail : poleSouhlas)?.focus();
         return;
       }
       if (fd.get('web')) return; // honeypot vyplnil robot

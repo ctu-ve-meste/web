@@ -1,0 +1,45 @@
+---
+/**
+ * Text (e-mail, číslo účtu) s tlačítkem „Zkopírovat“. Pomáhá tam, kde odkaz mailto:
+ * nic neudělá (prohlížeč v Instagramu, telefon bez nastavené pošty).
+ */
+interface Props { text: string; popis?: string; odkaz?: string; velky?: boolean; jenTlacitko?: boolean }
+const { text, popis = 'Zkopírovat', odkaz, velky = false, jenTlacitko = false } = Astro.props;
+---
+<span class:list={['kop', { 'kop--velky': velky }]}>
+  {!jenTlacitko && (odkaz ? <a href={odkaz} class="kop__text">{text}</a> : <span class="kop__text">{text}</span>)}
+  <button type="button" class="kop__btn" data-kopirovat={text} aria-label={`${popis}: ${text}`}>{popis}</button>
+</span>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-kopirovat]').forEach((b) => {
+    if (!navigator.clipboard) return;
+    b.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(b.dataset.kopirovat!);
+        const puvodni = b.textContent;
+        b.textContent = 'Zkopírováno';
+        setTimeout(() => (b.textContent = puvodni), 2000);
+      } catch {}
+    });
+  });
+</script>
+
+<style>
+  .kop { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+  .kop__text { overflow-wrap: anywhere; }
+  .kop--velky .kop__text { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h3); }
+  .kop__btn {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: var(--fs-small);
+    color: var(--fg);
+    background: transparent;
+    border: 1px solid var(--gray-3);
+    border-radius: 999px;
+    padding: 0.4em 0.9em;
+    min-height: 36px;
+    cursor: pointer;
+  }
+  .kop__btn:hover { border-color: var(--accent); color: var(--accent); }
+</style>

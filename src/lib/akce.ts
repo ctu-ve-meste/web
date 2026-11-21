@@ -28,3 +28,9 @@ export function casAkce(a: Akce): string {
   if (!timeStart) return '';
   return timeEnd ? `${timeStart}–${timeEnd}` : `od ${timeStart}`;
 }
+
+/** Akce už proběhla (podle data buildu; web se přestavuje každý den). */
+export function jeMinula(a: Akce, ted = new Date()): boolean {
+  const dnes = Date.UTC(ted.getFullYear(), ted.getMonth(), ted.getDate());
+  return (a.data.dateEnd ?? a.data.date).getTime() < dnes;
+}
