@@ -63,7 +63,7 @@ const event = {
         {rocnik ? <a href={url(`/rocniky/${rocnik.data.rok}/`)}>{rocnik.data.cislo}. ročník {rocnik.data.rok}</a> : 'Akce během roku'}
         {mesto && <> · {mesto.data.aktivni ? <a href={url(`/mesta/${mesto.id}/`)}>{mesto.data.nazev}</a> : mesto.data.nazev}</>}
       </p>
-      <h1>{d.title}<span class="dot">.</span></h1>
+      <h1>{d.title}<span class="dot" aria-hidden="true">.</span></h1>
       {d.zruseno && <p class="akce__flag label">Zrušeno</p>}
       {!d.zruseno && minula && <p class="akce__flag akce__flag--minula label">Proběhlo</p>}
     </header>
@@ -100,7 +100,7 @@ const event = {
         <Content />
         {d.proKoho && (
           <>
-            <h2 class="akce__prokoho-nadpis">Pro koho<span class="dot">.</span></h2>
+            <h2 class="akce__prokoho-nadpis">Pro koho<span class="dot" aria-hidden="true">.</span></h2>
             <p>{d.proKoho}</p>
           </>
         )}
@@ -113,7 +113,7 @@ const event = {
 
     {d.galerie.length > 0 && (
       <section class="container section" aria-labelledby="galerie">
-        <h2 id="galerie">Fotky<span class="dot">.</span></h2>
+        <h2 id="galerie">Fotky<span class="dot" aria-hidden="true">.</span></h2>
         <Gallery fotky={d.galerie} nazev={`Fotky: ${d.title}`} />
       </section>
     )}

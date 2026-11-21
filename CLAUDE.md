@@ -116,12 +116,14 @@ Bez ní se místo formulářů ukáže odkaz na e-mail.
 
 - **Tón:** vlídný, hravý, sousedský. Vykáme v množném čísle („Přijďte“, „Vezměte si“). Heslo tyká:
   „sedni si, čti, buď vidět“. Žádná velká slova o kultuře.
-- Popis akce končí rubrikou **„Pro koho“** (pole `proKoho`).
+- Popis akce končí rubrikou **„Pro koho“** (pole `proKoho`). U nadcházejících akcí je povinná.
+  U proběhlých akcí ze starého webu chybí a nedoplňuje se (výjimka pro archiv, rubrika se pak nezobrazí).
 - **Netvrďte, že festival běží bez dotací, grantů nebo sponzorů.** Už to neplatí (dotace města F-M,
   příspěvek Plzeňského Prazdroje). Manifest zůstává doslovně, jinde to nepište.
 - **Plzeň jako město 4. ročníku nikde nezveřejňujte**, dokud to tým neoznámí.
 - Pivní partner (Pilsner Urquell) jen u akcí pro dospělé, ne u dětských akcí.
-- Žádné osobní telefony ani soukromé e-maily organizátorů. Kontakt: **ctuvemeste.cz@gmail.com**.
+- Žádné osobní telefony ani soukromé e-maily organizátorů. Hlavní kontakt: **ctuvemeste.cz@gmail.com**.
+  Pracovní e-maily na doméně spolku (`…@ctuvemeste.cz`) jsou v pořádku.
 - Festival je apolitický. Žádná politická ani konfliktní témata.
 - Nevymýšlejte fakta, čísla, data ani citace. Co chybí, označte v obsahu `TODO:`.
 - Hvězdami jsou čtenáři, ne autoři.
@@ -135,3 +137,6 @@ Bez ní se místo formulářů ukáže odkaz na e-mail.
 - Přepnutí na doménu ctuvemeste.cz: krok za krokem v `docs/spusteni.md` (MX a TXT záznamy pro e-mail se nesmí smazat).
 - Kontroly: `npm run build`, `npm run kontrola-odkazu`, `npm run kontrola-presmerovani` (spouští je i GitHub u každého PR).
 - Pivní partner má v `partneri.yaml` příznak `proDospele: true`, proto se neukazuje na úvodní stránce.
+- Textové stránky používají `src/components/TextPanel.astro`: text vlevo, vpravo panel s fotkou a hlavní výzvou.
+- Tečka v barvě akcentu patří jen k hlavním nadpisům (h1 a nadpisy sekcí), ne k nadpisům karet ani do menu.
+- Nápady a rozpracované věci na později: `docs/dalsi-kroky.md`.

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TextPanel from '../../components/TextPanel.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import EventCard from '../../components/EventCard.astro';
 import { vsechnyAkce } from '../../lib/akce';
@@ -15,11 +16,14 @@ const m = mesto.data;
 const { Content } = await render(mesto);
 const akce = (await vsechnyAkce()).filter((a) => a.data.mesto.id === mesto.id);
 const LIMIT = 6;
+const sFotkou = akce.find((a) => a.data.cover);
+const fotka = sFotkou?.data.cover ? { src: sFotkou.data.cover, alt: sFotkou.data.coverAlt ?? '' } : undefined;
 const posledni = akce.slice(0, LIMIT);
 ---
 <BaseLayout title={m.nazev} description={`Čtu ve městě – ${m.nazev}. ${m.perex}`}>
   <section class="container section">
     <SectionHeading as="h1" label={`MĚSTO · OD ROKU ${m.odRoku}`} spines>{m.nazev}</SectionHeading>
+    <TextPanel fotka={fotka}>
     <div class="prose">
       <p class="lead">{m.perex}</p>
       <Content />
@@ -34,6 +38,7 @@ const posledni = akce.slice(0, LIMIT);
         </p>
       )}
     </div>
+    </TextPanel>
   </section>
   {posledni.length > 0 && (
     <section class="container section">

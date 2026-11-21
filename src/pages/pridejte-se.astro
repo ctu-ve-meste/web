@@ -1,7 +1,7 @@
 ---
 import { getEntry, render } from 'astro:content';
-import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TextPanel from '../components/TextPanel.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import BigNumber from '../components/BigNumber.astro';
 import { config } from '../config';
@@ -16,26 +16,23 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
 <BaseLayout title={s.data.title} description={s.data.description}>
   <section class="container section">
     <SectionHeading as="h1" label="4. ROČNÍK · 2027" spines>Chcete, aby se četlo i u vás</SectionHeading>
+    <TextPanel fotka={fotka}>
     <div class="prose lead"><Content /></div>
     <p class="cta">
       <a class="btn" href={mailto}>Ozvěte se nám</a>
       <a class="btn btn--ghost" href={url('/manifest/')}>Přečtěte si manifest</a>
     </p>
     <p class="muted">E-mail: <Kopirovat text={config.email} odkaz={mailto} /></p>
+    </TextPanel>
   </section>
 
-  {fotka && (
-    <figure class="container fotka">
-      <Image src={fotka.src} alt={fotka.alt} widths={[800, 1400, 2000]} sizes="(min-width: 75rem) 75rem, 100vw" />
-    </figure>
-  )}
 
   <section class="container section reveal">
     <SectionHeading label="PROČ SE PŘIDAT">Festival se děje ve vašich ulicích</SectionHeading>
     <ul class="grid-cards" role="list">
       {s.data.bloky.map((b) => (
         <li class="card">
-          <h3>{b.nadpis}<span class="dot">.</span></h3>
+          <h3>{b.nadpis}</h3>
           <p>{b.text}</p>
         </li>
       ))}
@@ -68,7 +65,5 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
 <style>
   .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
   .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
-  .fotka { margin-block: 0 var(--space-5); }
-  .fotka :global(img) { width: 100%; max-height: 70vh; object-fit: cover; border-radius: var(--radius-card); }
   .akcent { color: var(--accent); font-weight: 700; }
 </style>

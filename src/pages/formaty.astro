@@ -17,7 +17,7 @@ const mestaNazvy = new Map((await getCollection('mesta')).map((m) => [m.id, m.da
         const probehle = akce.filter((a) => a.data.format?.id === f.id);
         return (
           <li id={f.id}>
-            <h2>{f.data.nazev}<span class="dot">.</span></h2>
+            <h2>{f.data.nazev}</h2>
             <p>{f.data.perex}</p>
             {probehle.length > 0 && (
               <p class="small">

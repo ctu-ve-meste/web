@@ -1,15 +1,22 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TextPanel from '../components/TextPanel.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { url } from '../lib/url';
 const s = (await getEntry('stranky', 'manifest'))!;
 const { Content } = await render(s);
+const fotka = (await getEntry('rocniky', '2024'))!.data.fotky[0];
 ---
 <BaseLayout title={s.data.title} description={s.data.description}>
   <article class="container section">
     <SectionHeading as="h1" label="ČTU MANIFEST" spines>Manifest</SectionHeading>
-    <div class="prose"><Content /></div>
-    <p><a class="btn" href={url('/pridejte-se/')}>Chci Čtu i v našem městě</a></p>
+    <TextPanel fotka={fotka}>
+      <div class="prose"><Content /></div>
+      <Fragment slot="panel">
+        <p class="label label--accent">Chci Čtu i v našem městě</p>
+        <a class="btn" href={url('/pridejte-se/')}>Jak se přidat</a>
+      </Fragment>
+    </TextPanel>
   </article>
 </BaseLayout>

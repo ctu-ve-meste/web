@@ -26,7 +26,7 @@ const mesta = (await getCollection('mesta', (m) => m.data.aktivni)).sort((a, b) 
       <li class="vase">
         <a href={url('/pridejte-se/')}>
           <span class="label">Další město?</span>
-          <span class="nazev">Vaše město<span class="dot">?</span></span>
+          <span class="nazev">Vaše město<span class="dot" aria-hidden="true">?</span></span>
           <span>Chcete, aby se četlo i u vás?</span>
         </a>
       </li>

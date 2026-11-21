@@ -1,20 +1,28 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TextPanel from '../../components/TextPanel.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
 import { config } from '../../config';
 const s = (await getEntry('stranky', 'newsletter'))!;
 const { Content } = await render(s);
+const fotka = (await getEntry('rocniky', '2026'))!.data.fotky[7];
 ---
 <BaseLayout title={s.data.title} description={s.data.description}>
   <section class="container section">
     <SectionHeading as="h1" label="NEWSLETTER" spines>Brzy načtenou</SectionHeading>
-    {config.appsScriptUrl ? (
-      <div class="prose lead"><Content /></div>
-    ) : (
-      <p class="prose lead">Jednou za čas vám pošleme, co chystáme: program festivalu, nové akce během roku a pozvánky. Novinky najdete i na <a href={config.site.instagram} rel="noopener">Instagramu</a>.</p>
-    )}
-    <NewsletterForm />
+    <TextPanel fotka={fotka}>
+      {config.appsScriptUrl ? (
+        <div class="prose lead"><Content /></div>
+      ) : (
+        <p class="prose lead">Jednou za čas vám pošleme, co chystáme: program festivalu, nové akce během roku a pozvánky.</p>
+      )}
+      <NewsletterForm />
+      <Fragment slot="panel">
+        <p class="label label--accent">Novinky každý den</p>
+        <a class="btn btn--ghost" href={config.site.instagram} rel="noopener">Sledujte nás na Instagramu</a>
+      </Fragment>
+    </TextPanel>
   </section>
 </BaseLayout>

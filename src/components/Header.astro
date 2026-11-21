@@ -41,7 +41,7 @@ const isActive = (href: string) => !demo && current.startsWith(url(href));
       <nav aria-label="Hlavní navigace (mobil)" class="container">
         <ul>
           {navigace.map((n) => (
-            <li><a href={url(n.href)} aria-current={isActive(n.href) ? 'page' : undefined}>{n.text}<span class="dot" aria-hidden="true">.</span></a></li>
+            <li><a href={url(n.href)} aria-current={isActive(n.href) ? 'page' : undefined}>{n.text}</a></li>
           ))}
         </ul>
         <a href={url(navigaceTlacitko.href)} class="btn">{navigaceTlacitko.text}</a>

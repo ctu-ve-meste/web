@@ -1,14 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TextPanel from '../components/TextPanel.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import EventCard from '../components/EventCard.astro';
 import { vsechnyAkce, chronologicky } from '../lib/akce';
-import { aktualniRocnik } from '../lib/rocniky';
+import { aktualniRocnik, vsechnyRocniky } from '../lib/rocniky';
 import { datumDlouze, rozsah, isoDatum } from '../lib/datum';
 import { url } from '../lib/url';
 import { config } from '../config';
 
 const rocnik = await aktualniRocnik();
+const sFotkou = (await vsechnyRocniky()).find((x) => x.data.fotky.length > 1);
+const fotka = sFotkou?.data.fotky[1];
 const r = rocnik.data;
 const akce = chronologicky((await vsechnyAkce()).filter((a) => a.data.rocnik?.id === rocnik.id));
 const dny = new Map<string, typeof akce>();
@@ -23,6 +26,7 @@ for (const a of akce) {
     {r.od && <p class="lead">{rozsah(r.od, r.do)}</p>}
 
     {akce.length === 0 ? (
+      <TextPanel fotka={fotka}>
       <div class="prazdno">
         <p class="lead">
           {r.cislo}. ročník {r.rok} se připravuje.
@@ -35,10 +39,11 @@ for (const a of akce) {
         </p>
         <p class="muted">Mezitím se podívejte, <a href={url('/akce/')}>co všechno už proběhlo</a>.</p>
       </div>
+      </TextPanel>
     ) : (
       [...dny.entries()].map(([den, seznam]) => (
         <section class="den" aria-labelledby={`den-${den}`}>
-          <h2 id={`den-${den}`} class="den__nadpis">{datumDlouze(seznam[0].data.date, false)}<span class="dot">.</span></h2>
+          <h2 id={`den-${den}`} class="den__nadpis">{datumDlouze(seznam[0].data.date, false)}<span class="dot" aria-hidden="true">.</span></h2>
           <ul class="grid" role="list">
             {seznam.map((a) => <li><EventCard akce={a} /></li>)}
           </ul>

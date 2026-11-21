@@ -3,11 +3,11 @@
  * Text (e-mail, číslo účtu) s tlačítkem „Zkopírovat“. Pomáhá tam, kde odkaz mailto:
  * nic neudělá (prohlížeč v Instagramu, telefon bez nastavené pošty).
  */
-interface Props { text: string; popis?: string; odkaz?: string; velky?: boolean }
-const { text, popis = 'Zkopírovat', odkaz, velky = false } = Astro.props;
+interface Props { text: string; popis?: string; odkaz?: string; velky?: boolean; jenTlacitko?: boolean }
+const { text, popis = 'Zkopírovat', odkaz, velky = false, jenTlacitko = false } = Astro.props;
 ---
 <span class:list={['kop', { 'kop--velky': velky }]}>
-  {odkaz ? <a href={odkaz} class="kop__text">{text}</a> : <span class="kop__text">{text}</span>}
+  {!jenTlacitko && (odkaz ? <a href={odkaz} class="kop__text">{text}</a> : <span class="kop__text">{text}</span>)}
   <button type="button" class="kop__btn" data-kopirovat={text} aria-label={`${popis}: ${text}`}>{popis}</button>
 </span>
 

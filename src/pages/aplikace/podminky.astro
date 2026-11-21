@@ -1,15 +1,24 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TextPanel from '../../components/TextPanel.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import { url } from '../../lib/url';
 const s = (await getEntry('stranky', 'aplikace-podminky'))!;
 const { Content } = await render(s);
+import { config } from '../../config';
 ---
 <BaseLayout title={s.data.title} description={s.data.description}>
   <article class="container section">
     <p class="label muted"><a href={url('/aplikace/')}>Aplikace</a></p>
     <SectionHeading as="h1" label="PODMÍNKY POUŽITÍ">Podmínky použití</SectionHeading>
-    <div class="prose"><Content /></div>
+    <TextPanel>
+      <div class="prose"><Content /></div>
+      <Fragment slot="panel">
+        <p class="label label--accent">Dotazy</p>
+        <p>{config.spolek.nazev}<br />{config.spolek.ulice}, {config.spolek.psc} {config.spolek.mesto}<br />IČ {config.spolek.ico}</p>
+        <p><a href={`mailto:${config.email}`}>{config.email}</a></p>
+      </Fragment>
+    </TextPanel>
   </article>
 </BaseLayout>

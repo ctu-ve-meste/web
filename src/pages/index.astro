@@ -36,7 +36,7 @@ const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).so
           ? `Nejbližší akce: ${budouci[0].data.title}`
           : `${r.cislo}. ročník ${r.rok} se připravuje${r.od ? ` · ${rozsah(r.od, r.do)}` : ''}`}
       </p>
-      <h1 class="hero__title">Festival, kde hvězdy nic nepředvádějí. Jen čtou<span class="dot">.</span></h1>
+      <h1 class="hero__title">Festival, kde hvězdy nic nepředvádějí. Jen čtou<span class="dot" aria-hidden="true">.</span></h1>
       <p class="hero__cta">
         {budouci.length ? (
           <a class="btn" href={url('/program/')}>Program</a>
@@ -59,7 +59,7 @@ const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).so
     <div>
       <SectionHeading label="CO TO JE" spines>Hvězdy jsou čtenáři</SectionHeading>
       <div class="prose lead"><Content /></div>
-      <p class="motto">sedni si, čti,<br />buď vidět<span class="dot">.</span></p>
+      <p class="motto">sedni si, čti,<br />buď vidět<span class="dot" aria-hidden="true">.</span></p>
     </div>
     <RocnikList />
   </section>

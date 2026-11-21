@@ -20,7 +20,7 @@ export const config = {
    * po scrollu se zmenší na „čtu“) nebo 'zakladni' (jen „čtu“). Na mobilu vždy „čtu“.
    * Obě varianty jsou k porovnání na /styleguide/.
    */
-  logoZahlavi: 'rozsirene' as 'rozsirene' | 'zakladni',
+  logoZahlavi: 'zakladni' as 'rozsirene' | 'zakladni',
 
   email: 'ctuvemeste.cz@gmail.com',
   /** Kontakt pro ruční přihlášení k newsletteru (dokud neběží formulář přes Apps Script). */
