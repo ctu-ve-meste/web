@@ -5,6 +5,7 @@ timeStart: "19:30"
 rocnik: null
 typ: celorocni
 mesto: frydek-mistek
+format: salom-sabat
 misto:
   nazev: "bývalá synagoga ve Frýdku"
 # proKoho: na starém webu u této akce nebylo

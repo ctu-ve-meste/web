@@ -20,6 +20,6 @@ galerie:
     alt: "Kniha na břehu pod slunečníkem"
 ---
 
-Vezměte si knihu všude s sebou: do autobusu, do fronty na kávu, do parku… Čtěte, kdy můžete, a obejměte ji, když nemůžete. Vyfoťte svou oblíbenou knihu, sdílejte ji a označte @jaglaser_gbg, ať svět vidí, že se čte všude.
+Účastníci si mohli vzít knihu všude s sebou: do autobusu, do fronty na kávu, do parku… Číst, kdy mohli, a obejmout ji, když nemohli. Svou oblíbenou knihu mohli vyfotit, sdílet a označit @jaglaser_gbg, ať svět vidí, že se čte všude.
 
 _Přeloženo ze švédského plakátu festivalu Jag läser i staden._

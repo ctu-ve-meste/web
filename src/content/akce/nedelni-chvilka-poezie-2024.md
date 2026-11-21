@@ -5,6 +5,7 @@ timeStart: "11:17"
 rocnik: null
 typ: celorocni
 mesto: frydek-mistek
+format: nedelni-chvilka-poezie
 misto:
   nazev: "celé město"
   adresa: "Frýdek-Místek"

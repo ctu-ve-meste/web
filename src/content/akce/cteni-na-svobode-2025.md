@@ -5,7 +5,7 @@ timeStart: "20:00"
 rocnik: 2025
 typ: festival
 mesto: frydek-mistek
-format: cteni-na-svobode
+format: nocni-cteni-s-obyvackem
 misto:
   nazev: "náměstí Svobody"
   adresa: "Místek"

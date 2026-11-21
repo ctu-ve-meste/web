@@ -4,6 +4,7 @@ date: 2024-12-16
 rocnik: null
 typ: celorocni
 mesto: frydek-mistek
+format: vanocni-darky
 misto:
   nazev: "celé město"
   adresa: "Frýdek-Místek"

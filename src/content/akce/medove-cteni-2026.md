@@ -6,6 +6,7 @@ timeEnd: "17:00"
 rocnik: 2026
 typ: festival
 mesto: frydek-mistek
+format: medove-cteni
 misto:
   nazev: Včelí obchůdek
   adresa: Třebízského 116, Místek
@@ -31,6 +32,6 @@ galerie:
     alt: "Děti a dospělí při výrobě svíček"
 ---
 
-Přijďte strávit voňavé odpoledne ve společnosti včel, medu, knih a svíček. Čeká vás povídání o životě včel, včelích produktech a jejich blahodárném vlivu na zdraví člověka, ochutnávka různých druhů medu i medových nápojů pro děti i dospělé a také čtení z knihy o včelách.
+Strávili jsme voňavé odpoledne ve společnosti včel, medu, knih a svíček. Na programu bylo povídání o životě včel, včelích produktech a jejich blahodárném vlivu na zdraví člověka, ochutnávka různých druhů medu i medových nápojů pro děti i dospělé a také čtení z knihy o včelách.
 
-Součástí programu bude ukázka výroby svíček z včelího vosku a další tvořivé i poznávací aktivity. Dospělí si budou moci vyzkoušet výrobu svíčky a seznámit se s použitím tělových svící. Pro děti budou připravena čtyři hravá stanoviště, na kterých pomocí kartiček prozkoumají svět včel — mimo jiné i v prostorách Včelího obchůdku.
+Součástí programu byla ukázka výroby svíček z včelího vosku a další tvořivé i poznávací aktivity. Dospělí si mohli vyzkoušet výrobu svíčky a seznámit se s použitím tělových svící. Pro děti byla připravena čtyři hravá stanoviště, na kterých mohly pomocí kartiček prozkoumat svět včel — mimo jiné i v prostorách Včelího obchůdku.

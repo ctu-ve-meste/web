@@ -4,6 +4,7 @@ date: 2025-04-29
 rocnik: null
 typ: celorocni
 mesto: frydek-mistek
+format: cteni-lyse-hore
 misto:
   nazev: "Modrá lávka přes Ostravici"
   adresa: "Frýdek-Místek"

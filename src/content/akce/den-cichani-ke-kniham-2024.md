@@ -4,6 +4,7 @@ date: 2024-12-04
 rocnik: null
 typ: celorocni
 mesto: frydek-mistek
+format: den-cichani-ke-kniham
 misto:
   nazev: "nezávislá knihkupectví ve Frýdku-Místku"
 # proKoho: na starém webu u této akce nebylo

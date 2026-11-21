@@ -5,7 +5,7 @@ description: Jak spolek Čtu ve městě, z.s. zpracovává osobní údaje odběr
 
 ## Správce osobních údajů
 
-Čtu ve městě, z.s., Hlavní třída 107, 738 01 Frýdek-Místek, IČ 22293752. Kontakt: [ctuvemeste.cz@gmail.com](mailto:ctuvemeste.cz@gmail.com).
+Čtu ve městě, z.s., Hlavní třída 107, 738 01 Frýdek-Místek, IČ 22293752. Kontakt: [tobias.otta@ctuvemeste.cz](mailto:tobias.otta@ctuvemeste.cz).
 
 ## Jaké údaje zpracováváme a proč
 

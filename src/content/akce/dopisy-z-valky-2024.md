@@ -5,6 +5,7 @@ timeStart: "19:18"
 rocnik: null
 typ: celorocni
 mesto: frydek-mistek
+format: dopisy-z-valky
 misto:
   nazev: "pomník padlým v 1. světové válce"
   adresa: "Kostíkovo náměstí, Frýdek"

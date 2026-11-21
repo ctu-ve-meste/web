@@ -6,9 +6,10 @@ timeEnd: "17:00"
 rocnik: 2026
 typ: festival
 mesto: tisnov
+format: ctu-z-havla
 misto:
   nazev: Lavička Václava Havla (Farská zahrada)
   adresa: Tišnov
 ---
 
-Přijďte si číst z Dopisů Olze nebo jiných děl. U Lavičky Václava Havla si společně připomeneme 90. výročí narození tohoto významného českého dramatika a esejisty.
+Kdo přišel, mohl si číst z Dopisů Olze nebo jiných děl. U Lavičky Václava Havla jsme si společně připomněli 90. výročí narození tohoto významného českého dramatika a esejisty.

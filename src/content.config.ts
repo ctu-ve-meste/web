@@ -122,7 +122,14 @@ const formaty = defineCollection({
   loader: md('./src/content/formaty'),
   schema: z.object({
     nazev: z.string(),
+    /** Podtitul z katalogu akcí (v závorce za názvem). */
+    podtitul: z.string().optional(),
+    /** Jednou větou, co to je. */
     perex: z.string(),
+    kapacita: z.string().optional(),
+    delka: z.string().optional(),
+    cilovaSkupina: z.string().optional(),
+    organizatori: z.string().optional(),
     poradi: z.number().default(100),
   }),
 });

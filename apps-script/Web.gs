@@ -8,7 +8,7 @@
  * Nastavení (Project Settings → Script properties):
  *   SHEET_ID      ID Google tabulky odběratelů (z URL tabulky)
  *   SITE_URL      adresa webu bez lomítka na konci, např. https://www.ctuvemeste.cz
- *   NOTIFY_EMAIL  kam posílat upozornění z kontaktního formuláře (ctuvemeste.cz@gmail.com)
+ *   NOTIFY_EMAIL  kam posílat upozornění z kontaktního formuláře (tobias.otta@ctuvemeste.cz)
  *   SECRET        dlouhý náhodný text pro podepisování odkazů (vygenerujte funkcí vygenerujSecret)
  *
  * Listy v tabulce (vytvoří se samy, pokud chybí):

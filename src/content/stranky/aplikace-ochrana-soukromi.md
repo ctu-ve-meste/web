@@ -56,7 +56,7 @@ description: Jak aplikace Čtu ve městě zachází s údaji uživatelů.
 <p>Jelikož data sbíráme pouze na základě anonymního identifikátoru zařízení (Device ID) a nedisponujeme vašimi osobními identifikačními údaji (jako je jméno či e-mail), nemůžeme data v naší databázi přímo spojit s konkrétní fyzickou osobou, dokud nám svůj identifikátor neposkytnete.</p>
 <p><strong>Jak požádat o smazání dat ze serveru:</strong><br></p>
 <p>Svá data můžete kdykoliv trvale smazat přímo v Aplikaci. Přejděte do sekce Nastavení a klikněte na tlačítko <b>"Smazat má data ze serveru"</b>. Tím dojde k okamžitému a nevratnému výmazu vaší virtuální poličky a historie knižní seznamky z naší databáze.
-<i>Alternativně můžete v sekci Nastavení zkopírovat svůj "Device JWT Token" a zaslat nám jej spolu s žádostí o výmaz na e-mail ctuvemeste.cz@gmail.com. Bez poskytnutí tohoto tokenu nelze vaši žádost zpracovat, jelikož nedisponujeme žádnými jinými identifikačními údaji.</i></p>
+<i>Alternativně můžete v sekci Nastavení zkopírovat svůj "Device JWT Token" a zaslat nám jej spolu s žádostí o výmaz na e-mail tobias.otta@ctuvemeste.cz. Bez poskytnutí tohoto tokenu nelze vaši žádost zpracovat, jelikož nedisponujeme žádnými jinými identifikačními údaji.</i></p>
 <p>Kromě práva na výmaz máte také právo na přístup ke svým datům, jejich opravu a omezení zpracování, a to za předpokladu, že nám poskytnete svůj Identifikátor zařízení nebo Device JWT Token – bez něj nejsme schopni váš požadavek přiřadit ke konkrétnímu záznamu v databázi.</p>
 <p>Pokud se domníváte, že zpracování vašich osobních údajů odporuje právním předpisům na ochranu osobních údajů, máte právo podat stížnost u dozorového úřadu, kterým je pro Českou republiku <strong>Úřad pro ochranu osobních údajů (ÚOOÚ)</strong>, se sídlem Pplk. Sochora 27, 170 00 Praha 7, <a href="https://www.uoou.cz" rel="noopener">www.uoou.cz</a>.</p>
 <h2>7. Ochrana soukromí dětí</h2>
@@ -66,4 +66,4 @@ description: Jak aplikace Čtu ve městě zachází s údaji uživatelů.
 <p>Pokud máte jakékoliv dotazy ohledně těchto Zásad ochrany osobních údajů, kontaktujte nás:</p>
 <p><strong>Název:</strong> Čtu ve městě, z.s.<br>
 <strong>Adresa:</strong> Hlavní třída 107, Místek, 738 01 Frýdek-Místek<br>
-<strong>E-mail:</strong> <a href="mailto:ctuvemeste.cz@gmail.com">ctuvemeste.cz@gmail.com</a></p>
+<strong>E-mail:</strong> <a href="mailto:tobias.otta@ctuvemeste.cz">tobias.otta@ctuvemeste.cz</a></p>

@@ -17,7 +17,8 @@ const rocnik = d.rocnik ? await getEntry(d.rocnik) : undefined;
 const barva = rocnik?.data.barva ?? 'var(--fg)';
 const kdy = d.dateEnd ? rozsah(d.date, d.dateEnd) : datumDlouze(d.date);
 const mesto = await getEntry(d.mesto);
-const jineMesto = mesto && mesto.id !== 'frydek-mistek' ? mesto.data.nazev : '';
+const nazevMesta = mesto?.data.nazev ?? '';
+const kde = nazevMesta && !d.misto.nazev.includes(nazevMesta) ? `${d.misto.nazev}, ${nazevMesta}` : d.misto.nazev;
 const stitek = d.typ === 'festival' && rocnik ? `${rocnik.data.cislo}. ročník` : d.typ === 'kafe-a-kniha' ? 'Kafe&kniha' : 'Během roku';
 ---
 <article class="event-card" style={`--rocnik: ${barva}`}>
@@ -35,7 +36,7 @@ const stitek = d.typ === 'festival' && rocnik ? `${rocnik.data.cislo}. ročník`
     <H class="event-card__title"><a href={url(`/akce/${akce.id}/`)}>{d.title}</a></H>
     <p class="event-card__meta">
       <span>{kdy}{casAkce(akce) && `, ${casAkce(akce)}`}</span><br />
-      <span class="muted">{d.misto.nazev}{jineMesto && !d.misto.nazev.includes(jineMesto) && `, ${jineMesto}`}</span>
+      <span class="muted">{kde}</span>
     </p>
     {d.registrace?.vyprodano && !jeMinula(akce) && <p class="event-card__flag label">Vyprodáno</p>}
   </div>

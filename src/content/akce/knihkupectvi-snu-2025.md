@@ -5,6 +5,7 @@ dateEnd: 2025-01-19
 rocnik: null
 typ: celorocni
 mesto: frydek-mistek
+format: knihkupectvi-snu
 misto:
   nazev: "U Staré pošty 745"
   adresa: "Frýdek-Místek"

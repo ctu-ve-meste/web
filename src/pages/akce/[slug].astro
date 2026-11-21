@@ -83,6 +83,7 @@ const event = {
           <dt class="label">Kde</dt>
           <dd>
             {d.misto.adresa?.startsWith(d.misto.nazev) ? d.misto.adresa : <>{d.misto.nazev}{d.misto.adresa && <><br /><span class="muted">{d.misto.adresa}</span></>}</>}
+            {mesto && ![d.misto.nazev, d.misto.adresa].join(' ').includes(mesto.data.nazev) && <><br /><span class="muted">{mesto.data.nazev}{mesto.data.stat !== 'Česko' && `, ${mesto.data.stat}`}</span></>}
             {d.misto.mapa && <><br /><a href={d.misto.mapa} rel="noopener">Ukázat na mapě</a></>}
           </dd>
           <dt class="label">Vstup</dt>

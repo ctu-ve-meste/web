@@ -5,6 +5,7 @@ timeStart: "20:00"
 rocnik: 2025
 typ: festival
 mesto: frydek-mistek
+format: cteni-pod-hvezdami
 misto:
   nazev: "Muzeum meteoritů"
   adresa: "Místek"

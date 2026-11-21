@@ -1,26 +1,47 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { vsechnyAkce } from '../lib/akce';
 import { url } from '../lib/url';
-const formaty = (await getCollection('formaty')).sort((a, b) => a.data.poradi - b.data.poradi);
+import { config } from '../config';
+
+const formaty = await Promise.all(
+  (await getCollection('formaty'))
+    .sort((a, b) => a.data.poradi - b.data.poradi)
+    .map(async (f) => ({ f, Content: (await render(f)).Content })),
+);
 const akce = await vsechnyAkce();
 const mestaNazvy = new Map((await getCollection('mesta')).map((m) => [m.id, m.data.nazev]));
 ---
-<BaseLayout title="Slovníček formátů" description="Opakující se formáty festivalu Čtu ve městě, které si můžete vyzkoušet i ve svém městě.">
+<BaseLayout title="Naše formáty" description="Všechny formáty akcí, které jsme za tři ročníky festivalu Čtu ve městě vyzkoušeli. Inspirace pro vaše město.">
   <section class="container section">
-    <SectionHeading as="h1" label="SLOVNÍČEK FORMÁTŮ" spines>Jak se u nás čte</SectionHeading>
-    <p class="prose lead">Každý si čte potichu svou knihu, vedle ostatních. Na neobvyklém místě, bez pódia.</p>
+    <SectionHeading as="h1" label="NAŠE FORMÁTY" spines>Jak se u nás čte</SectionHeading>
+    <p class="prose lead">Formáty akcí, které jsme vyzkoušeli během tří ročníků festivalu. U každého najdete, co obnáší, pro koho je a kolik lidí je potřeba. Časy a počty jsou orientační, upravte je podle svého města a týmu.</p>
+    <nav class="rejstrik" aria-label="Rychlý výběr formátu">
+      {formaty.map(({ f }) => <a href={`#${f.id}`}>{f.data.nazev}</a>)}
+    </nav>
     <ul class="formaty" role="list">
-      {formaty.map((f) => {
+      {formaty.map(({ f, Content }) => {
         const probehle = akce.filter((a) => a.data.format?.id === f.id);
+        const d = f.data;
         return (
-          <li id={f.id}>
-            <h2>{f.data.nazev}</h2>
-            <p>{f.data.perex}</p>
+          <li id={f.id} class="formaty__karta">
+            <h2>{d.nazev}</h2>
+            {d.podtitul && <p class="formaty__podtitul label label--accent">{d.podtitul}</p>}
+            <div class="formaty__text"><Content /></div>
+            {(d.kapacita || d.delka || d.cilovaSkupina || d.organizatori) && (
+              <dl class="formaty__fakta">
+                {d.perex && <><dt>Formát</dt><dd>{d.perex}</dd></>}
+                {d.delka && <><dt>Délka</dt><dd>{d.delka}</dd></>}
+                {d.kapacita && <><dt>Kapacita</dt><dd>{d.kapacita}</dd></>}
+                {d.cilovaSkupina && <><dt>Pro koho</dt><dd>{d.cilovaSkupina}</dd></>}
+                {d.organizatori && <><dt>Organizátoři</dt><dd>{d.organizatori}</dd></>}
+              </dl>
+            )}
+            {!(d.kapacita || d.delka) && <p>{d.perex}</p>}
             {probehle.length > 0 && (
-              <p class="small">
+              <p class="formaty__akce">
                 <span class="label muted">Proběhlo: </span>
                 {probehle.map((a, i) => <>{i > 0 && ', '}<a href={url(`/akce/${a.id}/`)}>{a.data.date.getUTCFullYear()}{a.data.mesto.id !== 'frydek-mistek' && ` (${mestaNazvy.get(a.data.mesto.id) ?? a.data.mesto.id})`}</a></>)}
               </p>
@@ -30,12 +51,30 @@ const mestaNazvy = new Map((await getCollection('mesta')).map((m) => [m.id, m.da
       })}
     </ul>
   </section>
+  <section class="container section">
+    <SectionHeading label="CHCETE NĚKTERÝ VYZKOUŠET">Pošleme vám podrobnosti</SectionHeading>
+    <p class="prose">Zaujala vás některá akce? Napište nám, o kterou máte zájem, a my vám pošleme podrobnější informace, grafiku i tipy z naší praxe. Rádi se domluvíme také na propagačních materiálech nebo zapůjčení vybavení.</p>
+    <p class="cta">
+      <a class="btn" href={`mailto:${config.email}?subject=${encodeURIComponent('Zájem o formát akce')}`}>Napište nám</a>
+      <a class="btn btn--ghost" href={url('/pridejte-se/')}>Jak se přidat</a>
+    </p>
+  </section>
 </BaseLayout>
 
 <style>
   .lead { font-size: var(--fs-lead); }
-  .formaty { list-style: none; padding: 0; margin: var(--space-5) 0 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
-  .formaty li { background: var(--gray-1); padding: var(--space-4); border: var(--border); border-radius: var(--radius-card); }
-  .formaty h2 { font-size: var(--fs-h3); }
-  .small { font-size: var(--fs-small); margin: 0; }
+  .rejstrik { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-4) 0 var(--space-5); }
+  .rejstrik a { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-small); text-decoration: none; border: 1px solid var(--gray-3); border-radius: 999px; padding: 0.35em 0.85em; }
+  .rejstrik a:hover { border-color: var(--accent); color: var(--accent); }
+  .formaty { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
+  .formaty__karta { background: var(--gray-1); padding: var(--space-4); border: var(--border); border-radius: var(--radius-card); scroll-margin-top: calc(var(--header-h) + var(--space-3)); display: flex; flex-direction: column; }
+  .formaty__karta:target { border-color: var(--accent); }
+  .formaty__karta h2 { font-size: var(--fs-h3); margin-bottom: var(--space-1); }
+  .formaty__podtitul { margin-bottom: var(--space-3); }
+  .formaty__text { font-size: var(--fs-small); }
+  .formaty__fakta { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-1) var(--space-3); font-size: var(--fs-small); margin: var(--space-2) 0 var(--space-3); padding-top: var(--space-3); border-top: var(--border); }
+  .formaty__fakta dt { font-family: var(--font-head); font-weight: 700; }
+  .formaty__fakta dd { margin: 0; }
+  .formaty__akce { margin: auto 0 0; font-size: var(--fs-small); }
+  .cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 </style>

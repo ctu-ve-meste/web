@@ -10,4 +10,4 @@ misto:
 poznamka: Celodenní akce.
 ---
 
-Zapojit se můžete kdekoliv ve městě. Vyfoťte se s knihou v ruce a sdílejte nebo nám fotku pošlete.
+Zapojit se šlo kdekoliv ve městě. Stačilo se vyfotit s knihou v ruce a fotku sdílet nebo nám ji poslat.

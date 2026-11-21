@@ -16,7 +16,7 @@ src/content/
   akce/                    ← jedna akce = jeden .md soubor (název souboru = adresa /akce/<nazev>/)
   rocniky/                 ← 2024.yaml, 2025.yaml, … (barva, termín, města, perex, výběr fotek)
   mesta/                   ← jedno město = jeden .md (aktivni: true → má vlastní podstránku)
-  formaty/                 ← slovníček formátů (Čtení na Svobodě, Kafe&kniha, …)
+  formaty/                 ← naše formáty z katalogu akcí (Kafe&kniha, Čtenářský přívoz, …)
   dobrovolnici/            ← medailonky
   partneri/partneri.yaml   ← seznam partnerů
   media/media.yaml         ← ohlasy v médiích
@@ -122,8 +122,8 @@ Bez ní se místo formulářů ukáže odkaz na e-mail.
   příspěvek Plzeňského Prazdroje). Manifest zůstává doslovně, jinde to nepište.
 - **Plzeň jako město 4. ročníku nikde nezveřejňujte**, dokud to tým neoznámí.
 - Pivní partner (Pilsner Urquell) jen u akcí pro dospělé, ne u dětských akcí.
-- Žádné osobní telefony ani soukromé e-maily organizátorů. Hlavní kontakt: **ctuvemeste.cz@gmail.com**.
-  Pracovní e-maily na doméně spolku (`…@ctuvemeste.cz`) jsou v pořádku.
+- Žádné osobní telefony ani soukromé e-maily organizátorů. Na webu jsou jen adresy na doméně spolku
+  (`…@ctuvemeste.cz`). Hlavní kontakt je v `src/config.ts` (`email`), v textech ho nepište natvrdo.
 - Festival je apolitický. Žádná politická ani konfliktní témata.
 - Nevymýšlejte fakta, čísla, data ani citace. Co chybí, označte v obsahu `TODO:`.
 - Hvězdami jsou čtenáři, ne autoři.

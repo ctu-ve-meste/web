@@ -10,7 +10,7 @@ format: ctenarsky-privoz
 misto:
   nazev: přehrada Olešná
 proKoho: "pro malé, pro velké, pro mladé i pro seniory, pro zaměstnané i pro ty, kteří neví do čeho píchnout. Pro čtenáře, ale i pro ty, kterým se číst nechce. Zkuste to, třeba objevíte kouzlo čtení na lodičkách."
-poznamka: Koná se za každého počasí!
+poznamka: Akce se konala za každého počasí.
 cover: ../../assets/fotky/2026/2026-frydek-mistek-ctenarsky-privoz-01.webp
 coverAlt: "Muž čte v lehátku na břehu přehrady Olešná"
 galerie:
@@ -22,4 +22,4 @@ galerie:
     alt: "Čtenáři na lodičkách u mola na přehradě Olešná"
 ---
 
-Možná jste to viděli jen v romantických filmech - dámy s paraplíčky si čtou knížku, zatímco pánové ve člunu veslují. Přijďte to zažít! Zveme čtenářky i čtenáře k projížďce na lodičce na přehradě Olešná. My vás povezeme a vy si budete číst (anebo naopak). Pro děti máme na břehu připravený program.
+Možná jste to viděli jen v romantických filmech - dámy s paraplíčky si čtou knížku, zatímco pánové ve člunu veslují. Kdo přišel, mohl to zažít. Čtenářky i čtenáře jsme pozvali k projížďce na lodičce na přehradě Olešná. Jeden vesloval a druhý si četl (anebo naopak). Pro děti jsme měli na břehu připravený program.

@@ -22,7 +22,11 @@ export const config = {
    */
   logoZahlavi: 'zakladni' as 'rozsirene' | 'zakladni',
 
-  email: 'ctuvemeste.cz@gmail.com',
+  /**
+   * Hlavní kontaktní e-mail webu. Doporučeno založit v Google Workspace obecnou adresu
+   * (např. skupinu info@ctuvemeste.cz) a pak ji nastavit tady – změní se na celém webu.
+   */
+  email: 'tobias.otta@ctuvemeste.cz',
   /** Kontakt pro ruční přihlášení k newsletteru (dokud neběží formulář přes Apps Script). */
   emailNewsletter: 'tobias.otta@ctuvemeste.cz',
   spolek: {
@@ -77,7 +81,7 @@ export const paticka = [
       { href: '/akce/', text: 'Všechny akce' },
       { href: '/rocniky/', text: 'Ročníky' },
       { href: '/kafe-a-kniha/', text: 'Kafe&kniha' },
-      { href: '/formaty/', text: 'Slovníček formátů' },
+      { href: '/formaty/', text: 'Naše formáty' },
       { href: '/aplikace/', text: 'Aplikace' },
     ],
   },
