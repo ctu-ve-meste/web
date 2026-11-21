@@ -84,15 +84,7 @@ const ld = [organization, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd
     </main>
     <Footer />
     <script>
-      // Jemné objevení sekcí s třídou .reveal (vypnuto při prefers-reduced-motion).
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-        document.documentElement.classList.add('js-reveal');
-        const io = new IntersectionObserver(
-          (entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('is-visible'), io.unobserve(e.target))),
-          { rootMargin: '0px 0px -10% 0px' },
-        );
-        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-      }
+      import '../scripts/animace';
     </script>
   </body>
 </html>

@@ -24,3 +24,9 @@ jobs:
         run: npm run kontrola-odkazu
       - name: Kontrola přesměrování ze starého webu
         run: npm run kontrola-presmerovani
+      - name: Náhled webu ke stažení (rozbalit, pak npm run preview nebo otevřít přes lokální server)
+        uses: actions/upload-artifact@v4
+        with:
+          name: nahled-webu
+          path: dist
+          retention-days: 14
