@@ -29,6 +29,9 @@ export const config = {
     ulice: 'Hlavní třída 107',
     psc: '738 01',
     mesto: 'Frýdek-Místek',
+    /** Bankovní účet pro dary (z plakátu Čteme ze Švejka 2026). */
+    ucet: '6754743369/0800',
+    iban: 'CZ0408000000006754743369',
   },
   site: {
     instagram: 'https://www.instagram.com/ctuvemeste_cz/',

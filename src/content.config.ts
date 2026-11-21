@@ -50,6 +50,8 @@ const akce = defineCollection({
           })
           .optional(),
         poznamka: z.string().optional(),
+        /** Vstupné, pokud akce není zdarma (např. "symbolické 50 Kč"). */
+        vstupne: z.string().optional(),
         /** Akce pro dospělé (smí se u ní zmínit pivní partner). */
         proDospele: z.boolean().default(false),
         zruseno: z.boolean().default(false),

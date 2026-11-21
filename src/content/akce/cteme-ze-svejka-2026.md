@@ -9,9 +9,12 @@ proDospele: true
 misto:
   nazev: Restaurace Datlovna
   adresa: Farní 16, Frýdek-Místek
-# TODO: podrobnosti jsou převzaté z výsledku vyhledávání visitfm.cz – před zveřejněním ověřit
+vstupne: "symbolické 50 Kč"
+poznamka: "Pro registrované budou rezervována místa. Za dobové oblečení či švejkovskou rekvizitu 1 pivo zdarma."
 ---
 
-Setkání čtenářů, fanoušků a znalců Švejka: debata o knize a autorovi, čtení pasáží, hospodský kvíz o ceny a soutěž kostýmů.
+Sobotní podvečer pro čtenáře, fanoušky i znalce Švejka: debaty, přednášky, čtení, kvízy a soutěže. Budeme mluvit o knize i o jejím autorovi, číst oblíbené pasáže, zahrajeme si hospodský kvíz o ceny a vyhlásíme soutěž kostýmů.
 
-Pozvání přijali „švejkologové“ literární historik Pavel Hruška, spisovatel Petr Stančík a historik Vít Vlnas.
+Dorazí také „švejkologové“: literární historik Pavel Hruška, spisovatel Petr Stančík a historik Vít Vlnas.
+
+Podpořte náš festival. Např. za 100 Kč vytiskneme 50 záložek.

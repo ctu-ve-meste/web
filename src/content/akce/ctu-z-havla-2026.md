@@ -1,6 +1,6 @@
 ---
 title: "Čtu z Havla"
-date: 2026-09-04   # TODO: datum převzato ze starého webu („4. září“), ověřit s knihovnou
+date: 2026-09-04
 timeStart: "15:00"
 timeEnd: "17:00"
 rocnik: 2026

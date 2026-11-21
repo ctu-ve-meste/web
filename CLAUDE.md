@@ -59,6 +59,7 @@ npm run preview      # náhled hotového buildu
    (malá písmena bez diakritiky, slova oddělená pomlčkou, např. `cteni-pod-dekou-2027.md`).
 2. Vyplňte frontmatter podle komentářů v šabloně. Povinné: `title`, `date`, `rocnik`, `typ`, `mesto`,
    `misto.nazev`, `proKoho`. Časy v uvozovkách: `"10:00"`.
+   Akce je zdarma. Pokud se platí vstupné, doplňte `vstupne: "50 Kč"` (ukáže se místo „Zdarma“).
 3. Pod frontmatter napište popis (dva odstavce). Rubriku „Pro koho“ nepište do textu, vypíše se sama z `proKoho`.
 4. Akce se sama objeví v Programu (pokud patří do aktuálního ročníku), v Akcích, v archivu ročníku,
    na stránce města i u formátu.

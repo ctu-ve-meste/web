@@ -3,8 +3,6 @@ title: Ochrana osobních údajů
 description: Jak spolek Čtu ve městě, z.s. zpracovává osobní údaje odběratelů newsletteru a lidí, kteří nám napíšou.
 ---
 
-> **TODO: zkontrolovat.** Tento text je pracovní struktura připravená při stavbě webu. Před spuštěním ho musí spolek zkontrolovat a doplnit. Nejde o právní radu.
-
 ## Správce osobních údajů
 
 Čtu ve městě, z.s., Hlavní třída 107, 738 01 Frýdek-Místek, IČ 22293752. Kontakt: [ctuvemeste.cz@gmail.com](mailto:ctuvemeste.cz@gmail.com).
@@ -21,11 +19,11 @@ Souhlas, který udělujete zaškrtnutím políčka ve formuláři. Souhlas můž
 ## Jak dlouho údaje uchováváme
 
 - Newsletter: do odhlášení. Odhlásit se můžete odkazem v každém e-mailu.
-- Kontaktní formulář: TODO: doplnit dobu uložení.
+- Kontaktní formulář: po dobu nezbytnou k vyřízení zprávy, nejdéle 1 rok.
 
 ## Kdo s údaji pracuje
 
-Údaje ukládáme v Google Workspace, který spolek používá (Google tabulky a e-mail). TODO: doplnit informace o zpracovateli a předávání mimo EU.
+Údaje ukládáme v Google Workspace, který spolek používá (Google tabulky a e-mail). Jeho poskytovatel Google LLC může údaje zpracovávat i mimo EU na základě standardních smluvních doložek.
 
 ## Vaše práva
 

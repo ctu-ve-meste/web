@@ -25,4 +25,4 @@ polozky:
 
 Největší podporou je přijít a přidat se k týmu dobrovolníků při organizování akcí. Ovšem pokud vám to čas nedovolí a nebo jste z daleka, každý finanční příspěvek nás velmi těší. Festival žije díky vám.
 
-<!-- TODO: číslo účtu nebo jiný způsob finančního příspěvku doplní tým -->
+Podpořte náš festival. Např. za 100 Kč vytiskneme 50 záložek.

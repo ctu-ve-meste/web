@@ -21,4 +21,4 @@ Na interaktivní mapě snadno najdete všechny festivalové události. Po kliknu
 
 Není důležité, co čtete, důležité je, že čtete. Připojte se k festivalové komunitě a mějte svět knih vždy po ruce.
 
-<!-- TODO: odkazy na obchodní podmínky a ochranu soukromí aplikace -->
+[Podmínky použití aplikace](/aplikace/podminky/) · [Zásady ochrany osobních údajů aplikace](/aplikace/ochrana-soukromi/)

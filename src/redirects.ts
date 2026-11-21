@@ -13,6 +13,8 @@ const stare: Record<string, string> = {
   '/kontakty': '/kontakt/',
   '/tisnov': '/mesta/tisnov/',
   '/app': '/aplikace/',
+  '/app/tos': '/aplikace/podminky/',
+  '/app/privacy-policy': '/aplikace/ochrana-soukromi/',
   // /manifest, /kdo-jsme, /partneri a /program mají stejnou adresu jako dřív.
   // proběhlé akce
   '/uplynulé-akce/den-nošení-knih-ve-fm': '/akce/den-noseni-knih-2024/',

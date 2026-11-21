@@ -1,0 +1,25 @@
+---
+/**
+ * QR Platba (český standard SPD) pro dar na účet spolku. Generuje se při buildu jako SVG,
+ * do stránky nejde žádný JavaScript. Částka se nevyplňuje, zadá ji dárce v bance.
+ */
+import QRCode from 'qrcode';
+import { config } from '../config';
+interface Props { zprava?: string }
+const { zprava = 'DAR CTU VE MESTE' } = Astro.props;
+const spd = `SPD*1.0*ACC:${config.spolek.iban}*CC:CZK*MSG:${zprava}`;
+const svg = (await QRCode.toString(spd, { type: 'svg', margin: 2, errorCorrectionLevel: 'M', color: { dark: '#000000', light: '#ffffff' } }))
+  .replace('<svg ', '<svg role="img" aria-label="QR Platba na účet spolku" ');
+---
+<figure class="qr">
+  <div class="qr__kod" set:html={svg} data-spd={spd} />
+  <figcaption class="small">QR Platba: načtěte v aplikaci své banky.</figcaption>
+</figure>
+
+<style>
+  .qr { margin: 0; max-width: 14rem; }
+  .qr__kod { background: #fff; border-radius: var(--radius-card); padding: var(--space-2); line-height: 0; }
+  .qr__kod :global(svg) { width: 100%; height: auto; }
+  .qr figcaption { margin-top: var(--space-2); }
+  .small { font-size: var(--fs-small); }
+</style>

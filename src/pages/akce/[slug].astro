@@ -34,7 +34,7 @@ const event = {
   ...(endIso && { endDate: endIso }),
   eventStatus: d.zruseno ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-  isAccessibleForFree: true,
+  isAccessibleForFree: !d.vstupne,
   description: d.proKoho ?? `${d.title}, ${d.misto.nazev}`,
   url: absUrl(`/akce/${akce.id}/`, Astro.site),
   location: {
@@ -75,7 +75,7 @@ const event = {
             {d.misto.mapa && <><br /><a href={d.misto.mapa} rel="noopener">Ukázat na mapě</a></>}
           </dd>
           <dt class="label">Vstup</dt>
-          <dd>Zdarma{d.registrace && ' · nutná registrace'}</dd>
+          <dd>{d.vstupne ?? 'Zdarma'}{d.registrace && ' · nutná registrace'}</dd>
         </dl>
         {d.registrace && (
           d.registrace.vyprodano

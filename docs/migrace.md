@@ -19,6 +19,9 @@ Všechna přesměrování jsou v `src/redirects.ts`. Generují se v podobě s di
 | `/kontakty` | `/kontakt/` | přesměrováno; osobní telefony a e-maily organizátorů záměrně vynechány |
 | `/tisnov` | `/mesta/tisnov/` | přesměrováno, program převeden na akce |
 | `/app` | `/aplikace/` | přesměrováno, text převzat |
+| `/app/tos` | `/aplikace/podminky/` | přesměrováno, text doslova |
+| `/app/privacy-policy` | `/aplikace/ochrana-soukromi/` | přesměrováno, text doslova (odkaz z Google Play) |
+| `/svejk` | – | na starém webu už neexistuje (404), akce je na `/akce/cteme-ze-svejka-2026/` |
 | `/program` | `/program/` | stejná adresa; akce 3. ročníku přesunuty do archivu s opravenými daty 3.–6. 9. 2026 |
 | `/uplynulé-akce/den-nošení-knih-ve-fm` | `/akce/den-noseni-knih-2024/` | přesměrováno, text převzat |
 | `/uplynulé-akce/čtu-si-v-autobusi` | `/akce/ctu-si-v-autobusi-2024/` | přesměrováno, text převzat |
