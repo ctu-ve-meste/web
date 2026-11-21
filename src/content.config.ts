@@ -93,6 +93,10 @@ const rocniky = defineCollection({
       dalsiMesta: z.array(z.string()).default([]),
       perex: z.string(),
       fotky: z.array(z.object({ src: image(), alt: z.string() })).max(20).default([]),
+      /** Partneři ročníku podle plakátů (u minulých ročníků; aktuální jsou v partneri.yaml). */
+      partneri: z.array(z.object({ nazev: z.string(), url: z.url().optional() })).default([]),
+      /** Plakáty ke stažení: soubor v public/plakaty/<rok>/. */
+      plakaty: z.array(z.object({ nazev: z.string(), soubor: z.string() })).default([]),
     }),
 });
 

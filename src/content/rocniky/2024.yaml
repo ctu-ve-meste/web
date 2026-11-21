@@ -23,3 +23,14 @@ fotky:
     alt: "Žena se psy a knihou u řeky"
   - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-01.webp
     alt: "Žena s kloboukem čte na lavičce"
+partneri:   # podle plakátu 2024
+  - { nazev: "město Frýdek-Místek", url: "https://www.frydekmistek.cz" }
+  - { nazev: "Knihkupectví KAPITOLA", url: "https://www.kapitola.eu" }
+  - { nazev: "tiskárna Morava Press", url: "https://www.moravapress.cz" }
+  - { nazev: "RENGL" }
+  - { nazev: "Antikvariát Pod Svícnem" }
+  - { nazev: "Nebeská kavárna & bar" }
+  - { nazev: "grafický designér Marek Vlček", url: "https://www.marekvlcek.cz" }
+plakaty:
+  - { nazev: "Plakát festivalu", soubor: "ctu-ve-meste-2024-plakat.jpg" }
+  - { nazev: "Program festivalu", soubor: "ctu-ve-meste-2024-program.jpg" }

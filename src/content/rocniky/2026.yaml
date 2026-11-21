@@ -47,3 +47,6 @@ fotky:
     alt: "Skupinová fotka s knihami, cedulí Pšt, tady se čte a pejskem"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-20.webp
     alt: "Černobílý snímek dvou lidí v tričkách čtu u stolu"
+plakaty:
+  - { nazev: "Program festivalu", soubor: "ctu-ve-meste-2026-program.jpg" }
+  - { nazev: "Plakát ČtuX", soubor: "ctux-2026-plakat.pdf" }

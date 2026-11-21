@@ -10,6 +10,7 @@ misto:
   nazev: "náměstí Svobody"
   adresa: "Místek"
 # proKoho: na starém webu u této akce nebylo
+poznamka: "Vstup byl zdarma. Kdo chtěl, mohl přispět do zavařovačky."
 cover: ../../assets/fotky/2025/2025-frydek-mistek-cteni-na-svobode-01.webp
 coverAlt: "Obývák na náměstí Svobody za soumraku"
 galerie:

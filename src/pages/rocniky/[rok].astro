@@ -60,9 +60,31 @@ const festival = {
     </section>
   )}
 
+  {r.plakaty.length > 0 && (
+    <section class="container section">
+      <SectionHeading label="KE STAŽENÍ">Plakáty</SectionHeading>
+      <ul class="plakaty" role="list">
+        {r.plakaty.map((p) => (
+          <li><a class="btn btn--ghost" href={url(`/plakaty/${r.rok}/${p.soubor}`)} download>{p.nazev} <span class="muted">({p.soubor.split('.').pop()?.toUpperCase()})</span></a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {r.partneri.length > 0 && (
+    <section class="container section">
+      <SectionHeading label="PARTNEŘI">Kdo nám pomohl</SectionHeading>
+      <ul class="partneri" role="list">
+        {r.partneri.map((p) => <li>{p.url ? <a href={p.url} rel="noopener">{p.nazev}</a> : p.nazev}</li>)}
+      </ul>
+    </section>
+  )}
+
 </BaseLayout>
 
 <style>
   .lead { font-size: var(--fs-lead); }
+  .plakaty, .partneri { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .partneri li { padding: var(--space-2) var(--space-3); border: 1px solid currentColor; border-radius: 999px; }
   .grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
 </style>
