@@ -60,6 +60,7 @@ Starý A záznam `212.158.150.50` a CNAME `www → ghs.googlehosted.com` odstra�
    - `SITE` = `https://www.ctuvemeste.cz`
    - `BASE` = `/`
 3. V Apps Scriptu změňte Script property `SITE_URL` na `https://www.ctuvemeste.cz`.
+   V repozitáři `ctu-ve-meste/newsletter` v `apps-script/Code.gs` přepište `ORG.web` na `https://www.ctuvemeste.cz` a `ORG.privacy` na `https://www.ctuvemeste.cz/ochrana-osobnich-udaju/` (jinak bude odkaz na zásady v e-mailech a přihlašovacím formuláři mrtvý). Pak nasaďte novou verzi web appu (Nasadit → Spravovat nasazení → Upravit → Nová verze).
 4. Spusťte znovu nasazení (Actions → Nasazení na GitHub Pages → Run workflow).
 5. Lokálně: `SITE=https://www.ctuvemeste.cz BASE=/ npm run build` (kontrola odkazů pak spouštějte s `BASE=/`).
 
