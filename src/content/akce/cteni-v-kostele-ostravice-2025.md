@@ -9,7 +9,7 @@ mesto: ostravice
 format: cteni-v-kostele
 misto:
   nazev: "evangelický kostel Ostravice"
-  adresa: "Staré Hamry 2, Ostravice"
+  adresa: "Ostravice"
 vstupne: dobrovolné
 proKoho: "Pro čtenáře malé i velké, pro introverty, pro ty, kteří rádi zažívají něco neobvyklého. Pro ty, kteří se cítí dobře mezi dalšími čtenáři i pro ty, kteří se rádi seznamují."
 cover: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-03.webp
