@@ -30,6 +30,10 @@ galerie:
     alt: "Svícen a kniha na stole"
   - src: ../../assets/fotky/2025/2025-frydek-mistek-salom-sabat-10.webp
     alt: "Hosté u stolů v zahradě"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-salom-sabat-11.webp
+    alt: "Svíčky v trávě ve tvaru svícnu"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-salom-sabat-12.webp
+    alt: "Zapalování svíček v trávě"
 ---
 
 Oslava židovského svátku.

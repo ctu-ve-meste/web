@@ -19,6 +19,18 @@ galerie:
     alt: "Káva na stolku v Čtiout zóně"
   - src: ../../assets/fotky/2025/2025-frydek-mistek-ctiout-zona-04.webp
     alt: "Program 2. ročníku v rámu"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctiout-zona-05.webp
+    alt: "Čtenářka a chlapec před antikvariátem"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctiout-zona-06.webp
+    alt: "Stolek s knihami a programem festivalu"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctiout-zona-07.webp
+    alt: "Čtenářka odpočívá na lehátku před antikvariátem"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctiout-zona-08.webp
+    alt: "Chlapec si prohlíží knihy na stolku"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctiout-zona-09.webp
+    alt: "Chlapec si čte na lehátku s potiskem „čtu“"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctiout-zona-10.webp
+    alt: "Čtenářka si čte na lehátku před antikvariátem"
 ---
 
 Vytvořili jsme koutek pro čtení.

@@ -32,6 +32,10 @@ galerie:
     alt: "Postava schovaná pod svítící dekou"
   - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-10.webp
     alt: "Čtenářka se svíčkami nad knihou"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-11.webp
+    alt: "Čtenáři s čelovkami na dece"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-cteni-pod-dekou-12.webp
+    alt: "Čtenářka s knihou u nápisu „čtu“"
 ---
 
 Zavzpomínali jsme si na dětství a četli si s baterkou pod dekou.

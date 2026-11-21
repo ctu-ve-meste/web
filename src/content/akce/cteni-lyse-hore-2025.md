@@ -14,6 +14,18 @@ coverAlt: "Recitace na Modré lávce s transparentem „I ❤ Lysá hora“"
 galerie:
   - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-lyse-hore-02.webp
     alt: "Čtení na lávce přes Ostravici"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-lyse-hore-05.webp
+    alt: "Čtenářka recituje do mikrofonu na lávce"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-lyse-hore-06.webp
+    alt: "Tři čtenáři s knihami, v pozadí Lysá hora"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-lyse-hore-07.webp
+    alt: "Čtenářka s mikrofonem a knihou o Lysé hoře"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-lyse-hore-08.webp
+    alt: "Čtenářka čte z papíru nad řekou"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-lyse-hore-09.webp
+    alt: "Dítě na odrážedle projíždí kolem čtenáře na lávce"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-lyse-hore-11.webp
+    alt: "Účastníci čtení opření o zábradlí lávky"
 ---
 
 Četli a recitovali jsme Lysé hoře.
