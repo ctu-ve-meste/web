@@ -1,7 +1,8 @@
 ---
 /**
- * Přihlášení k newsletteru. Posílá na Google Apps Script (config.appsScriptUrl).
- * Ochrana proti spamu: skryté pole (honeypot) + minimální čas vyplnění. Žádná reCAPTCHA.
+ * Přihlášení k newsletteru: obyčejný formulář (POST) na web app newsletteru (config.appsScriptUrl),
+ * který vyřídí handleSignup_ v Code.gs (potvrzovací e-mail, double opt-in). Funguje i bez JavaScriptu.
+ * Ochrana proti spamu: skryté pole (honeypot) + čas načtení stránky `ts`. Žádná reCAPTCHA.
  * Když URL web appu není nastavená, ukáže se náhradní odkaz na e-mail.
  */
 import { config } from '../config';
@@ -11,21 +12,23 @@ const { id = 'newsletter', kompaktni = false } = Astro.props;
 const souhlasText = 'Souhlasím se zpracováním e-mailu pro zasílání newsletteru spolku Čtu ve městě, z.s.';
 ---
 {config.appsScriptUrl ? (
-  <form class:list={['nl', { 'nl--kompaktni': kompaktni }]} data-newsletter data-url={config.appsScriptUrl} novalidate>
+  <form class:list={['nl', { 'nl--kompaktni': kompaktni }]} method="post" action={config.appsScriptUrl} data-newsletter>
+    <input type="hidden" name="a" value="signup" />
+    <input type="hidden" name="ts" value="0" />
     <div class="field">
       <label for={`${id}-email`}>Váš e-mail</label>
-      <input class="input" id={`${id}-email`} name="email" type="email" autocomplete="email" required placeholder="jmeno@example.cz" />
+      <input class="input" id={`${id}-email`} name="email" type="email" autocomplete="email" required maxlength="120" placeholder="jmeno@example.cz" />
     </div>
     <div class="nl__hp" aria-hidden="true">
       <label for={`${id}-web`}>Nevyplňujte</label>
-      <input id={`${id}-web`} name="web" type="text" tabindex="-1" autocomplete="off" />
+      <input id={`${id}-web`} name="website" type="text" tabindex="-1" autocomplete="off" />
     </div>
     <label class="check">
-      <input type="checkbox" id={`${id}-souhlas`} name="souhlas" required value={souhlasText} />
+      <input type="checkbox" id={`${id}-souhlas`} name="consent" required value="1" />
       <span>{souhlasText} Více v <a href={url('/ochrana-osobnich-udaju/')}>zásadách ochrany osobních údajů</a>.</span>
     </label>
     <p><button class="btn" type="submit">Přihlásit se</button></p>
-    <p class="nl__stav" id={`${id}-stav`} role="status" aria-live="polite"></p>
+    <p class="muted small">Po odeslání vám přijde e-mail, ve kterém odběr potvrdíte.</p>
   </form>
 ) : (
   <p class="prose">
@@ -35,58 +38,12 @@ const souhlasText = 'Souhlasím se zpracováním e-mailu pro zasílání newslet
 )}
 
 <script>
-  import { odeslat } from '../lib/apps-script';
-  document.querySelectorAll<HTMLFormElement>('[data-newsletter]').forEach((form) => {
-    const start = Date.now();
-    const stav = form.querySelector<HTMLElement>('.nl__stav')!;
-    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const fd = new FormData(form);
-      const email = String(fd.get('email') ?? '').trim();
-      const souhlas = fd.get('souhlas');
-      const oznac = (el: HTMLElement | null, chyba: boolean) => {
-        if (!el) return;
-        if (chyba) { el.setAttribute('aria-invalid', 'true'); el.setAttribute('aria-describedby', stav.id); }
-        else { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); }
-      };
-      const poleEmail = form.querySelector<HTMLInputElement>('input[name=email]');
-      const poleSouhlas = form.querySelector<HTMLInputElement>('input[name=souhlas]');
-      const spatnyEmail = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      oznac(poleEmail, spatnyEmail);
-      oznac(poleSouhlas, !souhlas);
-      if (spatnyEmail || !souhlas) {
-        stav.textContent = [spatnyEmail && 'Zkontrolujte prosím e-mailovou adresu.', !souhlas && 'Bez souhlasu vám newsletter posílat nemůžeme.'].filter(Boolean).join(' ');
-        (spatnyEmail ? poleEmail : poleSouhlas)?.focus();
-        return;
-      }
-      if (fd.get('web')) return; // honeypot vyplnil robot
-      btn.disabled = true;
-      stav.textContent = 'Odesíláme…';
-      try {
-        const r = await odeslat(form.dataset.url!, {
-          akce: 'prihlaseni',
-          email,
-          souhlas,
-          zdroj: 'web',
-          web: fd.get('web') ?? '',
-          cas: Date.now() - start,
-        });
-        stav.textContent = r.ok
-          ? 'Děkujeme! Poslali jsme vám e-mail s odkazem pro potvrzení odběru.'
-          : r.zprava ?? 'Něco se nepovedlo, zkuste to prosím později.';
-        if (r.ok) form.reset();
-      } catch {
-        stav.textContent = 'Něco se nepovedlo. Zkuste to prosím později.';
-      } finally {
-        btn.disabled = false;
-      }
-    });
-  });
+  // čas načtení stránky: příliš rychlé odeslání (robot) newsletter ignoruje
+  document.querySelectorAll<HTMLInputElement>('[data-newsletter] input[name=ts]').forEach((i) => { i.value = String(Date.now()); });
 </script>
 
 <style>
   .nl { max-width: var(--max-w-text); }
   .nl__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-  .nl__stav { min-height: 1.5em; font-family: var(--font-head); font-weight: 700; }
+  .small { font-size: var(--fs-small); }
 </style>

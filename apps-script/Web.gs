@@ -1,18 +1,16 @@
 /**
- * Čtu ve městě – endpoint pro web (newsletter + kontaktní formulář + přihláška města).
+ * Čtu ve městě – endpoint webu pro kontaktní formulář a přihlášku města.
  *
- * Patří do STEJNÉHO projektu Apps Scriptu jako newsletter (repo ctu-ve-meste/newsletter,
- * soubory Code.gs a Admin.html), tedy do skriptu navázaného na tabulku odběratelů.
- * Newsletter zatím žádnou funkci doPost nemá, takže tady je jediná. Přihlášení z webu
- * ukládá do listu „Odběratelé“ ve stejném tvaru jako newsletter a pro potvrzení
- * a odhlášení používá jeho funkci setStatus_ (z Code.gs).
+ * Patří do STEJNÉHO projektu Apps Scriptu jako newsletter (repo ctu-ve-meste/newsletter),
+ * tedy do skriptu navázaného na tabulku. Přihlášení k newsletteru web neřeší tady:
+ * formulář na webu posílá běžný POST na `?a=signup` a vyřídí ho `handleSignup_` z Code.gs.
  *
- * Nastavení (Project Settings → Script properties), kromě těch z newsletteru:
- *   SITE_URL      adresa webu bez lomítka na konci, např. https://www.ctuvemeste.cz
- *   NOTIFY_EMAIL  kam posílat upozornění z formulářů (tobias.otta@ctuvemeste.cz)
+ * Funkce se jmenuje DoWebPost, protože doPost je jen jeden (v Code.gs) a volá DoWebPost
+ * pro všechno, co není přihlášení k newsletteru. Viz apps-script/README.md.
  *
- * Listy (Kontakt a Města se vytvoří samy, pokud chybí):
- *   Odběratelé: e-mail | jméno | stav | token | žádost odeslána | potvrzeno | odhlášeno | poslední zaslané číslo
+ * Script properties navíc: NOTIFY_EMAIL (kam chodí upozornění z formulářů).
+ *
+ * Listy (vytvoří se samy, pokud chybí):
  *   Kontakt:    datum | jméno | email | téma | zpráva | souhlas
  *   Města:      datum | jméno | město | email | telefon | odkud o nás víte | poznámka | souhlas
  */
@@ -21,13 +19,10 @@ var LIST_KONTAKT = 'Kontakt';
 var LIST_MESTA = 'Města';
 var MIN_CAS_MS = 3000; // formulář vyplněný rychleji než za 3 s považujeme za robota
 
-function doPost(e) {
+function DoWebPost(e) {
   try {
     var data = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     switch (data.akce) {
-      case 'prihlaseni': return json_(prihlaseni_(data));
-      case 'potvrzeni': return json_(potvrzeni_(data));
-      case 'odhlaseni': return json_(odhlaseni_(data));
       case 'kontakt': return json_(kontakt_(data));
       case 'mesto': return json_(mesto_(data));
       default: return json_({ ok: false, zprava: 'Neznámá akce.' });
@@ -36,63 +31,6 @@ function doPost(e) {
     console.error(err);
     return json_({ ok: false, zprava: 'Něco se nepovedlo. Zkuste to prosím později.' });
   }
-}
-
-/* ---------- newsletter (tabulka a stavy z Code.gs) ---------- */
-
-function prihlaseni_(d) {
-  if (jeRobot_(d)) return { ok: true }; // robotovi tváříme úspěch, nic neukládáme
-  var email = String(d.email || '').trim().toLowerCase();
-  if (!validEmail_(email)) return { ok: false, zprava: 'Neplatný e-mail.' };
-  if (!d.souhlas) return { ok: false, zprava: 'Chybí souhlas.' };
-  if (!omezeni_('prihlaseni:' + email, 5)) return { ok: false, zprava: 'Zkuste to prosím za chvíli.' };
-
-  var lock = LockService.getScriptLock();
-  lock.waitLock(20000);
-  var token;
-  try {
-    var sh = sheet_();
-    var radek = najdi_(sh, email);
-    var ted = new Date();
-    if (radek) {
-      var stav = sh.getRange(radek, COL.STAV).getValue();
-      if (stav === ST.ODEBIRA) return { ok: true };
-      // čeká nebo odhlášen: nový token, znovu pošleme potvrzení
-      token = Utilities.getUuid();
-      sh.getRange(radek, COL.STAV, 1, 3).setValues([[ST.CEKA, token, ted]]);
-      sh.getRange(radek, COL.POTVRZENO, 1, 2).setValues([['', '']]);
-    } else {
-      token = Utilities.getUuid();
-      sh.appendRow([email, '', ST.CEKA, token, ted, '', '', '']);
-    }
-  } finally {
-    lock.releaseLock();
-  }
-  var odkaz = prop_('SITE_URL') + '/newsletter/potvrzeni/?t=' + encodeURIComponent(token);
-  MailApp.sendEmail({
-    to: email,
-    subject: 'Potvrďte prosím odběr newsletteru Čtu ve městě',
-    htmlBody:
-      '<p>Dobrý den,</p><p>děkujeme za zájem o novinky festivalu Čtu ve městě. ' +
-      'Odběr prosím potvrďte kliknutím na odkaz:</p>' +
-      '<p><a href="' + odkaz + '">Potvrdit odběr</a></p>' +
-      '<p>Pokud jste se nepřihlašovali, e-mail prosím ignorujte. Adresu do ' + PENDING_DAYS + ' dnů smažeme.</p>' +
-      '<p>' + ORG.name + '</p>',
-    name: ORG.name,
-    replyTo: ORG.mail,
-  });
-  return { ok: true };
-}
-
-function potvrzeni_(d) {
-  var r = setStatus_(String(d.t || ''), 'confirm');
-  if (r === true) return { ok: true };
-  if (r === 'odhlasen') return { ok: false, zprava: 'Tuto adresu jste dříve odhlásili. Napište nám prosím e-mail.' };
-  return { ok: false, zprava: 'Odkaz neplatí.' };
-}
-
-function odhlaseni_(d) {
-  return setStatus_(String(d.t || ''), 'unsub') === true ? { ok: true } : { ok: false, zprava: 'Odkaz neplatí.' };
 }
 
 /* ---------- kontaktní formulář ---------- */
@@ -167,17 +105,6 @@ function list_(nazev, hlavicka) {
     if (hlavicka) list.appendRow(hlavicka);
   }
   return list;
-}
-
-/** Řádek odběratele podle e-mailu (sloupec A), nebo 0. */
-function najdi_(list, email) {
-  var posledni = list.getLastRow();
-  if (posledni < 2) return 0;
-  var hodnoty = list.getRange(2, COL.EMAIL, posledni - 1, 1).getValues();
-  for (var i = 0; i < hodnoty.length; i++) {
-    if (String(hodnoty[i][0]).trim().toLowerCase() === email) return i + 2;
-  }
-  return 0;
 }
 
 function json_(obj) {
