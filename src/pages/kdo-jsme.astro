@@ -32,6 +32,10 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
       <p class="prose muted">
         V roce 2024 to začalo bez rozpočtu a bez instituce — jen knihkupec, designér a chuť udělat čtení ve městě viditelné.
       </p>
+      <p class="prose">Ještě před prvním ročníkem, v létě 2024, popsal Jan pro Deník, o co festivalu jde:</p>
+      <blockquote class="citat">„Dostat lidi ven do ulic, aby se tam bavili a bavili i mezi sebou navzájem, i když se neznají.“</blockquote>
+      <blockquote class="citat">„Mladším ukázat, že čtení je ‚cool‘ a starším připomenout, že čtení pro ně bylo ‚cool‘, ale třeba už na to zapomněli…“</blockquote>
+      <p class="prose muted">Tehdy už se přihlásilo 30 dobrovolníků a tiskárna nabídla, že plakáty vytiskne zdarma.</p>
     </div>
     <Chat
       popis="Konverzace Jana Bechera a Marka Vlčka, kterou festival vznikl"
@@ -63,6 +67,7 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
 </BaseLayout>
 
 <style>
+  .citat { margin: var(--space-3) 0; padding-left: var(--space-3); border-left: 4px solid var(--accent); font-family: var(--font-head); font-size: var(--fs-lead); max-width: 36rem; }
   .pozn { margin-top: var(--space-4); }
   .pribeh { display: grid; gap: var(--space-5); }
   .foto { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); margin-bottom: var(--space-3); }

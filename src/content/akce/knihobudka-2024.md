@@ -21,4 +21,4 @@ galerie:
     alt: "Žena si vybírá knihu z knihobudky"
 ---
 
-Po městě se pohybovala knihobudka, ze které jste si mohli vybrat knihu.
+Po městě se pohybovala knihobudka, ze které jste si mohli vybrat knihu. Mobilní knihobudku jsme nosili na zádech a s knihami tak chodili mezi lidi.
