@@ -57,7 +57,16 @@ const temata = ['Nápad na akci', 'Chci pomáhat v týmu', 'Zájem o formát akc
     // předvyplněný text zprávy (např. z odkazu u galerie), jen když je pole prázdné
     const predvyplneno = new URLSearchParams(location.search).get('zprava');
     const pole = form.querySelector<HTMLTextAreaElement>('#kf-zprava');
-    if (predvyplneno && pole && !pole.value) pole.value = predvyplneno.slice(0, 1000);
+    if (predvyplneno && pole && !pole.value) {
+      const text = predvyplneno.slice(0, 1000);
+      const puvodniTema = sel?.value;
+      pole.value = text;
+      // když člověk změní téma a text nechal nedotčený, předvyplnění zmizí; po návratu na původní téma se vrátí
+      sel?.addEventListener('change', () => {
+        if (sel.value !== puvodniTema && pole.value === text) pole.value = '';
+        else if (sel.value === puvodniTema && !pole.value) pole.value = text;
+      });
+    }
     const stav = form.querySelector<HTMLElement>('.kf__stav')!;
     const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
     form.addEventListener('submit', async (e) => {
