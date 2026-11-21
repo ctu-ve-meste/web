@@ -8,6 +8,9 @@ const s = (await getEntry('stranky', 'aplikace'))!;
 const { Content } = await render(s);
 const fotka = (await getEntry('rocniky', '2026'))!.data.fotky[9];
 import { url } from '../lib/url';
+import { Image } from 'astro:assets';
+import seznamka from '../assets/aplikace/seznamka.png';
+import mapa from '../assets/aplikace/mapa.png';
 ---
 <BaseLayout title={s.data.title} description={s.data.description}>
   <article class="container section">
@@ -22,10 +25,17 @@ import { url } from '../lib/url';
         <p class="small"><a href={url('/aplikace/podminky/')}>Podmínky použití</a> · <a href={url('/aplikace/ochrana-soukromi/')}>Ochrana soukromí</a></p>
       </Fragment>
     </TextPanel>
+    <ul class="snimky" role="list">
+      <li><Image src={seznamka} alt="Knižní seznamka v aplikaci: karta s obálkou knihy, kterou lze odsunout doleva, nebo uložit doprava" width={300} /><span class="muted small">Knižní seznamka</span></li>
+      <li><Image src={mapa} alt="Mapa Frýdku-Místku s body festivalových akcí podle ročníků a detailem akce Čtení na Svobodě" width={300} /><span class="muted small">Mapa akcí</span></li>
+    </ul>
   </article>
 </BaseLayout>
 
 <style>
+  .snimky { list-style: none; padding: 0; margin: var(--space-5) 0 0; display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: center; }
+  .snimky li { display: grid; gap: var(--space-2); justify-items: center; width: min(45%, 15rem); }
+  .snimky img { width: 100%; height: auto; }
   .small { font-size: var(--fs-small); }
   @media (min-width: 64rem) { .jen-mobil { display: none; } }
 </style>
