@@ -202,4 +202,47 @@ const stranky = defineCollection({
   }),
 });
 
-export const collections = { akce, rocniky, mesta, formaty, dobrovolnici, partneri, media, stranky };
+/**
+ * Archiv newsletterů. Vydání ukládá Apps Script newsletteru jako soubory archiv/<RRRR-MM>.json
+ * do repa ctu-ve-meste/newsletter; web si je stáhne při buildu. Když stažení selže
+ * (bez internetu, limit GitHubu), archiv je prostě prázdný a build projde.
+ */
+const NEWSLETTER_ARCHIV = 'ctu-ve-meste/newsletter';
+const newsletter = defineCollection({
+  loader: {
+    name: 'newsletter-archiv',
+    load: async ({ store, parseData, logger }) => {
+      try {
+        const hlavicky = {
+          'User-Agent': 'ctuvemeste-web',
+          Accept: 'application/vnd.github+json',
+          ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
+        };
+        const res = await fetch(`https://api.github.com/repos/${NEWSLETTER_ARCHIV}/contents/archiv`, { headers: hlavicky });
+        if (res.status === 404) return store.clear();
+        if (!res.ok) throw new Error(`GitHub vrátil ${res.status}`);
+        const soubory = ((await res.json()) as { name: string; download_url: string }[]).filter((f) =>
+          /^\d{4}-\d{2}\.json$/.test(f.name),
+        );
+        store.clear();
+        for (const f of soubory) {
+          const raw = await fetch(f.download_url);
+          if (!raw.ok) throw new Error(`${f.name}: ${raw.status}`);
+          const data = await parseData({ id: f.name.replace('.json', ''), data: await raw.json() });
+          store.set({ id: f.name.replace('.json', ''), data });
+        }
+      } catch (e) {
+        logger.warn(`Archiv newsletterů se nepodařilo stáhnout, pokračuji bez něj: ${e}`);
+      }
+    },
+  },
+  schema: z.object({
+    mesic: z.string().regex(/^\d{4}-\d{2}$/),
+    predmet: z.string().min(2),
+    odeslano: z.string(),
+    /** Hotové HTML e-mailu (bez odhlašovacího odkazu a bez osobních údajů). */
+    html: z.string().min(50),
+  }),
+});
+
+export const collections = { akce, rocniky, mesta, formaty, dobrovolnici, partneri, media, stranky, newsletter };

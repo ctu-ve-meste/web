@@ -54,3 +54,6 @@ v jeho `Code.gs`). `Web.gs` přidává jen **kontaktní formulář** a **přihl�
 
 Formulář na webu je obyčejný HTML formulář, který posílá `POST` s `a=signup` na web app. Zbytek (honeypot,
 čas odeslání, denní limit, potvrzovací e-mail, double opt-in) dělá `handleSignup_` v newsletteru.
+
+Archiv odeslaných vydání: Apps Script je ukládá do repa newsletteru (`archiv/RRRR-MM.json`), web je stáhne při buildu
+(`newsletter` v `src/content.config.ts`) a ukáže na `/newsletter/` a `/newsletter/RRRR-MM/`. Nastavení tokenu je v README repa newsletteru, část G.
