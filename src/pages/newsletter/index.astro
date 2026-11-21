@@ -1,12 +1,14 @@
 ---
-import { getEntry, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TextPanel from '../../components/TextPanel.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
 import { config } from '../../config';
+import { url } from '../../lib/url';
 const s = (await getEntry('stranky', 'newsletter'))!;
 const { Content } = await render(s);
+const vydani = (await getCollection('newsletter')).sort((a, b) => b.data.mesic.localeCompare(a.data.mesic));
 const fotka = (await getEntry('rocniky', '2026'))!.data.fotky[7];
 ---
 <BaseLayout title={s.data.title} description={s.data.description}>
@@ -26,4 +28,14 @@ const fotka = (await getEntry('rocniky', '2026'))!.data.fotky[7];
       </Fragment>
     </TextPanel>
   </section>
+  {vydani.length > 0 && (
+    <section class="container section" id="archiv">
+      <SectionHeading label="ARCHIV">Dřívější newslettery</SectionHeading>
+      <ul class="prose">
+        {vydani.map((v) => (
+          <li><a href={url(`/newsletter/${v.data.mesic}/`)}>{v.data.predmet}</a></li>
+        ))}
+      </ul>
+    </section>
+  )}
 </BaseLayout>

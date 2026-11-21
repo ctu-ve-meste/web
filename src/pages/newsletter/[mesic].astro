@@ -1,0 +1,13 @@
+---
+/**
+ * Jedno vydání newsletteru na webu (cíl odkazu „Zobrazit v prohlížeči“ z e-mailu).
+ * HTML e-mailu je samostatná stránka (vlastní doctype i styly), proto se vypisuje beze změny.
+ */
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const vydani = await getCollection('newsletter');
+  return vydani.map((v) => ({ params: { mesic: v.data.mesic }, props: { html: v.data.html } }));
+}
+const { html } = Astro.props;
+---
+<Fragment set:html={html} />
