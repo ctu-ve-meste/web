@@ -121,7 +121,7 @@ Všechna čísla pocházejí z pitche 2027 a týkají se roku 2026.
 | Lokální podniky a instituce, které festival nesly | 13 | 3. ročník |
 | Dosah u lidí, kteří profil nesledují | 84 % | „Obsah se šíří sám — kampaň stála pár stovek korun.“ |
 | Nejúspěšnější reel | 11× nad průměrem profilu | reel „Obývák přes celé náměstí?“; „Nápad porazil rozpočet.“ |
-| Nová města hlásící se do 4. ročníku | +3 | včetně základní školy; „Nikoho jsme neoslovovali.“ |
+| Nová města hlásící se do 4. ročníku | +3 | Pitch 2027 uváděl „včetně základní školy; Nikoho jsme neoslovovali.“ Upřesnění týmu (listopad 2026): města se ozvala na e-maily, kterými tým oslovoval knihovny, takže „neoslovovali“ neplatí. Web to tak netvrdí. |
 | Čtení v papučích | vyprodáno před startem | registrace na omezenou kapacitu |
 
 Vývoj po ročnících podle pitche:
