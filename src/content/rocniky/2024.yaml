@@ -5,7 +5,7 @@ do: 2024-09-08
 barva: "#7FEAFF"   # modrá 1. ročníku, podle manuálu se už znovu nepoužívá
 nazevBarvy: modrá
 mesta: [frydek-mistek]
-perex: "Jedno město, jeden nápad. Sedm akcí, většina volně přístupná."
+perex: "Jedno město, jeden nápad. Osm akcí, většina volně přístupná."
 fotky:
   - src: ../../assets/fotky/2024/2024-frydek-mistek-cteme-ve-meste-01.webp
     alt: "Čtenáři na dekách a v křeslech v Parku pod zámkem u nápisu „čtu“"

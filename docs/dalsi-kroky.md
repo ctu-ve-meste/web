@@ -11,7 +11,7 @@ Věci, které z kontroly webu vyšly, ale tým se k nim rozhodne později.
 ## Čeká na podklady
 - Termín 4. ročníku 2027 (`src/content/rocniky/2027.yaml`).
 - Termíny Kafe&kniha (recept v CLAUDE.md).
-- Odkazy na web a Instagram Městské knihovny Tišnov (`src/content/mesta/tisnov.md`).
+- Odkaz na web Městské knihovny Tišnov (`src/content/mesta/tisnov.md`).
 - Loga partnerů v bílé verzi (`src/content/partneri/loga/`).
 - Odkazy na mapy u míst konání (`misto.mapa` v akcích).
 - Je aplikace i pro iPhone?
