@@ -9,17 +9,17 @@ description: Jak spolek Čtu ve městě, z.s. zpracovává osobní údaje odběr
 
 ## Jaké údaje zpracováváme a proč
 
-- **Newsletter:** e-mailová adresa, datum přihlášení a znění souhlasu. Účelem je zasílání novinek o festivalu a akcích spolku.
+- **Newsletter:** e-mailová adresa, jméno (nepovinné), stav odběru, datum přihlášení, potvrzení a odhlášení, informace o tom, odkud jste se přihlásili (web, registrace na akci), a které číslo newsletteru jsme vám poslali. Pokud nám e-mail vrátí chybou, že adresa neexistuje, adresu označíme jako nedoručitelnou a nepíšeme na ni. Účelem je zasílání novinek o festivalu a akcích spolku. Když odpovíte na newsletter slovem „odhlásit“, přečteme jen tuto odpověď, abychom vás odhlásili.
 - **Kontaktní formulář:** jméno (nepovinné), e-mail a text zprávy. Účelem je odpovědět vám. Pokud zvolíte téma, uložíme i to.
 - **Přihláška města:** jméno, město, e-mail, telefon (nepovinné), odkud o nás víte (nepovinné) a poznámka (nepovinné). Účelem je ozvat se vám ohledně festivalu ve vašem městě.
 
 ## Právní základ
 
-Souhlas, který udělujete zaškrtnutím políčka ve formuláři. Souhlas můžete kdykoli odvolat.
+Souhlas, který udělujete zaškrtnutím políčka ve formuláři (u newsletteru ho navíc potvrzujete kliknutím na odkaz v e-mailu). Souhlas můžete kdykoli odvolat.
 
 ## Jak dlouho údaje uchováváme
 
-- Newsletter: do odhlášení. Odhlásit se můžete odkazem v každém e-mailu.
+- Newsletter: do odhlášení. Odhlásit se můžete odkazem v každém e-mailu nebo odpovědí „odhlásit“. Adresy, které přihlášení nepotvrdí, smažeme do 30 dnů. Po odhlášení si ponecháme jen adresu se stavem „odhlášen“, abychom vám omylem nepsali znovu. Napište nám a smažeme i ji. Zálohu seznamu odběratelů v tabulce uchováváme jen krátce (týdenní kopie).
 - Kontaktní formulář: po dobu nezbytnou k vyřízení zprávy, nejdéle 1 rok.
 - Přihláška města: po dobu jednání o spolupráci, nejdéle 2 roky od posledního kontaktu.
 
