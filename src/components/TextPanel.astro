@@ -18,7 +18,7 @@ const maPanel = Astro.slots.has('panel');
   <div class="tp__text"><slot /></div>
   {(fotka || maPanel) && (
     <aside class="tp__panel">
-      {fotka && <div class="tp__fotobox"><Image src={fotka.src} alt={fotka.alt} widths={[400, 800]} sizes="(min-width: 64rem) 24rem, 100vw" class="tp__foto" /></div>}
+      {fotka && <div class="tp__fotobox"><Image src={fotka.src} alt={fotka.alt} widths={[800, 1200, 1600, 2000]} sizes="(min-width: 64rem) 50rem, 230vw" class="tp__foto" /></div>}
       {maPanel && <div class="tp__box"><slot name="panel" /></div>}
     </aside>
   )}

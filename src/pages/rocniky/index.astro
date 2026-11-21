@@ -14,7 +14,7 @@ const rocniky = await vsechnyRocniky();
       {rocniky.map((r) => (
         <li style={`--rocnik: ${r.data.barva}`}>
           <a href={url(`/rocniky/${r.data.rok}/`)}>
-            {r.data.fotky[0] && <Image src={r.data.fotky[0].src} alt="" widths={[400, 800]} sizes="(min-width: 64rem) 25vw, 100vw" class="foto" />}
+            {r.data.fotky[0] && <Image src={r.data.fotky[0].src} alt="" widths={[400, 800, 1200]} sizes="(min-width: 64rem) 25vw, 100vw" class="foto" />}
             <span class="tecka" aria-hidden="true"></span>
             <span class="rok">{r.data.rok}</span>
             <span class="label muted">{r.data.cislo}. ročník{r.data.od && <><br /><span class="nowrap">{rozsah(r.data.od, r.data.do)}</span></>}</span>

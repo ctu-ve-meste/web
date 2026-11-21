@@ -24,7 +24,7 @@ const stitek = d.typ === 'festival' && rocnik ? `${rocnik.data.cislo}. ročník`
 ---
 <article class="event-card" style={`--rocnik: ${barva}`}>
   {d.cover ? (
-    <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[400, 800]} sizes="(min-width: 64rem) 30vw, 100vw" class:list={['event-card__img', { 'event-card__img--plakat': d.coverFit === 'contain' }]} />
+    <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[400, 800, 1200]} sizes="(min-width: 64rem) 30vw, 100vw" class:list={['event-card__img', { 'event-card__img--plakat': d.coverFit === 'contain' }]} />
   ) : (
     <div class="event-card__placeholder" aria-hidden="true">
       <BookSpines varianta="karta" vzor="/|||/||/||||/||/" opakovani={6} />
