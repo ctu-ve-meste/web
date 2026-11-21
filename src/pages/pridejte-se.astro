@@ -7,6 +7,7 @@ import BigNumber from '../components/BigNumber.astro';
 import { config } from '../config';
 import { url } from '../lib/url';
 import Kopirovat from '../components/Kopirovat.astro';
+import PrihlaskaMesta from '../components/PrihlaskaMesta.astro';
 const s = (await getEntry('stranky', 'pridejte-se'))!;
 const r2026 = (await getEntry('rocniky', '2026'))!;
 const fotka = r2026.data.fotky[3] ?? r2026.data.fotky[0];
@@ -54,13 +55,11 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
   <section class="container section reveal">
     <SectionHeading label="KDE UŽ SE ČTE">Frýdek-Místek, Tišnov a vaše město</SectionHeading>
     <p class="prose">Ve 2. ročníku se přidaly Tišnov, Göteborg, Ostravice a Těrlicko. Ve 3. ročníku už Tišnov běžel samostatně.</p>
+    <PrihlaskaMesta />
     <p class="cta">
-      {config.formulare.mesto
-        ? <a class="btn" href={config.formulare.mesto} rel="noopener">Vyplnit přihlášku města</a>
-        : <a class="btn" href={mailto}>Chci čtení i u nás</a>}
       <a class="btn btn--ghost" href={url('/mesta/')}>Další města</a>
     </p>
-    <p class="muted">Krátký formulář (jméno, město, kontakt), ozveme se vám. Nebo napište, kde a kdy by se u vás mohlo číst. E-mail: <Kopirovat text={config.email} odkaz={mailto} /></p>
+    <p class="muted">Ozveme se vám. Nebo napište, kde a kdy by se u vás mohlo číst. E-mail: <Kopirovat text={config.email} odkaz={mailto} /></p>
   </section>
 </BaseLayout>
 

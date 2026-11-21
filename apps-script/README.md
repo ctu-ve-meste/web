@@ -1,6 +1,6 @@
 # Google Apps Script pro web
 
-Web je statický, formuláře (newsletter, odhlášení, kontakt) posílají data do Google Apps Script
+Web je statický, formuláře (newsletter, odhlášení, kontakt, přihláška města) posílají data do Google Apps Script
 web appu. Ten je zapíše do Google tabulky a pošle e-mail. Kód je v `Web.gs`.
 
 ## Nasazení (dělá člen týmu s přístupem k Google účtu spolku)

@@ -25,7 +25,7 @@ const stare: Record<string, string> = {
   '/uplynulé-akce/čtení-pod-dekou': '/akce/cteni-pod-dekou-2024/',
   '/uplynulé-akce/kafekniha': '/akce/kafe-a-kniha-2024/',
   '/uplynulé-akce/knihobudka': '/akce/knihobudka-2024/',
-  '/uplynulé-akce/kavárna-paris': '/akce/kavarna-paris-2024/',
+  '/uplynulé-akce/kavárna-paris': '/akce/',
   '/uplynulé-akce/nedělní-chvilka-poezie': '/akce/nedelni-chvilka-poezie-2024/',
   '/uplynulé-akce/dopisy-z-války': '/akce/dopisy-z-valky-2024/',
   '/uplynulé-akce/den-čichání-ke-knihám': '/akce/den-cichani-ke-kniham-2024/',

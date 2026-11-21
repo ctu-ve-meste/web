@@ -17,6 +17,15 @@ import { url } from '../lib/url';
       <input class="input" id="kf-email" name="email" type="email" autocomplete="email" required />
     </div>
     <div class="field">
+      <label for="kf-tema">O co jde</label>
+      <select class="input kf__tema" id="kf-tema" name="tema">
+        <option>Nápad na akci</option>
+        <option>Chci pomáhat v týmu</option>
+        <option>Dotaz</option>
+        <option>Něco jiného</option>
+      </select>
+    </div>
+    <div class="field">
       <label for="kf-zprava">Váš nápad nebo vzkaz</label>
       <textarea class="input kf__text" id="kf-zprava" name="zprava" rows="6" required></textarea>
     </div>
@@ -63,7 +72,7 @@ import { url } from '../lib/url';
       stav.textContent = 'Odesíláme…';
       try {
         const r = await odeslat(form.dataset.url!, {
-          akce: 'kontakt', jmeno: fd.get('jmeno') ?? '', email, zprava,
+          akce: 'kontakt', tema: fd.get('tema') ?? '', jmeno: fd.get('jmeno') ?? '', email, zprava,
           souhlas: fd.get('souhlas'), web: fd.get('web') ?? '', cas: Date.now() - start,
         });
         stav.textContent = r.ok ? 'Děkujeme, zprávu máme. Ozveme se.' : r.zprava ?? 'Něco se nepovedlo, napište nám prosím e-mailem.';
@@ -79,6 +88,7 @@ import { url } from '../lib/url';
 
 <style>
   .kf { max-width: var(--max-w-text); }
+  .kf__tema { border-radius: 999px; }
   .kf__text { border-radius: var(--radius-card); resize: vertical; }
   .kf__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .kf__stav { min-height: 1.5em; font-family: var(--font-head); font-weight: 700; }

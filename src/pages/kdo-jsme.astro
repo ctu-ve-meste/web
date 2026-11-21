@@ -62,6 +62,10 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
           <p>{l.data.popis}</p>
         </li>
       ))}
+      <li class="card dalsi">
+        <h3>a další</h3>
+        <p>Dobrovolníků je víc. Někteří nechtějí být veřejně vidět, a to je v pořádku.</p>
+      </li>
     </ul>
     <figure class="skupina">
       <Image src={schuzka} alt="Dobrovolníci s plakátem festivalu mezi regály knihkupectví Kapitola" width={1200} />
@@ -75,6 +79,7 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
   .skupina { margin: var(--space-5) 0 0; }
   .skupina img { width: 100%; height: auto; border-radius: var(--radius); }
   .skupina figcaption { margin-top: var(--space-2); font-size: var(--fs-small); }
+  .dalsi { display: flex; flex-direction: column; justify-content: center; }
   .pozn { margin-top: var(--space-4); }
   .pribeh { display: grid; gap: var(--space-5); }
   .foto { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); margin-bottom: var(--space-3); }

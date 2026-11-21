@@ -31,7 +31,7 @@ Všechna přesměrování jsou v `src/redirects.ts`. Generují se v podobě s di
 | `/uplynulé-akce/čtení-pod-dekou` | `/akce/cteni-pod-dekou-2024/` | přesměrováno, text převzat |
 | `/uplynulé-akce/kafekniha` | `/akce/kafe-a-kniha-2024/` | přesměrováno, text převzat |
 | `/uplynulé-akce/knihobudka` | `/akce/knihobudka-2024/` | přesměrováno, text převzat |
-| `/uplynulé-akce/kavárna-paris` | `/akce/kavarna-paris-2024/` | přesměrováno, text převzat |
+| `/uplynulé-akce/kavárna-paris` | `/akce/` | akce z webu odstraněna (rozhodnutí týmu), přesměrováno na přehled akcí |
 | `/uplynulé-akce/nedělní-chvilka-poezie` | `/akce/nedelni-chvilka-poezie-2024/` | přesměrováno, text převzat |
 | `/uplynulé-akce/dopisy-z-války` | `/akce/dopisy-z-valky-2024/` | přesměrováno, text převzat |
 | `/uplynulé-akce/den-čichání-ke-knihám` | `/akce/den-cichani-ke-kniham-2024/` | přesměrováno, text převzat |
