@@ -19,21 +19,34 @@ v jeho `Code.gs`). `Web.gs` přidává jen **kontaktní formulář** a **přihl�
      return DoWebPost(e);   // kontakt a přihláška města z webu (JSON)
    }
    ```
-4. Script properties: přidej `NOTIFY_EMAIL` (`tobias.otta@ctuvemeste.cz`). Ostatní (`WEBAPP_URL`, `ADMIN_KEY`…) už máš.
+4. Script property: přidej `NOTIFY_EMAIL` (`tobias.otta@ctuvemeste.cz`). Ostatní (`WEBAPP_URL`, `ADMIN_KEY`…) už máš.
+   ID tabulek jsou v konstantě `TABULKY` na začátku `Web.gs` (žádná Script property `FORMS_SHEET_ID` už není).
 5. V `Code.gs` nastav `ORG.privacy` na `https://www.ctuvemeste.cz/ochrana-osobnich-udaju/` (do přepnutí domény
    na adresu s `/web/`).
 6. Deploy → Manage deployments → u stávajícího web appu Edit → New version → Deploy (adresa `/exec` se nezmění).
 7. Adresu `/exec` nastav na GitHubu: Settings → Secrets and variables → Actions → **Variables** →
    `PUBLIC_APPS_SCRIPT_URL`, a spusť znovu nasazení webu (Actions → Nasazení na GitHub Pages → Run workflow).
 
-Listy `Kontakt` a `Města` se založí samy při první zprávě. Ve výchozím stavu v tabulce newsletteru. Chceš-li je mít
-v samostatné tabulce, vytvoř novou Google tabulku a její ID (část URL mezi `/d/` a `/edit`) dej do Script property
-`FORMS_SHEET_ID`. Při dalším odeslání formuláře se listy založí tam. Starší řádky v původní tabulce zůstanou, případně je přesuň ručně.
+## Kam se formuláře ukládají
+
+| Formulář | Tabulka | List |
+|---|---|---|
+| Newsletter (úvod, `/newsletter/`) | tabulka newsletteru `1Wb2d2mZtleRf6Qc1jjpEneUOWcr5lRWstKT8IssuE2g` (řeší `Code.gs`) | `Odběratelé` |
+| Kontaktní formulář (`/kontakt/`, vč. „Odstranění fotky“) | tabulka formulářů `1vudmmDNjazSU6E_prh0TXbz2IYaP-lDICNo3FjFnKDQ` | `Kontakt` |
+| Přihláška města (`/pridejte-se/`) | tabulka formulářů `1vudmmDNjazSU6E_prh0TXbz2IYaP-lDICNo3FjFnKDQ` | `Města` |
+
+- Obě ID jsou na jednom místě, v `TABULKY` na začátku `Web.gs`. Seznam listů a jejich hlaviček je v `LISTY`.
+- List se při prvním zápisu sám založí s hlavičkou sloupců.
+- Nový formulář z webu = nová položka v `LISTY` a zápis přes `zapis_()`. Vždy půjde do tabulky formulářů, nikdy do newsletteru.
+- Účet, pod kterým web app běží (`executeAs: USER_DEPLOYING`, tedy ten, kdo skript nasazuje), musí mít u tabulky formulářů **právo úprav**.
+  Když ho nemá, formulář ukáže chybu „Zprávu se teď nepodařilo uložit“, nic se neuloží ani neodešle e-mailem a důvod je v Apps Scriptu v Spuštění (Executions).
+- Dřív se listy `Kontakt` a `Města` zakládaly v tabulce newsletteru. Starší řádky tam zůstaly, přesuňte je ručně.
 
 ## Ochrana proti spamu
 
 - skryté pole `web` (honeypot): když ho někdo vyplní, uložení se tiše přeskočí,
-- formulář odeslaný dřív než 3 s po načtení stránky se ignoruje,
+- formulář odeslaný dřív než 3 s po načtení stránky se ignoruje (chybějící nebo nečíselný čas = robot),
+- robot dostane stejnou odpověď jako člověk (`ok`), takže nepozná, proč se nic neuložilo,
 - limit počtu požadavků na jeden e-mail (CacheService, 10 minut),
 - žádná reCAPTCHA ani cookies.
 

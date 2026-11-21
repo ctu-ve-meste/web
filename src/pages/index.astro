@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry, render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
@@ -8,6 +8,7 @@ import BookSpines from '../components/BookSpines.astro';
 import BigNumber from '../components/BigNumber.astro';
 import RocnikList from '../components/RocnikList.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
+import PartneriSeznam from '../components/PartneriSeznam.astro';
 import { vsechnyAkce, nadchazejici } from '../lib/akce';
 import { aktualniRocnik, vsechnyRocniky } from '../lib/rocniky';
 import { rozsah } from '../lib/datum';
@@ -24,7 +25,6 @@ const karty = budouci.length ? budouci : vse.filter((a) => a.data.cover).slice(0
 // Velká fotka: první výběrová fotka nejnovějšího ročníku, který nějakou má.
 const sFotkou = (await vsechnyRocniky()).find((x) => x.data.fotky.length > 0);
 const velkaFotka = sFotkou?.data.fotky[0];
-const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).sort((a, b) => a.data.poradi - b.data.poradi);
 ---
 <BaseLayout title={stranka.data.title} description={stranka.data.description}>
   <section class="hero">
@@ -97,9 +97,7 @@ const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).so
 
   <section class="container section partneri" aria-labelledby="partneri-nadpis">
     <p class="label muted" id="partneri-nadpis">Děkujeme partnerům</p>
-    <ul role="list">
-      {partneri.map((p) => <li>{p.data.url ? <a href={p.data.url} rel="noopener">{p.data.nazev}</a> : p.data.nazev}</li>)}
-    </ul>
+    <PartneriSeznam />
     <p><a href={url('/partneri/')}>Partneři festivalu <span aria-hidden="true">→</span></a></p>
   </section>
 </BaseLayout>
@@ -121,8 +119,5 @@ const partneri = (await getCollection('partneri', (p) => !p.data.proDospele)).so
   .cisla { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
   .co-to-je { display: grid; gap: var(--space-6); }
   .partneri { border-top: var(--border); }
-  .partneri ul { list-style: none; padding: 0; margin: var(--space-3) 0; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); font-family: var(--font-head); font-weight: 700; font-size: var(--fs-lead); }
-  .partneri ul a { text-decoration: none; }
-  .partneri ul a:hover { color: var(--accent); }
   @media (min-width: 64rem) { .co-to-je { grid-template-columns: 3fr 2fr; align-items: end; } }
 </style>

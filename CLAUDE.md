@@ -136,7 +136,7 @@ Bez ní se místo formulářů ukáže odkaz na e-mail.
 - Web nesmí nastavovat cookies. Analytika se zapíná jen v `src/config.ts` (`analytika`).
 - Přepnutí na doménu ctuvemeste.cz: krok za krokem v `docs/spusteni.md` (MX a TXT záznamy pro e-mail se nesmí smazat).
 - Kontroly: `npm run build`, `npm run kontrola-odkazu`, `npm run kontrola-presmerovani` (spouští je i GitHub u každého PR).
-- Pivní partner má v `partneri.yaml` příznak `proDospele: true`, proto se neukazuje na úvodní stránce.
+- Pivní partner má v `partneri.yaml` příznak `proDospele: true`. V seznamu partnerů (úvod, `/partneri/`) je jako ostatní, u dětských akcí se nezmiňuje.
 - Textové stránky používají `src/components/TextPanel.astro`: text vlevo, vpravo panel s fotkou a hlavní výzvou.
 - Tečka v barvě akcentu patří jen k hlavním nadpisům (h1 a nadpisy sekcí), ne k nadpisům karet ani do menu.
 - Nápady a rozpracované věci na později: `docs/dalsi-kroky.md`.
