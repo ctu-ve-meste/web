@@ -12,7 +12,7 @@ const { id = 'newsletter', kompaktni = false } = Astro.props;
 const souhlasText = 'Souhlasím se zpracováním e-mailu pro zasílání newsletteru spolku Čtu ve městě, z.s.';
 ---
 {config.appsScriptUrl ? (
-  <form class:list={['nl', { 'nl--kompaktni': kompaktni }]} method="post" action={config.appsScriptUrl} data-newsletter>
+  <form class:list={['nl', { 'nl--kompaktni': kompaktni }]} method="post" action={config.appsScriptUrl} data-newsletter novalidate>
     <input type="hidden" name="a" value="signup" />
     <input type="hidden" name="ts" value="0" />
     <div class="field">
@@ -28,6 +28,7 @@ const souhlasText = 'Souhlasím se zpracováním e-mailu pro zasílání newslet
       <span>{souhlasText} Více v <a href={url('/ochrana-osobnich-udaju/')}>zásadách ochrany osobních údajů</a>.</span>
     </label>
     <p><button class="btn" type="submit">Přihlásit se</button></p>
+    <p class="nl__stav" id={`${id}-stav`} role="status" aria-live="polite"></p>
     <p class="muted small">Po odeslání vám přijde e-mail, ve kterém odběr potvrdíte.</p>
   </form>
 ) : (
@@ -38,12 +39,32 @@ const souhlasText = 'Souhlasím se zpracováním e-mailu pro zasílání newslet
 )}
 
 <script>
-  // čas načtení stránky: příliš rychlé odeslání (robot) newsletter ignoruje
-  document.querySelectorAll<HTMLInputElement>('[data-newsletter] input[name=ts]').forEach((i) => { i.value = String(Date.now()); });
+  // ts = čas načtení stránky (příliš rychlé odeslání newsletter bere jako robota).
+  // Kontrolu e-mailu a souhlasu děláme tady, aby se místo okna prohlížeče ukázala naše hláška.
+  document.querySelectorAll<HTMLFormElement>('[data-newsletter]').forEach((form) => {
+    form.querySelector<HTMLInputElement>('input[name=ts]')!.value = String(Date.now());
+    const stav = form.querySelector<HTMLElement>('.nl__stav')!;
+    form.addEventListener('submit', (e) => {
+      const email = form.querySelector<HTMLInputElement>('input[name=email]')!;
+      const souhlas = form.querySelector<HTMLInputElement>('input[name=consent]')!;
+      const spatnyEmail = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+      const bezSouhlasu = !souhlas.checked;
+      for (const [el, chyba] of [[email, spatnyEmail], [souhlas, bezSouhlasu]] as const) {
+        if (chyba) { el.setAttribute('aria-invalid', 'true'); el.setAttribute('aria-describedby', stav.id); }
+        else { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); }
+      }
+      if (spatnyEmail || bezSouhlasu) {
+        e.preventDefault();
+        stav.textContent = [spatnyEmail && 'Zkontrolujte prosím e-mailovou adresu.', bezSouhlasu && 'Bez souhlasu vám newsletter posílat nemůžeme.'].filter(Boolean).join(' ');
+        (spatnyEmail ? email : souhlas).focus();
+      }
+    });
+  });
 </script>
 
 <style>
   .nl { max-width: var(--max-w-text); }
   .nl__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .nl__stav { min-height: 1.5em; font-family: var(--font-head); font-weight: 700; margin: 0 0 var(--space-2); }
   .small { font-size: var(--fs-small); }
 </style>

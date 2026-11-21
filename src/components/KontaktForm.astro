@@ -5,6 +5,9 @@
  */
 import { config } from '../config';
 import { url } from '../lib/url';
+interface Props { tema?: string; popisek?: string }
+const { tema = 'Nápad na akci', popisek = 'Váš nápad nebo vzkaz' } = Astro.props;
+const temata = ['Nápad na akci', 'Chci pomáhat v týmu', 'Zájem o formát akce', 'Partnerství a podpora', 'Odstranění fotky', 'Dotaz', 'Něco jiného'];
 ---
 {config.appsScriptUrl ? (
   <form class="kf" data-kontakt data-url={config.appsScriptUrl} novalidate>
@@ -19,14 +22,11 @@ import { url } from '../lib/url';
     <div class="field">
       <label for="kf-tema">O co jde</label>
       <select class="input kf__tema" id="kf-tema" name="tema">
-        <option>Nápad na akci</option>
-        <option>Chci pomáhat v týmu</option>
-        <option>Dotaz</option>
-        <option>Něco jiného</option>
+        {temata.map((t) => <option selected={t === tema}>{t}</option>)}
       </select>
     </div>
     <div class="field">
-      <label for="kf-zprava">Váš nápad nebo vzkaz</label>
+      <label for="kf-zprava">{popisek}</label>
       <textarea class="input kf__text" id="kf-zprava" name="zprava" rows="6" required></textarea>
     </div>
     <div class="kf__hp" aria-hidden="true">
@@ -49,6 +49,10 @@ import { url } from '../lib/url';
   const form = document.querySelector<HTMLFormElement>('[data-kontakt]');
   if (form) {
     const start = Date.now();
+    // předvybrané téma z odkazu, např. /kontakt/?tema=Odstranění fotky
+    const z = new URLSearchParams(location.search).get('tema');
+    const sel = form.querySelector<HTMLSelectElement>('#kf-tema');
+    if (z && sel && [...sel.options].some((o) => o.value === z)) sel.value = z;
     const stav = form.querySelector<HTMLElement>('.kf__stav')!;
     const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
     form.addEventListener('submit', async (e) => {

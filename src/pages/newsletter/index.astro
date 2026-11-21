@@ -11,7 +11,7 @@ const fotka = (await getEntry('rocniky', '2026'))!.data.fotky[7];
 ---
 <BaseLayout title={s.data.title} description={s.data.description}>
   <section class="container section">
-    <SectionHeading as="h1" label="NEWSLETTER" spines>Brzy načtenou</SectionHeading>
+    <SectionHeading as="h1" label="NEWSLETTER" spines>Novinky pro čtenáře</SectionHeading>
     <TextPanel fotka={fotka}>
       {config.appsScriptUrl ? (
         <div class="prose lead"><Content /></div>

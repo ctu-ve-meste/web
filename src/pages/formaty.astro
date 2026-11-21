@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { vsechnyAkce } from '../lib/akce';
 import { url } from '../lib/url';
-import { config } from '../config';
+import KontaktForm from '../components/KontaktForm.astro';
 
 const formaty = await Promise.all(
   (await getCollection('formaty'))
@@ -54,10 +54,8 @@ const mestaNazvy = new Map((await getCollection('mesta')).map((m) => [m.id, m.da
   <section class="container section">
     <SectionHeading label="CHCETE NĚKTERÝ VYZKOUŠET">Pošleme vám podrobnosti</SectionHeading>
     <p class="prose">Zaujala vás některá akce? Napište nám, o kterou máte zájem, a my vám pošleme podrobnější informace, grafiku i tipy z naší praxe. Rádi se domluvíme také na propagačních materiálech nebo zapůjčení vybavení.</p>
-    <p class="cta">
-      <a class="btn" href={`mailto:${config.email}?subject=${encodeURIComponent('Zájem o formát akce')}`}>Napište nám</a>
-      <a class="btn btn--ghost" href={url('/pridejte-se/')}>Jak se přidat</a>
-    </p>
+    <KontaktForm tema="Zájem o formát akce" popisek="Která akce vás zaujala a z jakého jste města?" />
+    <p class="cta"><a class="btn btn--ghost" href={url('/pridejte-se/')}>Jak se přidat</a></p>
   </section>
 </BaseLayout>
 
