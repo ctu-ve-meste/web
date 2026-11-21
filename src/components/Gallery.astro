@@ -9,6 +9,8 @@ import { url } from '../lib/url';
 interface Foto { src: ImageMetadata; alt: string }
 interface Props { fotky: Foto[]; nazev?: string }
 const { fotky, nazev = 'Fotky' } = Astro.props;
+const stranka = new URL(Astro.url.pathname, Astro.site ?? 'https://www.ctuvemeste.cz').href;
+const zprava = `Fotka je na stránce: ${nazev} (${stranka})\nKterá fotka (kolikátá v řadě, nebo co je na ní): `;
 const velke = await Promise.all(fotky.map((f) => getImage({ src: f.src, width: 2000, format: 'webp' })));
 ---
 <div class="gallery" data-gallery>
@@ -30,7 +32,7 @@ const velke = await Promise.all(fotky.map((f) => getImage({ src: f.src, width: 2
     <button type="button" class="gallery__btn gallery__prev" aria-label="Předchozí fotka">‹</button>
     <button type="button" class="gallery__btn gallery__next" aria-label="Další fotka">›</button>
   </dialog>
-  <p class="gallery__pozn">Jste na fotce a nechcete tam být? <a href={url(`/kontakt/?tema=${encodeURIComponent('Odstranění fotky')}`)}>Napište nám</a> a fotku odstraníme.</p>
+  <p class="gallery__pozn">Jste na fotce a nechcete tam být? <a href={url(`/kontakt/?tema=${encodeURIComponent('Odstranění fotky')}&zprava=${encodeURIComponent(zprava)}`)}>Napište nám</a> a fotku odstraníme.</p>
 </div>
 
 <script>

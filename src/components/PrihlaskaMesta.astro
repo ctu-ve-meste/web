@@ -53,6 +53,7 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
 
 <script>
   import { odeslat } from '../lib/apps-script';
+  import { ukazChyby, vycistiChyby } from '../lib/formular';
   const form = document.querySelector<HTMLFormElement>('[data-mesto]');
   if (form) {
     const start = Date.now();
@@ -67,11 +68,10 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
       if (t('mesto').length < 2) chyby.push(['pm-mesto', 'Napište prosím město.']);
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t('email'))) chyby.push(['pm-email', 'Zkontrolujte prosím e-mail.']);
       if (!fd.get('souhlas')) chyby.push(['pm-souhlas', 'Potřebujeme váš souhlas, abychom se vám mohli ozvat.']);
-      form.querySelectorAll('[aria-invalid]').forEach((el) => { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); });
+      vycistiChyby(form);
       if (chyby.length) {
-        stav.textContent = chyby.map((c) => c[1]).join(' ');
-        chyby.forEach(([id]) => { const el = document.getElementById(id); el?.setAttribute('aria-invalid', 'true'); el?.setAttribute('aria-describedby', 'pm-stav'); });
-        document.getElementById(chyby[0][0])?.focus();
+        stav.textContent = '';
+        ukazChyby(form, chyby);
         return;
       }
       if (fd.get('web')) return;

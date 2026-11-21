@@ -46,6 +46,7 @@ const temata = ['Nápad na akci', 'Chci pomáhat v týmu', 'Zájem o formát akc
 
 <script>
   import { odeslat } from '../lib/apps-script';
+  import { ukazChyby, vycistiChyby } from '../lib/formular';
   const form = document.querySelector<HTMLFormElement>('[data-kontakt]');
   if (form) {
     const start = Date.now();
@@ -53,6 +54,10 @@ const temata = ['Nápad na akci', 'Chci pomáhat v týmu', 'Zájem o formát akc
     const z = new URLSearchParams(location.search).get('tema');
     const sel = form.querySelector<HTMLSelectElement>('#kf-tema');
     if (z && sel && [...sel.options].some((o) => o.value === z)) sel.value = z;
+    // předvyplněný text zprávy (např. z odkazu u galerie), jen když je pole prázdné
+    const predvyplneno = new URLSearchParams(location.search).get('zprava');
+    const pole = form.querySelector<HTMLTextAreaElement>('#kf-zprava');
+    if (predvyplneno && pole && !pole.value) pole.value = predvyplneno.slice(0, 1000);
     const stav = form.querySelector<HTMLElement>('.kf__stav')!;
     const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
     form.addEventListener('submit', async (e) => {
@@ -64,11 +69,10 @@ const temata = ['Nápad na akci', 'Chci pomáhat v týmu', 'Zájem o formát akc
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) chyby.push(['kf-email', 'Zkontrolujte prosím e-mail.']);
       if (zprava.length < 3) chyby.push(['kf-zprava', 'Napište nám prosím pár slov.']);
       if (!fd.get('souhlas')) chyby.push(['kf-souhlas', 'Potřebujeme váš souhlas, abychom mohli odpovědět.']);
-      form.querySelectorAll('[aria-invalid]').forEach((el) => { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); });
+      vycistiChyby(form);
       if (chyby.length) {
-        stav.textContent = chyby.map((c) => c[1]).join(' ');
-        chyby.forEach(([id]) => { const el = document.getElementById(id); el?.setAttribute('aria-invalid', 'true'); el?.setAttribute('aria-describedby', 'kf-stav'); });
-        document.getElementById(chyby[0][0])?.focus();
+        stav.textContent = '';
+        ukazChyby(form, chyby);
         return;
       }
       if (fd.get('web')) return;
