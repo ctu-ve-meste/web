@@ -9,7 +9,7 @@ mesto: frydek-mistek
 format: cteni-v-papucich
 misto:
   nazev: Vila Jaro Čermáka
-  adresa: Místek
+  adresa: Palackého 202, Místek
 proKoho: "pro větší, starší, zvědavé, romantiky a patrioty Frýdku-Místku."
 registrace:
   kapacita: omezená
@@ -41,6 +41,6 @@ galerie:
     alt: "Vila Jaro Čermáka se zahradou za slunečného dne"
 ---
 
-Sejdeme se, abychom si společně četli v prostorách vily slavného místeckého architekta a stavitele Jaro Čermáka. Na chvíli se přeneseme do časů jejího vzniku a budeme si číst v jejích zdech. Knihu a papuče s sebou! Do této historické vily s nádherně rekonstruovanými interiéry a dobovým nábytkem se běžně nedostanete, protože slouží jako soukromý obytný dům, ale jeho majitel je osvícený člověk, který vilu citlivě zrekonstruoval s úctou k jejímu architektovi. Kapacita této akce je omezena a proto se jí mohou zúčastnit pouze registrovaní účastníci. Pozor, účast je možná pouze s knihou a papučemi!
+Sešli jsme se, abychom si společně četli v prostorách vily slavného místeckého architekta a stavitele Jaro Čermáka. Na chvíli jsme se přenesli do časů jejího vzniku a četli si v jejích zdech. Knihu a papuče jsme měli s sebou. Do této historické vily s nádherně rekonstruovanými interiéry a dobovým nábytkem se běžně nedostanete, protože slouží jako soukromý obytný dům, ale jeho majitel je osvícený člověk, který vilu citlivě zrekonstruoval s úctou k jejímu architektovi. Kapacita této akce byla omezena, a proto se jí mohli zúčastnit pouze registrovaní účastníci. Účast byla možná pouze s knihou a papučemi.
 
-Akce se koná k uctění památky frýdecko-místecké advokátky JUDr. Marie Bordovské.
+Akce se konala k uctění památky frýdecko-místecké advokátky JUDr. Marie Bordovské.

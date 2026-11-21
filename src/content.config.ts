@@ -93,6 +93,10 @@ const rocniky = defineCollection({
       dalsiMesta: z.array(z.string()).default([]),
       perex: z.string(),
       fotky: z.array(z.object({ src: image(), alt: z.string() })).max(20).default([]),
+      /** Partneři ročníku podle plakátů (u minulých ročníků; aktuální jsou v partneri.yaml). */
+      partneri: z.array(z.object({ nazev: z.string(), url: z.url().optional() })).default([]),
+      /** Plakáty ke stažení: soubor v public/plakaty/<rok>/. */
+      plakaty: z.array(z.object({ nazev: z.string(), soubor: z.string() })).default([]),
     }),
 });
 
@@ -122,7 +126,14 @@ const formaty = defineCollection({
   loader: md('./src/content/formaty'),
   schema: z.object({
     nazev: z.string(),
+    /** Podtitul z katalogu akcí (v závorce za názvem). */
+    podtitul: z.string().optional(),
+    /** Jednou větou, co to je. */
     perex: z.string(),
+    kapacita: z.string().optional(),
+    delka: z.string().optional(),
+    cilovaSkupina: z.string().optional(),
+    organizatori: z.string().optional(),
     poradi: z.number().default(100),
   }),
 });

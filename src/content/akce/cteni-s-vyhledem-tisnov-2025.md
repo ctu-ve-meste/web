@@ -6,6 +6,7 @@ timeEnd: "18:00"
 rocnik: 2025
 typ: festival
 mesto: tisnov
+format: cteni-s-vyhledem
 misto:
   nazev: "Farská zahrada"
   adresa: "Tišnov"
@@ -13,4 +14,4 @@ cover: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-05.webp
 coverAlt: "Čtenářka s knihou a záložkou „čtu“ v Tišnově"
 ---
 
-Ve Farské zahradě můžete přijít si sednout, číst, dát si něco dobrého a potkat se s dalšími čtenáři. Zapojíte se tak do druhého ročníku opravdu čtenářského festivalu Čtu ve městě, který vznikl minulý rok ve Frýdku-Místku a letos se rozšiřuje do dalších měst.
+Do Farské zahrady bylo možné přijít si sednout, číst, dát si něco dobrého a potkat se s dalšími čtenáři. Kdo přišel, zapojil se tak do druhého ročníku opravdu čtenářského festivalu Čtu ve městě, který vznikl o rok dříve ve Frýdku-Místku a v roce 2025 se rozšířil do dalších měst.

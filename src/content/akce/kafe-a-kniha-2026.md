@@ -9,7 +9,7 @@ mesto: frydek-mistek
 format: kafe-a-kniha
 misto:
   nazev: Lu Café
-  adresa: Frýdek
+  adresa: Zámecké náměstí 1260, Frýdek
 proKoho: "Pro malé (ne nejmenší), velké, pro mladé i pro seniory, pro milovníky knih, čtení a dobré kávy (a dobrých dortíků!)."
 cover: ../../assets/fotky/2026/2026-frydek-mistek-kafe-a-kniha-01.webp
 coverAlt: "Kavárna plná čtenářů s knihami"
@@ -34,4 +34,4 @@ galerie:
     alt: "Čtenářka s knihou a pejskem na klíně"
 ---
 
-Vezměte si svou oblíbenou nebo právě čtenou knihu do kavárny. Dobře si počtete, můžete potkat další čtenáře a třeba se dozvíte o nějaké další dobré knize. Kavárna Korek je na dvě hodiny rezervována jen pro čtenáře!
+Se svou oblíbenou nebo právě čtenou knihou jsme se sešli v kavárně. Kdo přišel, mohl si dobře počíst, potkat další čtenáře a třeba se dozvědět o nějaké další dobré knize. Kavárna Korek byla na dvě hodiny rezervována jen pro čtenáře!

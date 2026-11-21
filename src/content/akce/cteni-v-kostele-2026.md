@@ -28,4 +28,4 @@ galerie:
     alt: "Čtenáři v lavicích evangelického kostela"
 ---
 
-Přijďte a vyzkoušejte si něco, co jste ještě nezažili. Vezměte si svou oblíbenou či právě rozečtenou knihu a pojďte si ji číst v koncentrovaném tichu duchovního místa. Zažijte neopakovatelnou čtenářskou atmosféru na místě, kam se běžně nedostanete.
+Kdo přišel, mohl si vyzkoušet něco, co ještě nezažil. Se svou oblíbenou či právě rozečtenou knihou si četl v koncentrovaném tichu duchovního místa a zažil neopakovatelnou čtenářskou atmosféru na místě, kam se člověk běžně nedostane.

@@ -8,16 +8,18 @@
  * Nastavení (Project Settings → Script properties):
  *   SHEET_ID      ID Google tabulky odběratelů (z URL tabulky)
  *   SITE_URL      adresa webu bez lomítka na konci, např. https://www.ctuvemeste.cz
- *   NOTIFY_EMAIL  kam posílat upozornění z kontaktního formuláře (ctuvemeste.cz@gmail.com)
+ *   NOTIFY_EMAIL  kam posílat upozornění z kontaktního formuláře (tobias.otta@ctuvemeste.cz)
  *   SECRET        dlouhý náhodný text pro podepisování odkazů (vygenerujte funkcí vygenerujSecret)
  *
  * Listy v tabulce (vytvoří se samy, pokud chybí):
  *   Odběratelé: email | stav | datum přihlášení | datum potvrzení | datum odhlášení | zdroj | souhlas
- *   Kontakt:    datum | jméno | email | zpráva | souhlas
+ *   Kontakt:    datum | jméno | email | téma | zpráva | souhlas
+ *   Města:      datum | jméno | město | email | telefon | odkud o nás víte | poznámka | souhlas
  */
 
 var LIST_ODBERATELE = 'Odběratelé';
 var LIST_KONTAKT = 'Kontakt';
+var LIST_MESTA = 'Města';
 var MIN_CAS_MS = 3000; // formulář vyplněný rychleji než za 3 s považujeme za robota
 
 function doPost(e) {
@@ -28,6 +30,7 @@ function doPost(e) {
       case 'potvrzeni': return json_(potvrzeni_(data));
       case 'odhlaseni': return json_(odhlaseni_(data));
       case 'kontakt': return json_(kontakt_(data));
+      case 'mesto': return json_(mesto_(data));
       default: return json_({ ok: false, zprava: 'Neznámá akce.' });
     }
   } catch (err) {
@@ -108,12 +111,41 @@ function kontakt_(d) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || zprava.length < 3) return { ok: false, zprava: 'Vyplňte prosím e-mail a zprávu.' };
   if (!omezeni_('kontakt:' + email, 3)) return { ok: false, zprava: 'Zkuste to prosím za chvíli.' };
   var jmeno = String(d.jmeno || '').trim().slice(0, 200);
-  list_(LIST_KONTAKT, ['datum', 'jméno', 'email', 'zpráva', 'souhlas']).appendRow([new Date(), jmeno, email, zprava, String(d.souhlas || '')]);
+  var tema = String(d.tema || '').trim().slice(0, 100);
+  list_(LIST_KONTAKT, ['datum', 'jméno', 'email', 'téma', 'zpráva', 'souhlas']).appendRow([new Date(), jmeno, email, tema, zprava, String(d.souhlas || '')]);
   MailApp.sendEmail({
     to: prop_('NOTIFY_EMAIL'),
     replyTo: email,
-    subject: 'Web: nová zpráva od ' + (jmeno || email),
+    subject: 'Web: ' + (tema ? tema.toLowerCase() + ' od ' : 'nová zpráva od ') + (jmeno || email),
     body: zprava + '\n\n— ' + (jmeno ? jmeno + ', ' : '') + email,
+    name: 'Web Čtu ve městě',
+  });
+  return { ok: true };
+}
+
+/* ---------- přihláška města ---------- */
+
+function mesto_(d) {
+  if (jeRobot_(d)) return { ok: true };
+  var email = String(d.email || '').trim();
+  var jmeno = String(d.jmeno || '').trim().slice(0, 200);
+  var mesto = String(d.mesto || '').trim().slice(0, 200);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || jmeno.length < 2 || mesto.length < 2) {
+    return { ok: false, zprava: 'Vyplňte prosím jméno, město a e-mail.' };
+  }
+  if (!d.souhlas) return { ok: false, zprava: 'Chybí souhlas.' };
+  if (!omezeni_('mesto:' + email, 3)) return { ok: false, zprava: 'Zkuste to prosím za chvíli.' };
+  var telefon = String(d.telefon || '').trim().slice(0, 50);
+  var odkud = String(d.odkud || '').trim().slice(0, 300);
+  var poznamka = String(d.poznamka || '').trim().slice(0, 3000);
+  list_(LIST_MESTA, ['datum', 'jméno', 'město', 'email', 'telefon', 'odkud o nás víte', 'poznámka', 'souhlas'])
+    .appendRow([new Date(), jmeno, mesto, email, telefon, odkud, poznamka, String(d.souhlas)]);
+  MailApp.sendEmail({
+    to: prop_('NOTIFY_EMAIL'),
+    replyTo: email,
+    subject: 'Web: přihláška města ' + mesto,
+    body: 'Město: ' + mesto + '\nJméno: ' + jmeno + '\nE-mail: ' + email + (telefon ? '\nTelefon: ' + telefon : '') +
+      (odkud ? '\nOdkud o nás ví: ' + odkud : '') + (poznamka ? '\n\n' + poznamka : ''),
     name: 'Web Čtu ve městě',
   });
   return { ok: true };

@@ -5,11 +5,12 @@ timeStart: "19:00"
 rocnik: 2026
 typ: festival
 mesto: frydek-mistek
+format: krest-knihy-navrat-reliefu
 misto:
-  nazev: budova bývalého místeckého sirotčince (Střední uměleckoprůmyslová škola)
+  nazev: před školou PrimMat, naproti bývalému místeckému sirotčinci
   adresa: ul. Československé armády 2502, Místek
 proKoho: "pro čtenáře i nečtenáře a pro patrioty Frýdku-Místku všech věkových kategorií."
-poznamka: "Koná se za každého počasí! Beseda a křest v případě deště proběhnou v knihkupectví Kapitola, Hlavní třída 107, 738 01 Místek a promítnutí reliéfu proběhne na původním místě za každého počasí s výjimkou tornáda."
+poznamka: "Akce se konala za každého počasí. Beseda a křest měly v případě deště proběhnout v knihkupectví Kapitola, Hlavní třída 107, 738 01 Místek a promítnutí reliéfu se mělo konat na původním místě za každého počasí s výjimkou tornáda."
 cover: ../../assets/fotky/2026/2026-frydek-mistek-krest-knihy-navrat-reliefu-01.webp
 coverAlt: "Videomapping vrátil reliéf Krista na fasádu bývalého sirotčince"
 galerie:
@@ -31,6 +32,6 @@ galerie:
     alt: "Divák fotí promítání reliéfu mobilem"
 ---
 
-V tento večer můžete zažít hned dvě unikátní akce. Tou první je beseda s autorem Milošem Habrnálem nad jeho právě vydanou knihou Procházky Frýdkem-Místkem a její křest. Kniha je průvodcem po zajímavých a historických místech Frýdku-Místku, i po těch zmizelých. Kniha bude na místě k zakoupení a můžete získat podpis autora.
+V tento večer bylo možné zažít hned dvě unikátní akce. Tou první byla beseda s autorem Milošem Habrnálem nad jeho právě vydanou knihou Procházky Frýdkem-Místkem a její křest. Knihu pokřtil Václav Peter. Kniha je průvodcem po zajímavých a historických místech Frýdku-Místku, i po těch zmizelých. Kniha byla na místě k zakoupení a bylo možné získat podpis autora.
 
-Po besedě cca ve 20:20 vrátíme na fasádu budovy bývalého místeckého sirotčince (dnes Střední uměleckoprůmyslová škola) 15 metrový reliéf Krista, který budovu zdobil až do poloviny 80. let, kdy byl odstraněn. Za pomoci videomappingu si tak budete moci tuto zmizelou památku na několik minut prohlédnout, než opět nenávratně zmizí.
+Po besedě cca ve 20:20 jsme vrátili na fasádu budovy bývalého místeckého sirotčince (dnes Střední uměleckoprůmyslová škola) reliéf Krista, který budovu zdobil až do poloviny 80. let, kdy byl odstraněn. Promítali jsme ho od školy PrimMat. Za pomoci videomappingu si tak bylo možné tuto zmizelou památku na několik minut prohlédnout, než opět nenávratně zmizela.

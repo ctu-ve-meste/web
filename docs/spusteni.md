@@ -73,5 +73,5 @@ nechte ho jako zálohu.
 1. Settings → Pages → zapnout **Enforce HTTPS** (jde to až po vydání certifikátu).
 2. Otestovat staré adresy, např. `https://www.ctuvemeste.cz/tisnov` → `/mesta/tisnov/`
    a `https://www.ctuvemeste.cz/uplynulé-akce/čtení-na-svobodě`.
-3. Ověřit, že chodí e-mail na `ctuvemeste.cz@gmail.com` i na adresy v doméně.
+3. Ověřit, že dál chodí e-mail na adresy v doméně (např. `tobias.otta@ctuvemeste.cz`).
 4. Google Search Console: odeslat `https://www.ctuvemeste.cz/sitemap-index.xml`.

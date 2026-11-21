@@ -37,3 +37,16 @@ fotky:
     alt: "Kniha na břehu pod slunečníkem (Göteborg)"
   - src: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-10.webp
     alt: "Čtení v kavárně s kytarou (Göteborg)"
+partneri:   # podle hlavního programu 2025
+  - { nazev: "RENGL" }
+  - { nazev: "Knihkupectví KAPITOLA", url: "https://www.kapitola.eu" }
+  - { nazev: "tiskárna Morava Press", url: "https://www.moravapress.cz" }
+  - { nazev: "Kavárna Jako doma pod věží" }
+  - { nazev: "Živý tvor" }
+  - { nazev: "Muzeum meteoritů" }
+  - { nazev: "JAPA Sport", url: "https://www.japasport.cz" }
+plakaty:
+  - { nazev: "Program Frýdek-Místek", soubor: "ctu-ve-meste-2025-frydek-mistek-program.jpg" }
+  - { nazev: "Program Tišnov", soubor: "ctu-ve-meste-2025-tisnov-program.pdf" }
+  - { nazev: "Program Ostravice", soubor: "ctu-ve-meste-2025-ostravice-program.pdf" }
+  - { nazev: "Program Těrlicko", soubor: "ctu-ve-meste-2025-terlicko-program.pdf" }

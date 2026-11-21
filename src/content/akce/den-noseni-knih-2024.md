@@ -30,6 +30,10 @@ galerie:
     alt: "Kniha a sklenice u stolu"
   - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-10.webp
     alt: "Kniha se záložkou „čtu“ pod paží"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-11.webp
+    alt: "Čtenářka si čte na pařezu na slunci"
+  - src: ../../assets/fotky/2024/2024-frydek-mistek-den-noseni-knih-12.webp
+    alt: "Otevřená kniha v ruce na břehu řeky"
 ---
 
 Celý den jsme u sebe nosili knihu a vyzkoušeli si, jaké to je mít u sebe stále knihu a být s ní viděn/a.

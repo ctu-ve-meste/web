@@ -234,7 +234,6 @@ Spolek pořádá akce celý rok. „Festival trvá čtyři dny, ale parta dobrov
 
 | Akce | Kdy | Kde | Co |
 |---|---|---|---|
-| Kavárna Paris | 28. 9. 2024 | zahrada ve Starém městě | komunitní setkání ve stylu Kavárny Paris |
 | Nedělní chvilka poezie | 27. 10. 2024, od 11:17 | Frýdek-Místek | „Básně Vladimíra Holana zněly po celém městě.“ |
 | Dopisy z války | 11. 11. 2024, od 19:18 | pomník padlým v 1. světové válce ve Frýdku | v Den válečných veteránů čtení z dopisů a vzpomínek dědů a pradědů z Velké války |
 | Den čichání ke knihám | 4. 12. 2024 | nezávislá knihkupectví ve Frýdku-Místku | „Čichali jsme ke stránkám starých románů, novinek nebo třeba vzácných svazků.“ |

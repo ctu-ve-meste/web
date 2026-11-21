@@ -42,4 +42,4 @@ Zpracování vašich osobních údajů v souvislosti s používáním Aplikace s
 <h2>6. Kontakt</h2>
 <p>V případě dotazů nebo hlášení chyb nás kontaktujte:</p>
 <p><strong>Spolek:</strong> Čtu ve městě, z.s.<br>
-<strong>E-mail:</strong> <a href="mailto:ctuvemeste.cz@gmail.com">ctuvemeste.cz@gmail.com</a></p>
+<strong>E-mail:</strong> <a href="mailto:tobias.otta@ctuvemeste.cz">tobias.otta@ctuvemeste.cz</a></p>

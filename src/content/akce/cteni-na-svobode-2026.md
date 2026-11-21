@@ -6,12 +6,12 @@ timeEnd: "22:00"
 rocnik: 2026
 typ: festival
 mesto: frydek-mistek
-format: cteni-na-svobode
+format: nocni-cteni-s-obyvackem
 misto:
   nazev: náměstí Svobody
   adresa: náměstí Svobody, Místek
 proKoho: "Pro menší, větší, starší, zvědavé, romantiky i introverty."
-poznamka: Čas začátku a konce se může měnit podle počasí.
+poznamka: Čas začátku a konce se mohl měnit podle počasí.
 cover: ../../assets/fotky/2026/2026-frydek-mistek-cteni-na-svobode-01.webp
 coverAlt: "Večerní náměstí Svobody s velkou stojací lampou a čtenáři v křeslech"
 galerie:
@@ -39,4 +39,4 @@ galerie:
     alt: "Čtenářka pod světýlky u nápisu „čtu“ na večerním náměstí"
 ---
 
-Na náměstí Svobody pro vás vytvoříme obývací pokoj zvoucí ke společnému čtení knih. Zažijte náměstí Svobody jinak. Přes den s jeho ruchem a večer s jeho poklidnou atmosférou. Už jste si někdy četli v přítomnosti dalších lidí, kde si každý čte potichu svou knihu? My ano, na našich předchozích festivalech, a je to nevšední zážitek! Přijďte posedět, počíst si, dát si kávu a něco dobrého k tomu. Máte-li svůj oblíbený hrníček na kávu, vezměte jej s sebou.
+Na náměstí Svobody jsme vytvořili obývací pokoj zvoucí ke společnému čtení knih. Náměstí Svobody se dalo zažít jinak: přes den s jeho ruchem a večer s jeho poklidnou atmosférou. Už jste si někdy četli v přítomnosti dalších lidí, kde si každý čte potichu svou knihu? My ano, na našich předchozích festivalech, a je to nevšední zážitek! Kdo přišel, mohl posedět, počíst si, dát si kávu a něco dobrého k tomu. Kdo měl svůj oblíbený hrníček na kávu, mohl si ho vzít s sebou.

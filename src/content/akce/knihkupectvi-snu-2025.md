@@ -5,6 +5,7 @@ dateEnd: 2025-01-19
 rocnik: null
 typ: celorocni
 mesto: frydek-mistek
+format: knihkupectvi-snu
 misto:
   nazev: "U Staré pošty 745"
   adresa: "Frýdek-Místek"
@@ -20,6 +21,18 @@ galerie:
     alt: "Stoly a regály plné knih k rozdání"
   - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-05.webp
     alt: "Nápis „čtu“ v knihkupectví"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-06.webp
+    alt: "Příprava knih na stolech a v regálech"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-07.webp
+    alt: "Věšení nápisu nad vchod do knihkupectví"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-08.webp
+    alt: "Pult s nápisy „čtu“ u oken"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-09.webp
+    alt: "Žena si vybírá knihy u pultu"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-10.webp
+    alt: "Lidé si vybírají knihy v knihkupectví"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-knihkupectvi-snu-11.webp
+    alt: "Návštěvníci u stolu s knihami"
 ---
 
 Rozdali jsme stovky knih zdarma a věříme, že i spoustu radosti.

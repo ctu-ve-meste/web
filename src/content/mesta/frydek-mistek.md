@@ -9,5 +9,5 @@ tym: "Spolek Čtu ve městě, z.s. – parta dobrovolníků, která se schází 
 site:
   instagram: https://www.instagram.com/ctuvemeste_cz/
   facebook: https://www.facebook.com/ctuvemeste/
-kontakt: ctuvemeste.cz@gmail.com
+kontakt: tobias.otta@ctuvemeste.cz
 ---

@@ -6,6 +6,7 @@ timeEnd: "18:00"
 rocnik: 2025
 typ: festival
 mesto: terlicko
+format: cteni-s-vyhledem
 misto:
   nazev: "Sochařský park pod Babí horou"
   adresa: "Těrlicko"
@@ -15,4 +16,4 @@ cover: ../../assets/fotky/2025/2025-dalsi-mesta-rocnik-01.webp
 coverAlt: "Čtenářka na louce s výhledem v Těrlicku"
 ---
 
-Na čtenářskou hodinku pro celou rodinku zveme nejen děti (4-8 let), ale úplně všechny, kdo mají rádi příběhy spolu s překrásnými výhledy. Čeká na Vás předčítání, poslouchání, hádanky i povídání. Přijít může táta, máma, dědeček i babička.
+Na čtenářskou hodinku pro celou rodinku jsme zvali nejen děti (4-8 let), ale úplně všechny, kdo mají rádi příběhy spolu s překrásnými výhledy. Na programu bylo předčítání, poslouchání, hádanky i povídání. Přijít mohl táta, máma, dědeček i babička.

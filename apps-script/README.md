@@ -1,6 +1,6 @@
 # Google Apps Script pro web
 
-Web je statický, formuláře (newsletter, odhlášení, kontakt) posílají data do Google Apps Script
+Web je statický, formuláře (newsletter, odhlášení, kontakt, přihláška města) posílají data do Google Apps Script
 web appu. Ten je zapíše do Google tabulky a pošle e-mail. Kód je v `Web.gs`.
 
 ## Nasazení (dělá člen týmu s přístupem k Google účtu spolku)
@@ -12,7 +12,7 @@ web appu. Ten je zapíše do Google tabulky a pošle e-mail. Kód je v `Web.gs`.
 4. Project Settings → Script properties, přidejte:
    - `SHEET_ID` – ID tabulky odběratelů (část URL mezi `/d/` a `/edit`)
    - `SITE_URL` – `https://www.ctuvemeste.cz` (do přepnutí domény `https://ctu-ve-meste.github.io/web`)
-   - `NOTIFY_EMAIL` – `ctuvemeste.cz@gmail.com`
+   - `NOTIFY_EMAIL` – `tobias.otta@ctuvemeste.cz`
    - `SECRET` – spusťte jednou funkci `vygenerujSecret` a výsledek z logu vložte sem
 5. Deploy → New deployment → typ **Web app**:
    - Execute as: **Me** (účet spolku)

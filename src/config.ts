@@ -22,7 +22,11 @@ export const config = {
    */
   logoZahlavi: 'zakladni' as 'rozsirene' | 'zakladni',
 
-  email: 'ctuvemeste.cz@gmail.com',
+  /**
+   * Hlavní kontaktní e-mail webu. Doporučeno založit v Google Workspace obecnou adresu
+   * (např. skupinu info@ctuvemeste.cz) a pak ji nastavit tady – změní se na celém webu.
+   */
+  email: 'tobias.otta@ctuvemeste.cz',
   /** Kontakt pro ruční přihlášení k newsletteru (dokud neběží formulář přes Apps Script). */
   emailNewsletter: 'tobias.otta@ctuvemeste.cz',
   spolek: {
@@ -40,6 +44,11 @@ export const config = {
     facebook: 'https://www.facebook.com/ctuvemeste/',
     facebookSkupina: 'https://www.facebook.com/groups/1564955134087653',
     aplikace: 'https://play.google.com/store/apps/details?id=cz.ctuvemeste.app',
+  },
+
+  /** Google formuláře (přihláška města). Prázdný řetězec = odkaz se nezobrazí. */
+  formulare: {
+    mesto: 'https://docs.google.com/forms/d/e/1FAIpQLSd22TY-CwDx0GZXjxBI630nWasfCgHbIATHS6d_bcK1DzrYZw/viewform',
   },
 
   /** URL Google Apps Script web appu. Nastavuje se v .env (PUBLIC_APPS_SCRIPT_URL). */
@@ -77,7 +86,7 @@ export const paticka = [
       { href: '/akce/', text: 'Všechny akce' },
       { href: '/rocniky/', text: 'Ročníky' },
       { href: '/kafe-a-kniha/', text: 'Kafe&kniha' },
-      { href: '/formaty/', text: 'Slovníček formátů' },
+      { href: '/formaty/', text: 'Naše formáty' },
       { href: '/aplikace/', text: 'Aplikace' },
     ],
   },

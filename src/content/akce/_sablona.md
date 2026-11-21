@@ -10,7 +10,7 @@ timeEnd: "13:00"            # volitelné
 rocnik: 2027                # u celoročních akcí: null
 typ: festival               # festival | celorocni | kafe-a-kniha
 mesto: frydek-mistek        # název souboru v src/content/mesta/
-format: cteni-na-svobode    # volitelné, název souboru v src/content/formaty/
+format: nocni-cteni-s-obyvackem    # volitelné, název souboru v src/content/formaty/
 misto:
   nazev: náměstí Svobody
   adresa: náměstí Svobody, Místek       # volitelné

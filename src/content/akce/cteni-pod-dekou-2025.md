@@ -25,6 +25,16 @@ galerie:
     alt: "Deky rozprostřené v sadech za soumraku"
   - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-07.webp
     alt: "Čtenář s čelovkou u nápisu „čtu“"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-08.webp
+    alt: "Čtenáři na trávě pod stromy za soumraku"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-09.webp
+    alt: "Čtenáři s čelovkami a knihami"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-10.webp
+    alt: "Čtenář si svítí do knihy ve tmě"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-11.webp
+    alt: "Tři čtenáři pod dekami s baterkami"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-dekou-12.webp
+    alt: "Čtenář s čelovkou nad knihou"
 ---
 
 Podruhé jsme si zavzpomínali na dětství a četli si s baterkou pod dekou.

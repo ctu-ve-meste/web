@@ -4,15 +4,18 @@
   nazev: město Frýdek-Místek
   url: https://www.frydekmistek.cz
   poradi: 1
+  logo: ./loga/frydek-mistek.png
 - id: pilsner-urquell
-  nazev: Pilsner Urquell
-  url: https://www.pilsner-urquell.cz
+  nazev: Plzeňský Prazdroj
+  url: https://www.prazdroj.cz
+  logo: ./loga/plzensky-prazdroj.png
   poradi: 2
   proDospele: true   # pivní značka: ne na úvodu a ne u dětských akcí
 - id: kapitola
   nazev: Knihkupectví KAPITOLA
   url: https://www.kapitola.eu
   poradi: 3
+  logo: ./loga/kapitola.png
 - id: marek-vlcek
   nazev: grafický designér Marek Vlček
   url: https://www.marekvlcek.cz
@@ -37,3 +40,4 @@
   nazev: tiskárna Morava Press
   url: https://www.moravapress.cz
   poradi: 9
+  logo: ./loga/moravapress.png

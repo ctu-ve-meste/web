@@ -4,6 +4,7 @@ date: 2025-02-14
 rocnik: null
 typ: celorocni
 mesto: frydek-mistek
+format: den-darovani-knih
 misto:
   nazev: "celé město"
   adresa: "Frýdek-Místek"

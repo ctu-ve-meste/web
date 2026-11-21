@@ -5,6 +5,7 @@ timeStart: "20:00"
 rocnik: 2025
 typ: festival
 mesto: frydek-mistek
+format: cteni-pod-hvezdami
 misto:
   nazev: "Muzeum meteoritů"
   adresa: "Místek"
@@ -22,6 +23,12 @@ galerie:
     alt: "Projekce noční oblohy nad čtenáři"
   - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-hvezdami-06.webp
     alt: "Čtenář svítí do knihy"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-hvezdami-07.webp
+    alt: "Čtenáři leží na podložkách a svítí si do knih"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-hvezdami-08.webp
+    alt: "Dva čtenáři u stolku v muzeu"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-pod-hvezdami-09.webp
+    alt: "Hvězdná projekce nad vitrínami muzea"
 ---
 
 Čtenáři, knihy a padající hvězdy.

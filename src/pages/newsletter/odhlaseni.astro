@@ -7,7 +7,7 @@ import { url } from '../../lib/url';
 <BaseLayout title="Odhlášení z newsletteru" noindex>
   <section class="container section prose">
     <SectionHeading as="h1" label="ODHLÁŠENÍ">Odhlášení</SectionHeading>
-    <p class="lead" data-stav data-url={config.appsScriptUrl} data-akce="odhlaseni" data-ok="Hotovo, odhlásili jsme vás. Mrzí nás to, ale knihy počkají." role="status" aria-live="polite">Moment, zpracováváme…</p>
+    <p class="lead" data-stav data-email={config.email} data-url={config.appsScriptUrl} data-akce="odhlaseni" data-ok="Hotovo, odhlásili jsme vás. Mrzí nás to, ale knihy počkají." role="status" aria-live="polite">Moment, zpracováváme…</p>
     <p><a href={url('/')}>Zpět na úvod</a></p>
   </section>
 </BaseLayout>
@@ -19,10 +19,10 @@ import { url } from '../../lib/url';
   const e = p.get('e');
   const t = p.get('t');
   if (!el.dataset.url || !e || !t) {
-    el.textContent = 'Odkaz je neúplný. Napište nám prosím na ctuvemeste.cz@gmail.com.';
+    el.textContent = `Odkaz je neúplný. Napište nám prosím na ${el.dataset.email}.`;
   } else {
     odeslat(el.dataset.url, { akce: el.dataset.akce, e, t })
       .then((r) => (el.textContent = r.ok ? el.dataset.ok! : r.zprava ?? 'Odkaz už neplatí.'))
-      .catch(() => (el.textContent = 'Něco se nepovedlo. Napište nám prosím na ctuvemeste.cz@gmail.com.'));
+      .catch(() => (el.textContent = `Něco se nepovedlo. Napište nám prosím na ${el.dataset.email}.`));
   }
 </script>

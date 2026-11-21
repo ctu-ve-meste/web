@@ -31,3 +31,22 @@ fotky:
     alt: "Čtenářka v lavici kostela"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-12.webp
     alt: "Lodička se čtenáři na přehradě Olešná"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-13.webp
+    alt: "Plné hlediště pod širým nebem za večerního soumraku"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-14.webp
+    alt: "Muž vypráví skupině lidí na chodníku, vedle stojí nápis čtu"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-15.webp
+    alt: "Ruce drží pár barevných papučí, v pozadí čekají lidé"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-16.webp
+    alt: "Lidé na zahradě, v trávě stojí lehátka s nápisem čtu"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-17.webp
+    alt: "Čtenářky v křeslech ve světlém salonku vily"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-18.webp
+    alt: "Lidé si čtou u stolků v kavárně s klenutým stropem"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-19.webp
+    alt: "Skupinová fotka s knihami, cedulí Pšt, tady se čte a pejskem"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-rocnik-20.webp
+    alt: "Černobílý snímek dvou lidí v tričkách čtu u stolu"
+plakaty:
+  - { nazev: "Program festivalu", soubor: "ctu-ve-meste-2026-program.jpg" }
+  - { nazev: "Plakát ČtuX", soubor: "ctux-2026-plakat.pdf" }

@@ -11,9 +11,10 @@ Věci, které z kontroly webu vyšly, ale tým se k nim rozhodne později.
 ## Čeká na podklady
 - Termín 4. ročníku 2027 (`src/content/rocniky/2027.yaml`).
 - Termíny Kafe&kniha (recept v CLAUDE.md).
-- Odkazy na web a Instagram Městské knihovny Tišnov (`src/content/mesta/tisnov.md`).
 - Loga partnerů v bílé verzi (`src/content/partneri/loga/`).
 - Odkazy na mapy u míst konání (`misto.mapa` v akcích).
 - Je aplikace i pro iPhone?
 - Nasazení Apps Scriptu a proměnná `PUBLIC_APPS_SCRIPT_URL` (`apps-script/README.md`).
 - Po přepnutí domény přepsat v Google Play Console odkaz na zásady aplikace na `/aplikace/ochrana-soukromi/`.
+- Výška reliéfu Krista (plakát 2026 uvádí 10 m, katalog 15 m). Do té doby web výšku neuvádí
+  (`krest-knihy-navrat-reliefu-2026.md`, `formaty/krest-knihy-navrat-reliefu.md`).

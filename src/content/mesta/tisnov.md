@@ -5,7 +5,9 @@ aktivni: true
 perex: "Tišnov se přidal ve 2. ročníku. Ve 3. ročníku už běžel samostatně, ve spolupráci s Městskou knihovnou Tišnov."
 partner:
   nazev: Městská knihovna Tišnov
-# site: TODO: odkaz na web a Instagram knihovny (@knihovnatisnov)
+site:
+  web: https://www.mktisnov.cz
+  instagram: https://www.instagram.com/knihovnatisnov
 ---
 
 ## Odznáček už máte?

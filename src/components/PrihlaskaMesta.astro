@@ -1,0 +1,101 @@
+---
+/**
+ * Přihláška města. Posílá na Google Apps Script (zápis do tabulky + e-mail).
+ * Dokud není nastavená PUBLIC_APPS_SCRIPT_URL, ukáže se odkaz na Google formulář
+ * (config.formulare.mesto), případně e-mail.
+ */
+import { config } from '../config';
+import { url } from '../lib/url';
+const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu ve městě i u nás')}`;
+---
+{config.appsScriptUrl ? (
+  <form class="pm" data-mesto data-url={config.appsScriptUrl} novalidate>
+    <div class="field">
+      <label for="pm-jmeno">Vaše jméno</label>
+      <input class="input" id="pm-jmeno" name="jmeno" type="text" autocomplete="name" required />
+    </div>
+    <div class="field">
+      <label for="pm-mesto">Město</label>
+      <input class="input" id="pm-mesto" name="mesto" type="text" autocomplete="address-level2" required />
+    </div>
+    <div class="field">
+      <label for="pm-email">E-mail</label>
+      <input class="input" id="pm-email" name="email" type="email" autocomplete="email" required />
+    </div>
+    <div class="field">
+      <label for="pm-telefon">Telefon <span class="muted">(nepovinné)</span></label>
+      <input class="input" id="pm-telefon" name="telefon" type="tel" autocomplete="tel" />
+    </div>
+    <div class="field">
+      <label for="pm-odkud">Jak jste se o nás dozvěděli? <span class="muted">(nepovinné)</span></label>
+      <input class="input" id="pm-odkud" name="odkud" type="text" />
+    </div>
+    <div class="field">
+      <label for="pm-poznamka">Kde a kdy by se u vás mohlo číst? <span class="muted">(nepovinné)</span></label>
+      <textarea class="input pm__text" id="pm-poznamka" name="poznamka" rows="4"></textarea>
+    </div>
+    <div class="pm__hp" aria-hidden="true">
+      <label for="pm-web">Nevyplňujte</label>
+      <input id="pm-web" name="web" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <label class="check">
+      <input type="checkbox" id="pm-souhlas" name="souhlas" required value="Souhlasím se zpracováním údajů pro vyřízení přihlášky města." />
+      <span>Souhlasím se zpracováním údajů pro vyřízení přihlášky (<a href={url('/ochrana-osobnich-udaju/')}>zásady</a>).</span>
+    </label>
+    <p><button class="btn" type="submit">Odeslat přihlášku</button></p>
+    <p class="pm__stav" id="pm-stav" role="status" aria-live="polite"></p>
+  </form>
+) : config.formulare.mesto ? (
+  <p><a class="btn" href={config.formulare.mesto} rel="noopener">Vyplnit přihlášku města</a></p>
+) : (
+  <p><a class="btn" href={mailto}>Chci čtení i u nás</a></p>
+)}
+
+<script>
+  import { odeslat } from '../lib/apps-script';
+  const form = document.querySelector<HTMLFormElement>('[data-mesto]');
+  if (form) {
+    const start = Date.now();
+    const stav = form.querySelector<HTMLElement>('.pm__stav')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const t = (k: string) => String(fd.get(k) ?? '').trim();
+      const chyby: [string, string][] = [];
+      if (t('jmeno').length < 2) chyby.push(['pm-jmeno', 'Napište prosím své jméno.']);
+      if (t('mesto').length < 2) chyby.push(['pm-mesto', 'Napište prosím město.']);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t('email'))) chyby.push(['pm-email', 'Zkontrolujte prosím e-mail.']);
+      if (!fd.get('souhlas')) chyby.push(['pm-souhlas', 'Potřebujeme váš souhlas, abychom se vám mohli ozvat.']);
+      form.querySelectorAll('[aria-invalid]').forEach((el) => { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); });
+      if (chyby.length) {
+        stav.textContent = chyby.map((c) => c[1]).join(' ');
+        chyby.forEach(([id]) => { const el = document.getElementById(id); el?.setAttribute('aria-invalid', 'true'); el?.setAttribute('aria-describedby', 'pm-stav'); });
+        document.getElementById(chyby[0][0])?.focus();
+        return;
+      }
+      if (fd.get('web')) return;
+      btn.disabled = true;
+      stav.textContent = 'Odesíláme…';
+      try {
+        const r = await odeslat(form.dataset.url!, {
+          akce: 'mesto', jmeno: t('jmeno'), mesto: t('mesto'), email: t('email'), telefon: t('telefon'),
+          odkud: t('odkud'), poznamka: t('poznamka'), souhlas: fd.get('souhlas'), web: t('web'), cas: Date.now() - start,
+        });
+        stav.textContent = r.ok ? 'Děkujeme, přihlášku máme. Brzy se vám ozveme.' : r.zprava ?? 'Něco se nepovedlo, napište nám prosím e-mailem.';
+        if (r.ok) form.reset();
+      } catch {
+        stav.textContent = 'Něco se nepovedlo, napište nám prosím e-mailem.';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .pm { max-width: var(--max-w-text); }
+  .pm__text { border-radius: var(--radius-card); resize: vertical; }
+  .pm__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .pm__stav { min-height: 1.5em; font-family: var(--font-head); font-weight: 700; }
+</style>

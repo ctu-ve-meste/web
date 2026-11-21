@@ -9,6 +9,7 @@ import { url } from '../lib/url';
 const s = (await getEntry('stranky', 'kdo-jsme'))!;
 const { Content } = await render(s);
 const fotka = (await getEntry('rocniky', '2026'))!.data.fotky[8];
+import schuzka from '../assets/fotky/tym/kapitola-schuzka.jpg';
 const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi - b.data.poradi);
 ---
 <BaseLayout title={s.data.title} description={s.data.description}>
@@ -32,6 +33,10 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
       <p class="prose muted">
         V roce 2024 to začalo bez rozpočtu a bez instituce — jen knihkupec, designér a chuť udělat čtení ve městě viditelné.
       </p>
+      <p class="prose">Ještě před prvním ročníkem, v létě 2024, popsal Jan pro Deník, o co festivalu jde:</p>
+      <blockquote class="citat">„Dostat lidi ven do ulic, aby se tam bavili a bavili i mezi sebou navzájem, i když se neznají.“</blockquote>
+      <blockquote class="citat">„Mladším ukázat, že čtení je ‚cool‘ a starším připomenout, že čtení pro ně bylo ‚cool‘, ale třeba už na to zapomněli…“</blockquote>
+      <p class="prose muted">Tehdy už se přihlásilo 30 dobrovolníků a tiskárna nabídla, že plakáty vytiskne zdarma.</p>
     </div>
     <Chat
       popis="Konverzace Jana Bechera a Marka Vlčka, kterou festival vznikl"
@@ -57,12 +62,24 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
           <p>{l.data.popis}</p>
         </li>
       ))}
+      <li class="card dalsi">
+        <h3>a další</h3>
+        <p>Dobrovolníků je víc. Někteří nechtějí být veřejně vidět, a to je v pořádku.</p>
+      </li>
     </ul>
-    <p class="muted pozn">Tým se schází v knihkupectví Kapitola, kde vymýšlí další akce.</p>
+    <figure class="skupina">
+      <Image src={schuzka} alt="Dobrovolníci s plakátem festivalu mezi regály knihkupectví Kapitola" width={1200} />
+      <figcaption class="muted">A takhle to vypadá, když se sejdeme v knihkupectví Kapitola a vymýšlíme další akci.</figcaption>
+    </figure>
   </section>
 </BaseLayout>
 
 <style>
+  .citat { margin: var(--space-3) 0; padding-left: var(--space-3); border-left: 4px solid var(--accent); font-family: var(--font-head); font-size: var(--fs-lead); max-width: 36rem; }
+  .skupina { margin: var(--space-5) 0 0; }
+  .skupina img { width: 100%; height: auto; border-radius: var(--radius); }
+  .skupina figcaption { margin-top: var(--space-2); font-size: var(--fs-small); }
+  .dalsi { display: flex; flex-direction: column; justify-content: center; }
   .pozn { margin-top: var(--space-4); }
   .pribeh { display: grid; gap: var(--space-5); }
   .foto { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); margin-bottom: var(--space-3); }

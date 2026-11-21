@@ -5,11 +5,12 @@ timeStart: "20:00"
 rocnik: 2025
 typ: festival
 mesto: frydek-mistek
-format: cteni-na-svobode
+format: nocni-cteni-s-obyvackem
 misto:
   nazev: "náměstí Svobody"
   adresa: "Místek"
 # proKoho: na starém webu u této akce nebylo
+poznamka: "Vstup byl zdarma. Kdo chtěl, mohl přispět do zavařovačky."
 cover: ../../assets/fotky/2025/2025-frydek-mistek-cteni-na-svobode-01.webp
 coverAlt: "Obývák na náměstí Svobody za soumraku"
 galerie:
@@ -31,6 +32,10 @@ galerie:
     alt: "Nápis „čtu“ a knihy na dlažbě"
   - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-na-svobode-10.webp
     alt: "Lehátko s potiskem „čtu“"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-na-svobode-11.webp
+    alt: "Náměstí Svobody s obývákem pod večerní oblohou"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-cteni-na-svobode-12.webp
+    alt: "Čtenář s čelovkou na lehátku"
 ---
 
 Vytvořili jsme pro Vás obývací pokoj přímo na náměstí.

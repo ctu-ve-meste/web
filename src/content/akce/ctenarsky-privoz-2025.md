@@ -30,6 +30,10 @@ galerie:
     alt: "Lodičky odplouvají od břehu"
   - src: ../../assets/fotky/2025/2025-frydek-mistek-ctenarsky-privoz-10.webp
     alt: "Děti si kreslí na břehu"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctenarsky-privoz-11.webp
+    alt: "Tři čtenáři v lodičce na přehradě"
+  - src: ../../assets/fotky/2025/2025-frydek-mistek-ctenarsky-privoz-12.webp
+    alt: "Společná fotka účastníků na břehu přehrady"
 ---
 
 Při projížďce na lodičce jsme si četli.
