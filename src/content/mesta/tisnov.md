@@ -6,8 +6,8 @@ perex: "Tišnov se přidal ve 2. ročníku. Ve 3. ročníku už běžel samostat
 partner:
   nazev: Městská knihovna Tišnov
 site:
+  web: https://www.mktisnov.cz
   instagram: https://www.instagram.com/knihovnatisnov
-# web knihovny: TODO
 ---
 
 ## Odznáček už máte?

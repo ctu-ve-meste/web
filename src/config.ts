@@ -46,6 +46,11 @@ export const config = {
     aplikace: 'https://play.google.com/store/apps/details?id=cz.ctuvemeste.app',
   },
 
+  /** Google formuláře (přihláška města). Prázdný řetězec = odkaz se nezobrazí. */
+  formulare: {
+    mesto: 'https://docs.google.com/forms/d/e/1FAIpQLSd22TY-CwDx0GZXjxBI630nWasfCgHbIATHS6d_bcK1DzrYZw/viewform',
+  },
+
   /** URL Google Apps Script web appu. Nastavuje se v .env (PUBLIC_APPS_SCRIPT_URL). */
   appsScriptUrl: import.meta.env.PUBLIC_APPS_SCRIPT_URL ?? '',
 

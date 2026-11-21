@@ -32,6 +32,8 @@ const festival = {
   organizer: { '@type': 'Organization', name: 'Čtu ve městě, z.s.' },
   subEvent: akce.map((a) => ({ '@type': 'Event', name: a.data.title, url: absUrl(`/akce/${a.id}/`, Astro.site) })),
 };
+const galerie = import.meta.glob('/src/assets/fotky/*/galerie/*.webp');
+const maGalerii = Object.keys(galerie).some((k) => k.split('/')[4] === String(r.rok));
 ---
 <BaseLayout title={`${r.cislo}. ročník ${r.rok}`} description={`${r.cislo}. ročník festivalu Čtu ve městě ${r.rok}. ${r.perex}`} accent={r.barva} jsonLd={festival} image={og} imageAlt={r.fotky[0]?.alt}>
   <section class="container section">
@@ -50,6 +52,7 @@ const festival = {
     <section class="container section">
       <SectionHeading label="FOTKY">Takhle to vypadalo</SectionHeading>
       <Gallery fotky={r.fotky} nazev={`Fotky ${r.rok}`} />
+      {maGalerii && <p class="cela"><a class="btn btn--ghost" href={url(`/rocniky/${r.rok}/galerie/`)}>Všechny fotky z ročníku</a></p>}
     </section>
   )}
 
@@ -83,6 +86,7 @@ const festival = {
 </BaseLayout>
 
 <style>
+  .cela { margin-top: var(--space-4); }
   .lead { font-size: var(--fs-lead); }
   .plakaty, .partneri { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-3); }
   .partneri li { padding: var(--space-2) var(--space-3); border: 1px solid currentColor; border-radius: 999px; }

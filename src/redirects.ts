@@ -6,7 +6,7 @@
  */
 const stare: Record<string, string> = {
   '/úvodní': '/',
-  '/galerie-3-ročník': '/rocniky/2026/',
+  '/galerie-3-ročník': '/rocniky/2026/galerie/',
   '/ctupominkove-predmety': '/podporte-nas/',
   '/kdo-jsme/nadcházející-akce': '/program/',
   '/uplynulé-akce': '/akce/',

@@ -9,7 +9,7 @@ Všechna přesměrování jsou v `src/redirects.ts`. Generují se v podobě s di
 | Stará URL | Nová URL | Stav |
 |---|---|---|
 | `/úvodní` | `/` | přesměrováno |
-| `/galerie-3-ročník` | `/rocniky/2026/` | přesměrováno, fotky doplní výběr z Disku |
+| `/galerie-3-ročník` | `/rocniky/2026/galerie/` | přesměrováno na celou galerii (105 fotek) |
 | `/ctupominkove-predmety` | `/podporte-nas/` | přesměrováno, texty převzaty |
 | `/manifest` | `/manifest/` | stejná adresa, text doslova |
 | `/kdo-jsme` | `/kdo-jsme/` | stejná adresa, medailonky převzaty |

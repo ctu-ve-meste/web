@@ -1,0 +1,35 @@
+---
+/**
+ * Celá fotogalerie ročníku. Fotky leží v src/assets/fotky/<rok>/galerie/ (zpracované skriptem npm run fotky).
+ * Stránka vznikne jen pro ročníky, které takovou složku mají.
+ */
+import type { ImageMetadata } from 'astro';
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import Gallery from '../../../components/Gallery.astro';
+import { url } from '../../../lib/url';
+
+const soubory = import.meta.glob<{ default: ImageMetadata }>('/src/assets/fotky/*/galerie/*.webp', { eager: true });
+
+export async function getStaticPaths() {
+  const vse = import.meta.glob('/src/assets/fotky/*/galerie/*.webp');
+  const roky = [...new Set(Object.keys(vse).map((k) => k.split('/')[4]))];
+  return roky.map((rok) => ({ params: { rok } }));
+}
+
+const { rok } = Astro.params;
+const r = (await getEntry('rocniky', rok!))!.data;
+const fotky = Object.entries(soubory)
+  .filter(([k]) => k.split('/')[4] === rok)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, m], i) => ({ src: m.default, alt: `Fotka z ${r.cislo}. ročníku festivalu, č. ${i + 1}` }));
+---
+<BaseLayout title={`Fotogalerie ${r.cislo}. ročníku`} description={`Všechny fotky z ${r.cislo}. ročníku festivalu Čtu ve městě ${r.rok}.`} accent={r.barva}>
+  <section class="container section">
+    <p><a href={url(`/rocniky/${rok}/`)}><span aria-hidden="true">←</span> {r.cislo}. ročník {r.rok}</a></p>
+    <SectionHeading as="h1" label={`${r.cislo}. ROČNÍK · ${fotky.length} FOTEK`} spines>Fotogalerie</SectionHeading>
+    <p class="prose">Kliknutím fotku zvětšíte, šipkami listujete.</p>
+    <Gallery fotky={fotky} nazev={`Fotogalerie ${r.rok}`} />
+  </section>
+</BaseLayout>

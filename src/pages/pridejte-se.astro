@@ -55,10 +55,12 @@ const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu
     <SectionHeading label="KDE UŽ SE ČTE">Frýdek-Místek, Tišnov a vaše město</SectionHeading>
     <p class="prose">Ve 2. ročníku se přidaly Tišnov, Göteborg, Ostravice a Těrlicko. Ve 3. ročníku už Tišnov běžel samostatně.</p>
     <p class="cta">
-      <a class="btn" href={mailto}>Chci čtení i u nás</a>
+      {config.formulare.mesto
+        ? <a class="btn" href={config.formulare.mesto} rel="noopener">Vyplnit přihlášku města</a>
+        : <a class="btn" href={mailto}>Chci čtení i u nás</a>}
       <a class="btn btn--ghost" href={url('/mesta/')}>Další města</a>
     </p>
-    <p class="muted">Napište nám, kde a kdy by se u vás mohlo číst, a ozveme se. E-mail: <Kopirovat text={config.email} odkaz={mailto} /></p>
+    <p class="muted">Krátký formulář (jméno, město, kontakt), ozveme se vám. Nebo napište, kde a kdy by se u vás mohlo číst. E-mail: <Kopirovat text={config.email} odkaz={mailto} /></p>
   </section>
 </BaseLayout>
 

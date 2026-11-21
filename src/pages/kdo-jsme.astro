@@ -9,6 +9,7 @@ import { url } from '../lib/url';
 const s = (await getEntry('stranky', 'kdo-jsme'))!;
 const { Content } = await render(s);
 const fotka = (await getEntry('rocniky', '2026'))!.data.fotky[8];
+import schuzka from '../assets/fotky/tym/kapitola-schuzka.jpg';
 const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi - b.data.poradi);
 ---
 <BaseLayout title={s.data.title} description={s.data.description}>
@@ -62,12 +63,18 @@ const lide = (await getCollection('dobrovolnici')).sort((a, b) => a.data.poradi 
         </li>
       ))}
     </ul>
-    <p class="muted pozn">Tým se schází v knihkupectví Kapitola, kde vymýšlí další akce.</p>
+    <figure class="skupina">
+      <Image src={schuzka} alt="Dobrovolníci s plakátem festivalu mezi regály knihkupectví Kapitola" width={1200} />
+      <figcaption class="muted">A takhle to vypadá, když se sejdeme v knihkupectví Kapitola a vymýšlíme další akci.</figcaption>
+    </figure>
   </section>
 </BaseLayout>
 
 <style>
   .citat { margin: var(--space-3) 0; padding-left: var(--space-3); border-left: 4px solid var(--accent); font-family: var(--font-head); font-size: var(--fs-lead); max-width: 36rem; }
+  .skupina { margin: var(--space-5) 0 0; }
+  .skupina img { width: 100%; height: auto; border-radius: var(--radius); }
+  .skupina figcaption { margin-top: var(--space-2); font-size: var(--fs-small); }
   .pozn { margin-top: var(--space-4); }
   .pribeh { display: grid; gap: var(--space-5); }
   .foto { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); margin-bottom: var(--space-3); }
