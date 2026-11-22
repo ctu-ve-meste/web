@@ -14,10 +14,10 @@ proKoho: "Pro malé (ne nejmenší), velké, pro mladé i pro seniory, pro milov
 cover: ../../assets/fotky/2026/2026-frydek-mistek-kafe-a-kniha-01.webp
 coverAlt: "Kavárna plná čtenářů s knihami"
 galerie:
-  - src: ../../assets/fotky/2026/2026-frydek-mistek-kafe-a-kniha-02.webp
-    alt: "Čtenáři u stolů pod klenbou kavárny"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-kafe-a-kniha-03.webp
     alt: "Čtenáři u stolů v úzké klenuté kavárně"
+  - src: ../../assets/fotky/2026/2026-frydek-mistek-kafe-a-kniha-02.webp
+    alt: "Čtenáři u stolů pod klenbou kavárny"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-kafe-a-kniha-04.webp
     alt: "Žena čte knihu u stolu, za ní další čtenářky"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-kafe-a-kniha-05.webp
