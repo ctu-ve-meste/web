@@ -18,7 +18,7 @@ const maPanel = Astro.slots.has('panel');
   <div class="tp__text"><slot /></div>
   {(fotka || maPanel) && (
     <aside class="tp__panel">
-      {fotka && <Image src={fotka.src} alt={fotka.alt} widths={[400, 800]} sizes="(min-width: 64rem) 24rem, 100vw" class="tp__foto" />}
+      {fotka && <div class="tp__fotobox"><Image src={fotka.src} alt={fotka.alt} widths={[800, 1200, 1600, 2000]} sizes="(min-width: 64rem) 50rem, 230vw" class="tp__foto" /></div>}
       {maPanel && <div class="tp__box"><slot name="panel" /></div>}
     </aside>
   )}
@@ -28,6 +28,7 @@ const maPanel = Astro.slots.has('panel');
   .tp { display: grid; gap: var(--space-5); }
   .tp__text { min-width: 0; max-width: var(--max-w-text); }
   .tp__panel { display: flex; flex-direction: column; gap: var(--space-4); }
+  .tp__fotobox { overflow: hidden; border-radius: var(--radius-card); }
   .tp__foto { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); }
   .tp__box { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
   .tp__box :global(p) { margin: 0; }

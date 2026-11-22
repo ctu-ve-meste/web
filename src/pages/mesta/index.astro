@@ -16,7 +16,7 @@ const mesta = (await getCollection('mesta', (m) => m.data.aktivni)).sort((a, b) 
       {mesta.map((m) => (
         <li>
           <a href={url(`/mesta/${m.id}/`)}>
-            {foto(m.id) && <Image src={foto(m.id)!} alt="" widths={[400, 800]} sizes="(min-width: 64rem) 30vw, 100vw" class="foto" />}
+            {foto(m.id) && <Image src={foto(m.id)!} alt="" widths={[400, 800, 1200]} sizes="(min-width: 64rem) 30vw, 100vw" class="foto" />}
             <h2 class="nazev">{m.data.nazev}</h2>
             <span class="label muted od">od roku {m.data.odRoku}</span>
             {m.data.partner && <span>{m.data.partner.nazev}</span>}

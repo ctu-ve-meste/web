@@ -14,30 +14,31 @@ registrace:
   kapacita: omezená
   vyprodano: true
 cover: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-01.webp
-coverAlt: "Vila Jaro Čermáka v Místku"
+coverAlt: "Čtenářky a čtenáři v křeslech ve světlém salonku vily"
 galerie:
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-02.webp
-    alt: "Papuče s motivem knih na dlažbě"
+    alt: "Dvě čtenářky v křeslech v salonku vily"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-03.webp
-    alt: "Lehátko s potiskem „čtu“ a nápis „čtu“ u vchodu do vily"
+    alt: "Ruce drží pár barevných papučí, v pozadí čekají lidé"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-04.webp
-    alt: "Jídelna vily s kulatým stolem a lustry"
+    alt: "Muž vypráví skupině návštěvníků před vilou"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-05.webp
-    alt: "Kulatý stůl v pokoji vily a vitrína s knihami"
+    alt: "Návštěvníci poslouchají výklad v pokoji vily"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-06.webp
-    alt: "Obrazy na stěně a lampa v pokoji vily"
+    alt: "Muž v tričku „čtu“ čte na pohovce, v pozadí lidé u stolu"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-07.webp
-    alt: "Velká historická fotografie domu v interiéru vily"
+    alt: "Návštěvníci na zahradě vily, v trávě lehátka s nápisem „čtu“"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-08.webp
-    alt: "Čtenáři u kulatého stolu v prosklené jídelně vily"
+    alt: "Hromada bot na šachovnicové podlaze v předsíni"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-09.webp
-    alt: "Čtenářka si čte u stolu ve vile"
+    alt: "Muž v tričku „čtu“ čte knihu, za ním čtenáři u stolu"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-10.webp
-    alt: "Návštěvníci se scházejí na zahradě vily"
+    alt: "Černobílý snímek: žena zabalená v dece sedí na zemi u okna"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-11.webp
-    alt: "Účastníci před vilou Jaro Čermáka"
+    alt: "Černobílý snímek: otevřená kniha na okenním parapetu"
   - src: ../../assets/fotky/2026/2026-frydek-mistek-cteni-v-papucich-12.webp
     alt: "Vila Jaro Čermáka se zahradou za slunečného dne"
+fotoAutor: Jiří Bartek a další  # TODO: autor fotky 12 (vila zvenku, z mobilu) není známý
 ---
 
 Sešli jsme se, abychom si společně četli v prostorách vily slavného místeckého architekta a stavitele Jaro Čermáka. Na chvíli jsme se přenesli do časů jejího vzniku a četli si v jejích zdech. Knihu a papuče jsme měli s sebou. Do této historické vily s nádherně rekonstruovanými interiéry a dobovým nábytkem se běžně nedostanete, protože slouží jako soukromý obytný dům, ale jeho majitel je osvícený člověk, který vilu citlivě zrekonstruoval s úctou k jejímu architektovi. Kapacita této akce byla omezena, a proto se jí mohli zúčastnit pouze registrovaní účastníci. Účast byla možná pouze s knihou a papučemi.

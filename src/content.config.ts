@@ -63,6 +63,8 @@ const akce = defineCollection({
           .array(z.object({ src: image(), alt: z.string() }))
           .max(12, 'Galerie akce má mít nejvýš 12 fotek.')
           .default([]),
+        /** Autor fotek v galerii (zobrazí se jako „Foto: …“ pod nadpisem Fotky). */
+        fotoAutor: z.string().optional(),
       })
       .refine((a) => !a.dateEnd || a.dateEnd >= a.date, {
         message: 'dateEnd musí být stejné nebo pozdější než date.',

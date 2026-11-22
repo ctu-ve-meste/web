@@ -15,7 +15,7 @@ cisla:
   - hodnota: "~1000"
     popis: návštěv za rok 2026 na 15 stálých dobrovolníků.
   - hodnota: "+3"
-    popis: města se sama hlásí do 4. ročníku, včetně základní školy. Nikoho jsme neoslovovali.
+    popis: města se už přihlásila do 4. ročníku. Ozvala se na naše e-maily, kterými jsme oslovovali knihovny.
 ---
 
 Stačí místo k sezení a někdo, kdo si sedne první. Formáty, vizuál i zkušenosti ze tří ročníků dodáme — město, škola, kavárna i firma se můžou přidat po svém.

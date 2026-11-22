@@ -10,7 +10,7 @@ import Kopirovat from '../components/Kopirovat.astro';
 import PrihlaskaMesta from '../components/PrihlaskaMesta.astro';
 const s = (await getEntry('stranky', 'pridejte-se'))!;
 const r2026 = (await getEntry('rocniky', '2026'))!;
-const fotka = r2026.data.fotky[3] ?? r2026.data.fotky[0];
+const fotka = r2026.data.fotky[17] ?? r2026.data.fotky[0];
 const { Content } = await render(s);
 const mailto = `mailto:${config.email}?subject=${encodeURIComponent('Chceme Čtu ve městě i u nás')}`;
 ---

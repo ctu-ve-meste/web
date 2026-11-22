@@ -27,6 +27,7 @@ proKoho: "Pro menší, větší, starší, zvědavé, romantiky i introverty."
 # galerie:                   # max. 12 fotek
 #   - src: ../../assets/fotky/2027/2027-frydek-mistek-nazev-akce-02.webp
 #     alt: Popis fotky
+# fotoAutor: Jméno Příjmení    # autor fotek, ukáže se jako „Foto: …“ (volitelné)
 ---
 
 Dva odstavce popisu akce. Vykejte v množném čísle („Přijďte“, „Vezměte si“).

@@ -115,6 +115,7 @@ const event = {
     {d.galerie.length > 0 && (
       <section class="container section" aria-labelledby="galerie">
         <h2 id="galerie">Fotky<span class="dot" aria-hidden="true">.</span></h2>
+        {d.fotoAutor && <p class="muted">Foto: {d.fotoAutor}</p>}
         <Gallery fotky={d.galerie} nazev={`Fotky: ${d.title}`} />
       </section>
     )}
