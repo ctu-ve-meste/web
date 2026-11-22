@@ -1,0 +1,15 @@
+# Netlify slouží jen pro náhledy (větve a pull requesty), ostrý web dál nasazuje GitHub Pages.
+# Na Netlify běží web v kořeni domény, proto BASE=/ (na GitHub Pages je /web/).
+# Node se bere z .nvmrc. PUBLIC_APPS_SCRIPT_URL nastavte v Netlify: Site configuration → Environment variables.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  BASE = "/"
+
+# Náhledy nemají být ve vyhledávačích.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
